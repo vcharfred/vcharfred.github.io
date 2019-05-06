@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="下面记录一些开发中常用的软件。包括如下：  md编写工具markdownPad Java环境配置 maven安装 Java开发工具 IntelliJ IDEA 版本控制工具 git 画网页原型图的软件axure以及mockplus Nodejs 流程图制作软件 XMind Redis的Windows服务端以及连接工具 MongoDB数据安装 VSCode一款不错的编辑器 notepad++文件编辑">
+<meta name="keywords" content="软件安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用软件安装和配置">
+<meta property="og:url" content="http://blog.vchar.top/软件安装/常用软件安装和配置.html">
+<meta property="og:site_name" content="VCHAR">
+<meta property="og:description" content="下面记录一些开发中常用的软件。包括如下：  md编写工具markdownPad Java环境配置 maven安装 Java开发工具 IntelliJ IDEA 版本控制工具 git 画网页原型图的软件axure以及mockplus Nodejs 流程图制作软件 XMind Redis的Windows服务端以及连接工具 MongoDB数据安装 VSCode一款不错的编辑器 notepad++文件编辑">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-54e620f20af00e9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-a5dd8176cf11534e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-ca2ab53722b50061.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-8dd2dd8840cd9ec4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-7a3c7332c5035674.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-dfa9a4fba50d8a34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-06T13:50:23.819Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用软件安装和配置">
+<meta name="twitter:description" content="下面记录一些开发中常用的软件。包括如下：  md编写工具markdownPad Java环境配置 maven安装 Java开发工具 IntelliJ IDEA 版本控制工具 git 画网页原型图的软件axure以及mockplus Nodejs 流程图制作软件 XMind Redis的Windows服务端以及连接工具 MongoDB数据安装 VSCode一款不错的编辑器 notepad++文件编辑">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8021450-54e620f20af00e9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.vchar.top/软件安装/常用软件安装和配置">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>常用软件安装和配置 | VCHAR</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VCHAR</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Java、Python等软件开发相关技术文章，以及软件安装教程</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.vchar.top/软件安装/常用软件安装和配置.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vchar Fred">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VCHAR">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用软件安装和配置
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 21:46:25" itemprop="dateCreated datePublished" datetime="2019-05-05T21:46:25+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-06 21:50:23" itemprop="dateModified" datetime="2019-05-06T21:50:23+08:00">2019-05-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/软件安装/" itemprop="url" rel="index"><span itemprop="name">软件安装</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>下面记录一些开发中常用的软件。包括如下：</p>
+<ol>
+<li>md编写工具markdownPad</li>
+<li>Java环境配置</li>
+<li>maven安装</li>
+<li>Java开发工具 IntelliJ IDEA</li>
+<li>版本控制工具 git</li>
+<li>画网页原型图的软件axure以及mockplus</li>
+<li>Nodejs</li>
+<li>流程图制作软件 XMind</li>
+<li>Redis的Windows服务端以及连接工具</li>
+<li>MongoDB数据安装</li>
+<li>VSCode一款不错的编辑器</li>
+<li>notepad++文件编辑器</li>
+<li>数据库连接工具Navicat Premium安装<a id="more"></a>
+</li>
+</ol>
+<h2 id="一、markdownPad-2"><a href="#一、markdownPad-2" class="headerlink" title="一、markdownPad 2"></a>一、markdownPad 2</h2><p>markdownPad 2是一款用于编辑md文件的软件；官网地址: <a href="http://markdownpad.com/" target="_blank" rel="noopener">http://markdownpad.com/</a>;</p>
+<p>如果有经济条件的话还是支持一下在官方购买吧（价格：$14.95 USD）。下面是可用激活码：</p>
+<pre><code>#用户名
+Soar360@live.com
+#密匙
+GBPduHjWfJU1mZqcPM3BikjYKF6xKhlKIys3i1MU2eJHqWGImDHzWdD6xhMNLGVpbP2M5SN6bnxn2kSE8qHqNY5QaaRxmO3YSMHxlv2EYpjdwLcPwfeTG7kUdnhKE0vVy4RidP6Y2wZ0q74f47fzsZo45JE2hfQBFi2O9Jldjp1mW8HUpTtLA2a5/sQytXJUQl/QKO0jUQY4pa5CCx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr0R4B+L3nWU97eaVPTRKfWGDE8/eAgKzpGwrQQoDh+nzX1xoVQ8NAuH+s4UcSeQ==
+</code></pre><blockquote>
+<p>注意:对于win10 系统可能会出现无法预览的的情况，即出现：<code>This view has crashed!</code>错误。这是官方给出的解决方式：<code>http://markdownpad.com/faq.html#livepreview-directx</code></p>
+<p>即安装<a href="http://markdownpad.com/download/awesomium_v1.6.6_sdk_win.exe" target="_blank" rel="noopener">Awesomium 1.6.6 SDK</a>.</p>
+<p>若还是没有解决,再安装<a href="http://www.microsoft.com/en-us/download/details.aspx?id=8109" target="_blank" rel="noopener">Microsoft’s DirectX End-User Runtimes (June 2010)</a></p>
+<p>记得安装好后重新启动软件</p>
+</blockquote>
+<p>下面是相关页面：<br><img src="https://upload-images.jianshu.io/upload_images/8021450-54e620f20af00e9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="二、Java环境安装和配置"><a href="#二、Java环境安装和配置" class="headerlink" title="二、Java环境安装和配置"></a>二、Java环境安装和配置</h2><p>下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+<p>详细的配置和安装参见: <a href="https://blog.vchar.top/软件安装/JDK安装以及配置.html#more">https://blog.vchar.top/软件安装/JDK安装以及配置.html</a></p>
+<h2 id="三、maven安装和配置"><a href="#三、maven安装和配置" class="headerlink" title="三、maven安装和配置"></a>三、maven安装和配置</h2><h3 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h3><p>官网下载地址：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8021450-a5dd8176cf11534e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>下载完之后解压到指定的文件夹存放后即可</p>
+<h3 id="2-环境配置"><a href="#2-环境配置" class="headerlink" title="2.环境配置"></a>2.环境配置</h3><ol>
+<li>右键<code>我的电脑</code>-&gt;选择<code>高级系统设置</code>-&gt;选择<code>环境变量</code></li>
+<li>在系统变量中新建变量，输入变量名：<code>MAVEN_HOME</code>；变量值变量值为刚才解压的文件路径<br><img src="https://upload-images.jianshu.io/upload_images/8021450-ca2ab53722b50061.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li>编辑环境变量Path，新增%MAVEN_HOME%\bin<br><img src="https://upload-images.jianshu.io/upload_images/8021450-8dd2dd8840cd9ec4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li><p>设置Maven运行参数，新建系统变量，变量名为MAVEN_OPTS，变量值为-Xms128m -Xmx512m；防止<code>java.lang.OutOfMemeoryError</code><br><img src="https://upload-images.jianshu.io/upload_images/8021450-7a3c7332c5035674.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h3 id="3-配置maven的下载源，提升国内下载速度"><a href="#3-配置maven的下载源，提升国内下载速度" class="headerlink" title="3.配置maven的下载源，提升国内下载速度"></a>3.配置maven的下载源，提升国内下载速度</h3><p>打开刚才解压的maven文件路径中的conf中settings.xml文件，修改为如下配置：</p>
+<p> &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br> &lt;settings xmlns=”<a href="http://maven.apache.org/SETTINGS/1.0.0&quot;" target="_blank" rel="noopener">http://maven.apache.org/SETTINGS/1.0.0&quot;</a></p>
+<pre><code>xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+</code></pre><p>   #设置下载的jar包保存路径,默认在${user.home}/.m2/repository<br>   #<localrepository>c:\dev\repo</localrepository><br>   <plugingroups><br>   </plugingroups><br>   <proxies><br>   </proxies><br>   <servers><br>   </servers><br>   <mirrors></mirrors></p>
+<pre><code>&lt;mirror&gt;
+    &lt;id&gt;nexus-aliyun&lt;/id&gt;
+    &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;
+    &lt;name&gt;Nexus aliyun&lt;/name&gt;
+    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;
+&lt;/mirror&gt;
+</code></pre><p>   <br>   <profiles><br>   </profiles><br> </p>
+<blockquote>
+<p><strong>!!!!! 同时将${user.home}/.m2文件夹下的settings.xml也改为此配置或则将配置指向此配置文件</strong></p>
+</blockquote>
+<h2 id="四、IntelliJ-IDEA-配置"><a href="#四、IntelliJ-IDEA-配置" class="headerlink" title="四、IntelliJ IDEA 配置"></a>四、IntelliJ IDEA 配置</h2><p><a href="http://www.jetbrains.com/idea/" target="_blank" rel="noopener">下载地址:http://www.jetbrains.com/idea</a></p>
+</li>
+</ol>
+<p><a href="https://www.jetbrains.com/idea/download/previous.html" target="_blank" rel="noopener">历史版本下载:https://www.jetbrains.com/idea/download/previous.html</a></p>
+<p>有经济条件的还是支持一下直接购买吧，<br>激活码获取地址：<code>http://idea.lanyus.com</code></p>
+<p>其他详细设置见：<a href="https://www.jianshu.com/p/8ad177c7c22b" target="_blank" rel="noopener">https://www.jianshu.com/p/8ad177c7c22b</a></p>
+<h2 id="五、git安装和配置"><a href="#五、git安装和配置" class="headerlink" title="五、git安装和配置"></a>五、git安装和配置</h2><p>git下载地址： <a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a>。</p>
+<p>安装时基本保持默认就可以了。更多的说明见:<a href="https://www.jianshu.com/p/65b0d05e5639" target="_blank" rel="noopener">https://www.jianshu.com/p/65b0d05e5639</a></p>
+<h2 id="六、画网页原型图的软件"><a href="#六、画网页原型图的软件" class="headerlink" title="六、画网页原型图的软件"></a>六、画网页原型图的软件</h2><p>画原型图的软件有不少，主流的是 <code>axure</code>。<br><a href="https://www.axure.com" target="_blank" rel="noopener">axure的官网地址：https://www.axure.com</a>，这个的价格是 <strong>$495</strong>；好像也可月付</p>
+<p>下面是网上的一些注册码（没测试过是否可用）</p>
+<pre><code>------------Axure RP 8 注册码-----------------
+Licensee:IloveyouAxure
+Key:UChpuxwbDW6eAIaAf9UujEFSBwN3vpEz9snHvlCQVJGQy4p7WrCyKLLvV5QLvqva
+
+注册用户名：Axure
+序列号：8t+3Yk/zu4cX601/seX6wBZgYRVj/lkC2PICCdO4+sFKCCLx8mcCnccoylVb40lP
+
+用户名：axureuser 
+序列号：8wFfIX7a8hHq6yAy6T8zCz5R0NBKeVxo9IKu+kgKh79FL6IyPD6lK7G6+tqEV4LG
+
+
+------------Axure8.1.0.3372 注册码-----------------
+Koshy 
+wTADPqxn3KChzJxLmUr5jTTitCgsfRkftQQ1yIG9HmK83MYSm7GPxLREGn+Ii6xY
+</code></pre><p>国内的一款原型图制作软件 <code>mockplus</code>；还是不错的，也要收费（个人终身版(支持升级使用)：699元）;但是免费版也够用了。<br><a href="https://www.mockplus.cn" target="_blank" rel="noopener">官网地址：https://www.mockplus.cn</a></p>
+<h2 id="七、流程图制作软件-XMind"><a href="#七、流程图制作软件-XMind" class="headerlink" title="七、流程图制作软件 XMind"></a>七、流程图制作软件 XMind</h2><p>这个是要收费的，当然还是有破解版的；<br><a href="https://www.xmind.cn" target="_blank" rel="noopener">官网地址：https://www.xmind.cn</a></p>
+<p>也可以使用另外的一个免费在线的<code>processon</code>； <a href="https://www.processon.com" target="_blank" rel="noopener">官方地址：https://www.processon.com</a>；如果要求不高，大部分的要求都可满足。</p>
+<h2 id="八、Node-js"><a href="#八、Node-js" class="headerlink" title="八、Node.js"></a>八、Node.js</h2><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网下载地址：https://nodejs.org/en/</a></p>
+<p>安装教程：<a href="https://www.jianshu.com/p/cc26e5d0f10f" target="_blank" rel="noopener">https://www.jianshu.com/p/cc26e5d0f10f</a></p>
+<h2 id="九、Python"><a href="#九、Python" class="headerlink" title="九、Python"></a>九、Python</h2><p><a href="https://www.python.org" target="_blank" rel="noopener">官网地址：https://www.python.org</a></p>
+<h2 id="十、Redis"><a href="#十、Redis" class="headerlink" title="十、Redis"></a>十、Redis</h2><h3 id="1-下载redis服务包"><a href="#1-下载redis服务包" class="headerlink" title="1. 下载redis服务包"></a>1. 下载redis服务包</h3><p><a href="https://redis.io" target="_blank" rel="noopener">官网地址：https://redis.io</a></p>
+<p>但是官网上没有windows版本的，因此要安装windows版本的只有到gitbuh上找，有大牛写了个windows版本的；<br><a href="https://github.com/MicrosoftArchive/redis" target="_blank" rel="noopener">版本不是最新的: https://github.com/MicrosoftArchive/redis</a>。注意：下载后杀毒软件可能会提示有危险，属于误杀。</p>
+<h3 id="2-编写启动脚本"><a href="#2-编写启动脚本" class="headerlink" title="2. 编写启动脚本"></a>2. 编写启动脚本</h3><p>下载好后直接解压到一个目录中就可以了，然后在里面创建一个txt文本文件，在里面写入如下脚本</p>
+<pre><code>redis-server  redis.windows.conf
+</code></pre><p>将刚才创建的文件的后缀改为bat,点击文件即可启动redis了。</p>
+<h3 id="3-Redis图形化工具下载"><a href="#3-Redis图形化工具下载" class="headerlink" title="3. Redis图形化工具下载"></a>3. Redis图形化工具下载</h3><p>这个现在开始收费了…;免费的只能找老版本的<br><a href="https://redisdesktop.com/download" target="_blank" rel="noopener">下载地址： https://redisdesktop.com/download</a></p>
+<h2 id="十一、MongoDB"><a href="#十一、MongoDB" class="headerlink" title="十一、MongoDB"></a>十一、MongoDB</h2><p>进入mongodb官网下载地址<a href="https://www.mongodb.com/download-cente" target="_blank" rel="noopener">https://www.mongodb.com/download-cente</a>，下载需要的安装包。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8021450-dfa9a4fba50d8a34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>下载好后直接安装就可以了，在安装的时候如果需要更改安装路径(建议自己重新选个安装路径)记得选自定义安装。</p>
+<p>更多详细配置见:<a href="https://www.jianshu.com/p/f905a9a7fa1f" target="_blank" rel="noopener">https://www.jianshu.com/p/f905a9a7fa1f</a></p>
+<h2 id="十二、notepad"><a href="#十二、notepad" class="headerlink" title="十二、notepad++"></a>十二、notepad++</h2><p>notepad++是一款文本编辑器。官网地址<a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener">https://notepad-plus-plus.org/</a>; 国内访问可能会比较慢。</p>
+<h2 id="十三、VSCode"><a href="#十三、VSCode" class="headerlink" title="十三、VSCode"></a>十三、VSCode</h2><p>官网地址:<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">https://code.visualstudio.com/</a></p>
+<blockquote>
+<p>Visual Studio Code (简称 VS Code / VSC) 是一款免费开源的现代化轻量级代码编辑器，支持几乎所有主流的开发语言的语法高亮、智能代码补全、自定义热键、括号匹配、代码片段、代码对比 Diff、GIT 等特性，支持插件扩展，并针对网页开发和云端应用开发做了优化。软件跨平台支持 Win、Mac 以及 Linux。</p>
+</blockquote>
+<h2 id="十四、Navicat-Premium安装"><a href="#十四、Navicat-Premium安装" class="headerlink" title="十四、Navicat Premium安装"></a>十四、Navicat Premium安装</h2><p>Navicat Premium是一个数据库连接工具，当前版本已支持mysql、Oracle、SQL Server等主流数据库。<br>教程:<a href="https://www.jianshu.com/p/85bada01b723" target="_blank" rel="noopener">https://www.jianshu.com/p/85bada01b723</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件安装/" rel="tag"># 软件安装</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/软件安装/gitbook安装和使用.html" rel="next" title="Gitbook安装和使用">
+                <i class="fa fa-chevron-left"></i> Gitbook安装和使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/软件安装/阿里云centos7-安装svn.html" rel="prev" title="阿里云centos7 安装svn">
+                阿里云centos7 安装svn <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Vchar Fred</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、markdownPad-2"><span class="nav-text">一、markdownPad 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Java环境安装和配置"><span class="nav-text">二、Java环境安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、maven安装和配置"><span class="nav-text">三、maven安装和配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载"><span class="nav-text">1.下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-环境配置"><span class="nav-text">2.环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-配置maven的下载源，提升国内下载速度"><span class="nav-text">3.配置maven的下载源，提升国内下载速度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、IntelliJ-IDEA-配置"><span class="nav-text">四、IntelliJ IDEA 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、git安装和配置"><span class="nav-text">五、git安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、画网页原型图的软件"><span class="nav-text">六、画网页原型图的软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、流程图制作软件-XMind"><span class="nav-text">七、流程图制作软件 XMind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、Node-js"><span class="nav-text">八、Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、Python"><span class="nav-text">九、Python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、Redis"><span class="nav-text">十、Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-下载redis服务包"><span class="nav-text">1. 下载redis服务包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-编写启动脚本"><span class="nav-text">2. 编写启动脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Redis图形化工具下载"><span class="nav-text">3. Redis图形化工具下载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、MongoDB"><span class="nav-text">十一、MongoDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、notepad"><span class="nav-text">十二、notepad++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、VSCode"><span class="nav-text">十三、VSCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十四、Navicat-Premium安装"><span class="nav-text">十四、Navicat Premium安装</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vchar Fred</span>
+
+  
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

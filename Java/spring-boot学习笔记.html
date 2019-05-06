@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Spring boot学习笔记官方地址：https://spring.io/projects ##1. 从hello world 开始 ####1.1 maven 依赖            org.springframework.boot        spring-boot-starter-parent        2.0.2.RELEASE">
+<meta name="keywords" content="Java,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring boot学习笔记">
+<meta property="og:url" content="http://blog.vchar.top/Java/spring-boot学习笔记.html">
+<meta property="og:site_name" content="VCHAR">
+<meta property="og:description" content="Spring boot学习笔记官方地址：https://spring.io/projects ##1. 从hello world 开始 ####1.1 maven 依赖            org.springframework.boot        spring-boot-starter-parent        2.0.2.RELEASE">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-c9a5af736a092c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-06T13:53:37.029Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring boot学习笔记">
+<meta name="twitter:description" content="Spring boot学习笔记官方地址：https://spring.io/projects ##1. 从hello world 开始 ####1.1 maven 依赖            org.springframework.boot        spring-boot-starter-parent        2.0.2.RELEASE">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8021450-c9a5af736a092c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.vchar.top/Java/spring-boot学习笔记">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Spring boot学习笔记 | VCHAR</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VCHAR</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Java、Python等软件开发相关技术文章，以及软件安装教程</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.vchar.top/Java/spring-boot学习笔记.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vchar Fred">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VCHAR">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring boot学习笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 21:46:25" itemprop="dateCreated datePublished" datetime="2019-05-05T21:46:25+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-06 21:53:37" itemprop="dateModified" datetime="2019-05-06T21:53:37+08:00">2019-05-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spring-boot学习笔记"><a href="#Spring-boot学习笔记" class="headerlink" title="Spring boot学习笔记"></a>Spring boot学习笔记</h1><p>官方地址：<a href="https://spring.io/projects" target="_blank" rel="noopener">https://spring.io/projects</a></p>
+<p>##1. 从hello world 开始</p>
+<p>####1.1 maven 依赖<br>    <parent><br>        <groupid>org.springframework.boot</groupid><br>        <artifactid>spring-boot-starter-parent</artifactid><br>        <version>2.0.2.RELEASE</version><br>    </parent><br>    <dependencies><br>        <!--spring boot web 包--><br>        <dependency><br>            <groupid>org.springframework.boot</groupid><br>            <artifactid>spring-boot-starter-web</artifactid><br>        </dependency><br>    </dependencies></p>
+<p>####1.2 编写启动程序</p>
+<p>#####1.2.1 方式一<br>    import org.springframework.boot.SpringApplication;<br>    import org.springframework.boot.autoconfigure.EnableAutoConfiguration;<br>    import org.springframework.web.bind.annotation.RequestMapping;<br>    import org.springframework.web.bind.annotation.RestController;</p>
+<pre><code>/**
+ * &lt;p&gt;Spring boot &quot;hello word&quot;&lt;/p&gt;
+ * @author vchar fred
+ * @version 1.0
+ * @date 2018/6/12 15:42
+ */
+@RestController//相当于Controller+ResponseBody;即自动是ajax的请求
+@EnableAutoConfiguration//spring 会自动装配相关的配置,这个是必须有的
+public class SpringBootHello {
+    @RequestMapping(&quot;/&quot;)
+    public String home(){
+        return &quot;hello word!&quot;;
+    }
+    public static void main(String[] args) throws Exception{
+        SpringApplication.run(SpringBootHello.class, args);
+    }
+}
+</code></pre><p>运行main方法，在浏览器中访问：<a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 即可看到hello word<br>打jar包运行的方法：添加如下maven插件依赖</p>
+<pre><code>&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;!--spring boot 打包工具--&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre><p>运行maven的 package命令；然后运行 <code>java -jar xxx.jar</code></p>
+<p>#####1.2.2 方式二<br>    @SpringBootApplication//这个注解包含了EnableAutoConfiguration；更多的配置可以查看源码<br>    @RestController//相当于Controller+ResponseBody;即自动是ajax的请求<br>    public class SpringBootHello {<br>        @RequestMapping(“/“)<br>        public String home(){<br>            return “hello word!”;<br>        }<br>        public static void main(String[] args) throws Exception{<br>            SpringApplication.run(SpringBootHello.class, args);<br>        }<br>    }</p>
+<p>@SpringBootApplication 注解源码如下：</p>
+<pre><code>@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(excludeFilters = @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class))
+public @interface SpringBootApplication {
+
+    //排除自启动项
+    Class&lt;?&gt;[] exclude() default {};
+
+    //排除自动启动的beanName
+    String[] excludeName() default {};
+
+       //扫描包
+    @AliasFor(annotation = ComponentScan.class, attribute = &quot;basePackages&quot;)
+    String[] scanBasePackages() default {};
+
+    //扫描类
+    @AliasFor(annotation = ComponentScan.class, attribute = &quot;basePackageClasses&quot;)
+    Class&lt;?&gt;[] scanBasePackageClasses() default {};
+
+}
+</code></pre><p>##2. log日志</p>
+<blockquote>
+<p>来源:<a href="https://blog.csdn.net/king_is_everyone/article/details/53074006" target="_blank" rel="noopener">https://blog.csdn.net/king_is_everyone/article/details/53074006</a></p>
+</blockquote>
+<p>SpringBoot默认是采用logback进行日志处理、Logback是由log4j创始人设计的又一个开源日志组件<br>logback当前分成三个模块：<code>logback-core,logback- classic和logback-access</code>。logback-core是其它两个模块的基础模块    </p>
+<p>###2.1 logback.xml详情</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!--
+configuration 根节点配置参数说明：
+      scan：当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true
+scanPeriod：设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。配置示例： 120 seconds
+     debug：当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false
+--&gt;
+&lt;configuration&gt;
+    &lt;!--contextName 设置日志上下文名称，可以通过%contextName来打印日志上下文名称
+           每个logger都关联到logger上下文，默认上下文名称为“default”。
+           但可以使用&lt;contextName&gt;设置成其他名字，用于区分不同应用程序的记录。一旦设置，不能修改
+   --&gt;
+    &lt;contextName&gt;spring-boot-demo-log&lt;/contextName&gt;
+
+    &lt;!--property 可以用来设置变量，可以通过${name}来访问，有以下的属性
+            name：用于${name}访问的key;
+            value：用于${name}访问的value
+                例：&lt;property name=&quot;log.path&quot; value=&quot;c:\\logback.log&quot; /&gt;
+            file: 用于指定配置文件的路径，他的作用在于，如果你有多个配置信息的话，可以直接写在配置文件中，然后通过file引入
+                例：&lt;property file=&quot;src/main/java/resources/conf/log.properties&quot; /&gt;
+            resource: 作用和file一样，但是，它是可以直接从classpath路径下引入配置文件
+                例：&lt;property resource=&quot;/conf/log.properties&quot; /&gt;
+    --&gt;
+    &lt;property name=&quot;APP_ID&quot; value=&quot;top.vchar.learn.springboot&quot;/&gt;
+    &lt;property name=&quot;LOG_PATH&quot; value=&quot;log&quot;&gt;&lt;/property&gt;
+
+    &lt;!--appender 格式化日志输出节点
+        1. 有2个属性name和class，class用来指定哪种输出策略，常用就是控制台输出策略[STDOUT/console]和文件输出策略[file].
+        2. appender有以下子节点：
+            2.1 filter: 日志输出拦截器，可以自定义拦截器也可以用系统一些定义好的拦截器
+                /**
+                * 自定义日志输出拦截器
+                * @author vf
+                * @date 2016-04-28 3:36
+                */
+                public class MyFilter extends Filter&lt;ILoggingEvent&gt; {
+
+                    @Override
+                    public FilterReply decide(ILoggingEvent event) {
+
+                        if (event.getMessage().contains(&quot;sample&quot;)) {
+                            return FilterReply.ACCEPT; //允许输入串
+                        } else {
+                            return FilterReply.DENY; //不允许输出
+                        }
+                    }
+                }
+                系统自带的日志拦截器
+                例：用ThresholdFilter来过滤掉ERROR级别以下的日志不输出
+                    &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+                        &lt;level&gt;ERROR&lt;/level&gt;
+                    &lt;/filter&gt;
+            2.2 encoder和pattern节点组合用于具体输出的日志格式
+            2.3 file节点用来指明日志文件的输出位置，可以是绝对路径也可以是相对路径
+            2.4 rollingPolicy日志回滚策略.
+                2.4.1 TimeBasedRollingPolicy： 基于时间的回滚策略,有以下子节点
+                    fileNamePattern：必要节点，可以用来设置指定时间的日志归档，例如每天将日志归档成一个zip包
+                    maxHistory：     可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件,，例如设置为30的话，则30天之后，旧的日志就会被删除
+                    totalSizeCap：   可选节点，用来指定日志文件的上限大小，例如设置为1GB的话，那么到了这个值，就会删除旧的日志
+
+                    例：
+                    &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+                        &lt;fileNamePattern&gt;${log.path}.%d{yyyy-MM-dd}.zip&lt;/fileNamePattern&gt;
+                        &lt;maxHistory&gt;30&lt;/maxHistory&gt;
+                        &lt;totalSizeCap&gt;1GB&lt;/totalSizeCap&gt;
+                    &lt;/rollingPolicy&gt;
+
+                2.4.2 SizeAndTimeBasedRollingPolicy 基于日志文件大小的回滚策略。
+                    例：
+                    &lt;appender name=&quot;ROLLING&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+                        &lt;file&gt;mylog.txt&lt;/file&gt;
+                        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+                            &lt;fileNamePattern&gt;mylog-%d{yyyy-MM-dd}.%i.txt&lt;/fileNamePattern&gt;
+                            &lt;maxFileSize&gt;100MB&lt;/maxFileSize&gt;
+                            &lt;maxHistory&gt;60&lt;/maxHistory&gt;
+                            &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;
+                        &lt;/rollingPolicy&gt;
+                        &lt;encoder&gt;
+                            &lt;pattern&gt;%msg%n&lt;/pattern&gt;
+                        &lt;/encoder&gt;
+                    &lt;/appender&gt;
+
+    --&gt;
+    &lt;!--每个级别的日志配置--&gt;
+    &lt;!-- 控制台输出 --&gt;
+    &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg %n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;!--&lt;appender name=&quot;CONSOLE&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;--&gt;
+    &lt;!--&amp;lt;!&amp;ndash;&lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;&amp;ndash;&amp;gt;--&gt;
+    &lt;!--&amp;lt;!&amp;ndash;&lt;level&gt;ERROR&lt;/level&gt;&amp;ndash;&amp;gt;--&gt;
+    &lt;!--&amp;lt;!&amp;ndash;&lt;/filter&gt;&amp;ndash;&amp;gt;--&gt;
+    &lt;!--&lt;encoder&gt;--&gt;
+    &lt;!--&lt;pattern&gt;%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;--&gt;
+    &lt;!--&lt;/encoder&gt;--&gt;
+    &lt;!--&lt;/appender&gt;--&gt;
+
+    &lt;!--maxHistory配置了日志在服务器上面只存留几个备份--&gt;
+    &lt;appender name=&quot;FILE_LOG&quot;
+              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;DEBUG&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;file&gt;${LOG_PATH}/${APP_ID}/access.log&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;${LOG_PATH}/${APP_ID}/access.log.%d{yyyy-MM-dd}.zip&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;10&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;FILE_DEBUG&quot;
+              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;DEBUG&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;file&gt;${LOG_PATH}/${APP_ID}/access_debug.log&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;${LOG_PATH}/${APP_ID}/access_debug.log.%d{yyyy-MM-dd}.zip&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;10&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;FILE_INFO&quot;
+              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;INFO&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;file&gt;${LOG_PATH}/${APP_ID}/access_info.log&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;${LOG_PATH}/${APP_ID}/access_info.log.%d{yyyy-MM-dd}.zip&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;10&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;FILE_WARN&quot;
+              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;WARN&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;file&gt;${LOG_PATH}/${APP_ID}/access_warn.log&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;${LOG_PATH}/${APP_ID}/access_warn.log.%d{yyyy-MM-dd}.zip&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;10&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;FILE_ERROR&quot;
+              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;ERROR&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+            &lt;onMismatch&gt;DENY&lt;/onMismatch&gt;
+        &lt;/filter&gt;
+        &lt;file&gt;${LOG_PATH}/${APP_ID}/access_error.log&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;${LOG_PATH}/${APP_ID}/access_error.log.%d{yyyy-MM-dd}.zip&lt;/fileNamePattern&gt;
+            &lt;maxHistory&gt;10&lt;/maxHistory&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;!--在生产中往往会因为大量的日志导致io过高，所以通过AsyncAppender进行异步的日志记录。--&gt;
+    &lt;appender name=&quot;ASYNC_LOG&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+        &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+        &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+        &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+        &lt;queueSize&gt;64&lt;/queueSize&gt;
+        &lt;appender-ref ref=&quot;FILE_LOG&quot;/&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;ASYNC_LOG&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+        &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+        &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+        &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+        &lt;queueSize&gt;64&lt;/queueSize&gt;
+        &lt;appender-ref ref=&quot;FILE_LOG&quot;/&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;ASYNC_LOG_DEBUG&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+        &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+        &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+        &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+        &lt;queueSize&gt;64&lt;/queueSize&gt;
+        &lt;appender-ref ref=&quot;FILE_DEBUG&quot;/&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;ASYNC_LOG_INFO&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+        &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+        &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+        &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+        &lt;queueSize&gt;64&lt;/queueSize&gt;
+        &lt;appender-ref ref=&quot;FILE_INFO&quot;/&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;ASYNC_LOG_WARN&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+        &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+        &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+        &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+        &lt;queueSize&gt;64&lt;/queueSize&gt;
+        &lt;appender-ref ref=&quot;FILE_WARN&quot;/&gt;
+    &lt;/appender&gt;
+    &lt;appender name=&quot;ASYNC_LOG_ERROR&quot; class=&quot;ch.qos.logback.classic.AsyncAppender&quot;&gt;
+        &lt;!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 --&gt;
+        &lt;discardingThreshold&gt;0&lt;/discardingThreshold&gt;
+        &lt;!-- 更改默认的队列的深度,该值会影响性能.默认值为256 --&gt;
+        &lt;queueSize&gt;64&lt;/queueSize&gt;
+        &lt;appender-ref ref=&quot;FILE_ERROR&quot;/&gt;
+    &lt;/appender&gt;
+
+    &lt;!--指定root的日志级别，一般来说都会指定到info级别，
+        因为SpringBoot运行的时候会产生大量的debug日志--&gt;
+    &lt;root level=&quot;INFO&quot;&gt;
+        &lt;!-- appender referenced after it is defined --&gt;
+        &lt;appender-ref ref=&quot;STDOUT&quot;/&gt;
+        &lt;appender-ref ref=&quot;ASYNC_LOG&quot;/&gt;
+        &lt;appender-ref ref=&quot;ASYNC_LOG_DEBUG&quot;/&gt;
+        &lt;appender-ref ref=&quot;ASYNC_LOG_INFO&quot;/&gt;
+        &lt;appender-ref ref=&quot;ASYNC_LOG_WARN&quot;/&gt;
+        &lt;appender-ref ref=&quot;ASYNC_LOG_ERROR&quot;/&gt;
+    &lt;/root&gt;
+    &lt;!--定义org.springframework这个包里面输出debug日志、--&gt;
+    &lt;!--一般来说如果使用Mybatis或者hibernate，需要输出SQL都需要通过这里进行配置，输出debug级别的日志--&gt;
+    &lt;logger name=&quot;org.springframework&quot; level=&quot;INFO&quot;/&gt;
+&lt;/configuration&gt;
+</code></pre><p> ##3.统一异常处理</p>
+<blockquote>
+<p>来源：<a href="https://blog.csdn.net/king_is_everyone/article/details/53080851" target="_blank" rel="noopener">https://blog.csdn.net/king_is_everyone/article/details/53080851</a></p>
+</blockquote>
+<p>####3.1 spring boot 自带的统一异常处理，重新配置异常地址和页面<br>SpringBoot在页面发生异常的时候会自动把请求转到/error; SpringBoot内置了一个BasicErrorController对异常进行统一的处理，<br>这个错误的地址是可以重新配置的。</p>
+<p>在<code>resources</code>目录下创建一个application.yaml配置文件；写入如下配置</p>
+<pre><code>server:
+    #访问端口号
+    port:  8082
+    error:
+        #设置错误路径
+        path:  /test/error
+</code></pre><p>开始编写测试程序</p>
+<pre><code>import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+/**
+ * &lt;p&gt;测试异常&lt;/p&gt;
+ *
+ * @author vchar fred
+ * @version 1.0
+ * @date 2018/6/13 11:17
+ */
+@SpringBootApplication
+@Controller
+public class TestExceptionController {
+
+    @RequestMapping(value = &quot;/ajax&quot;)
+    @ResponseBody
+    public String ajaxRequestExceptionTest(int nu){
+        //传入参数为0时抛出异常
+        int num = 1/nu;
+        return &quot;this ok &quot;+ num;
+    }
+
+    @RequestMapping(value = &quot;/htmls&quot;)
+    public String htmlRequestExceptionTest(int nu){
+        //传入参数为0时抛出异常
+        int num = 1/nu;
+        return &quot;index&quot;;
+    }
+
+    //启动
+    public static void main(String[] args) throws Exception{
+        SpringApplication.run(TestExceptionController.class);
+    }
+}
+</code></pre><p>在<code>resources</code>目录下创建templates目录（这个是默认放置模版文件的目录），并分别创建error.ftl和index.ftl 文件。error.ftl文件用于替换spring boot原有的错误页面，index.ftl用于测试页面</p>
+<p>由于用到了freemarker，需要添加maven依赖</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-freemarker&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre><p>启动后开始测试</p>
+<pre><code>#测试是否可正常访问
+http://127.0.0.1:8082/htmls?nu=1    
+#测试异常页面
+http://127.0.0.1:8082/htmls?nu=0     
+#ajax请求返回的错误提示
+{
+    &quot;timestamp&quot;: &quot;2018-06-13T03:55:51.587+0000&quot;,
+    &quot;status&quot;: 500,
+    &quot;error&quot;: &quot;Internal Server Error&quot;,
+    &quot;message&quot;: &quot;/ by zero&quot;,
+    &quot;path&quot;: &quot;/ajax&quot;
+}
+</code></pre><p>###3.2 通用Exception处理<br>通过使用@ControllerAdvice来进行统一异常处理，@ExceptionHandler(value = Exception.class)来指定捕获的异常<br>下面针对两种异常进行了特殊处理分别返回页面和json数据，使用这种方式有个局限，无法根据不同的头部返回不同的数据格式，而且无法针对404、403等多种状态进行处理</p>
+<pre><code>//异常处理类
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    public static final String DEFAULT_ERROR_VIEW = &quot;error&quot;;
+    @ExceptionHandler(value = CustomException.class)
+    @ResponseBody
+    public ResponseEntity defaultErrorHandler(HttpServletRequest req, CustomException e) throws Exception {
+        return ResponseEntity.ok(&quot;ok&quot;);
+    }
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject(&quot;exception&quot;, e);
+        mav.addObject(&quot;url&quot;, req.getRequestURL());
+        mav.setViewName(DEFAULT_ERROR_VIEW);
+        return mav;
+    }
+}
+//自定义异常
+public class CustomException extends Exception {
+    CustomException(String errorMsg){
+        super(errorMsg);
+    }
+}
+
+//测试路由
+@RequestMapping(value = &quot;/coustom&quot;)
+public String coustomExceptionTest() throws CustomException {
+    customExce();
+    return &quot;index&quot;;
+}
+
+private void customExce() throws CustomException {
+    throw new CustomException(&quot;自定义异常&quot;);
+}
+</code></pre><p>###3.3 自定义BasicErrorController 错误处理<br>在初始介绍哪里提到了BasicErrorController，这个是SpringBoot的默认错误处理，也是一种全局处理方式。咱们可以模仿这种处理方式自定义自己的全局错误处理<br>下面定义了一个自己的BasicErrorController，可以根据自己的需求自定义对应的错误处理。</p>
+<blockquote>
+<p>@ResponseStatus 注解的异常类会被ResponseStatusExceptionResolver 解析</p>
+</blockquote>
+<pre><code>import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+
+/**
+ * &lt;p&gt;自定义异常controller&lt;/p&gt;
+ *
+ * @author vchar fred
+ * @version 1.0
+ * @date 2018/6/13 14:25
+ */
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@ControllerAdvice
+@Controller
+@RequestMapping(&quot;${server.error.path:${error.path:/error}}&quot;)
+public class BasicErrorController extends AbstractErrorController {
+
+    public BasicErrorController(ErrorAttributes errorAttributes) {
+        super(errorAttributes);
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(BasicErrorController.class);
+    @Value(&quot;${server.error.path:${error.path:/error}}&quot;)
+    private static String errorPath = &quot;/error&quot;;
+
+    /**
+     * 500 错误
+     * @param request
+     * @param response
+     * @param ex
+     * @return
+     * @throws Exception
+     */
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ModelAndView serverError(HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception {
+        return handleViewError(ex.getMessage(), &quot;500&quot;, &quot;error/500&quot;);
+    }
+
+    /**
+     * 404错误
+     * @param request
+     * @param response
+     * @param ex
+     * @return
+     * @throws Exception
+     */
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; notFound(HttpServletRequest request, HttpServletResponse response, Exception ex) throws Exception {
+        Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+        map.put(&quot;status&quot;, 404);
+        map.put(&quot;msg&quot;, &quot;the resource is not found&quot;);
+        map.put(&quot;exception&quot;, ex.getMessage());
+        return ResponseEntity.ok(map);
+    }
+
+    /**
+     * 参数不完整错误.
+     * @param req
+     * @param rsp
+     * @param ex
+     * @return
+     * @throws Exception
+     */
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ModelAndView methodArgumentNotValidException(HttpServletRequest req, HttpServletResponse rsp, MethodArgumentNotValidException ex) throws Exception {
+       return handleViewError(ex.getMessage(), &quot;404&quot;, &quot;error/404&quot;);
+    }
+
+
+    private ModelAndView handleViewError(String errorStack, String errorMessage, String viewName) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject(&quot;exception&quot;, errorStack);
+        mav.addObject(&quot;msg&quot;, errorMessage);
+        mav.addObject(&quot;timestamp&quot;, new Date());
+        mav.setViewName(viewName);
+        return mav;
+    }
+
+    @Override
+    public String getErrorPath() {
+        return errorPath;
+    }
+}
+</code></pre><p>定义文件结构如下:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8021450-c9a5af736a092c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文件结构"></p>
+<p>##4. spring boot中使用redis<br>application.yaml配置文件中添加redis如下配置</p>
+<pre><code>spring:
+    rdeis:
+        host: 127.0.0.1
+        port: 6379
+        timeout: 3000
+        pool:
+            # 连接池最大连接数（使用负值表示没有限制）
+            max-total: 8
+            # 连接池最大阻塞等待时间（使用负值表示没有限制）
+            max-wait-millis: -1
+            # 连接池中的最大空闲连接
+            max-idle: 8
+            # 连接池中的最小空闲连接
+            min-idle: 0
+</code></pre><p>加入需要的依赖包</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre><blockquote>
+<p>注：网上其他有很多教程说引入的是下面这个包</p>
+</blockquote>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre><blockquote>
+<p>但是我在引入时发现当前这个版本中这个包已经无法下载了。</p>
+</blockquote>
+<p>###4.1 redis 配置方式1，使用默认的<br>因为上面依赖了spring-boot-starter-data-redis,可以使用默认的 <code>org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration</code> 类加载properties文件的配置。它的源码如下：</p>
+<pre><code>@Configuration
+protected static class RedisConfiguration {
+
+    @Bean
+    @ConditionalOnMissingBean(name = &quot;redisTemplate&quot;)
+    public RedisTemplate&lt;Object, Object&gt; redisTemplate(
+            RedisConnectionFactory redisConnectionFactory)
+                    throws UnknownHostException {
+        RedisTemplate&lt;Object, Object&gt; template = new RedisTemplate&lt;Object, Object&gt;();
+        template.setConnectionFactory(redisConnectionFactory);
+        return template;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(StringRedisTemplate.class)
+    public StringRedisTemplate stringRedisTemplate(
+            RedisConnectionFactory redisConnectionFactory)
+                    throws UnknownHostException {
+        StringRedisTemplate template = new StringRedisTemplate();
+        template.setConnectionFactory(redisConnectionFactory);
+        return template;
+    }
+}
+</code></pre><p>使用方法</p>
+<pre><code>@RestController
+public class StartServe {
+    @Autowired
+    private StringRedisTemplate template;
+    @Autowired
+    private RedisTemplate&lt;Object, Object&gt; redisTemplate;
+
+    @RequestMapping(&quot;/redis&quot;)
+    public String redisTest(){
+        //这两个的是不一样的。因为RedisTemplate&lt;Object,Object&gt; 默认会将对象使用JdkSerializationRedisSerializer进行序列化
+
+        redisTemplate.opsForValue().set(&quot;test&quot;, &quot;123456&quot;);
+        template.opsForValue().set(&quot;test&quot;, &quot;abcdef&quot;);
+        return template.opsForValue().get(&quot;test&quot;)+&quot;---|||---&quot;+redisTemplate.opsForValue().get(&quot;test&quot;);
+    }
+}
+</code></pre><p>###4.2 redis 配置方式2，自己手动配置</p>
+<p>####4.2.1 redis的单机版连接池配置<br>需要加入额外的jar包：</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+    &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>编写相关代码：</p>
+<ul>
+<li><p>单机版</p>
+<pre><code>import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import redis.clients.jedis.JedisPoolConfig;
+
+/**
+ * &lt;p&gt;redis 配置&lt;/p&gt;
+ *
+ * @author vchar fred
+ * @version 1.0
+ * @date 2018/6/13 18:05
+ */
+@Configuration
+public class RedisConfig {
+    @Value(&quot;${spring.redis.host}&quot;)
+    private String host;
+    @Value(&quot;${spring.redis.port}&quot;)
+    private int port;
+    @Value(&quot;${spring.redis.timeout}&quot;)
+    private int timeout;
+    //@Value(&quot;${spring.redis.password}&quot;)
+    //private String password;
+    @Value(&quot;${spring.redis.pool.max-idle}&quot;)
+    private int maxIdle;
+    @Value(&quot;${spring.redis.pool.min-idle}&quot;)
+    private int minIdle;
+    @Value(&quot;${spring.redis.pool.max-total}&quot;)
+    private int maxTotal;
+    @Value(&quot;${spring.redis.pool.max-wait-millis}&quot;)
+    private int maxWaitMillis;
+
+    /**
+     * 连接设置
+     * @return 返回连接工厂
+     */
+    @Bean(name = &quot;jedisConnectionFactory&quot;)
+    public JedisConnectionFactory getJedisConnectionFactory(JedisPoolConfig jedisPoolConfig){
+        JedisConnectionFactory factory = new JedisConnectionFactory();
+        factory.setHostName(host);
+        factory.setPort(port);
+        //factory.setPassword(&quot;&quot;);//设置认证密码
+        //factory.setDatabase();//设置库
+        factory.setTimeout(timeout);
+        factory.setUsePool(true);
+        factory.setPoolConfig(jedisPoolConfig);
+        return factory;
+    }
+
+    /**
+     * 连接池设置
+     * @return 返回连接池配置
+     */
+    @Bean(name = &quot;jedisPoolConfig&quot;)
+    public JedisPoolConfig getJedisPoolConfig(){
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxTotal(maxTotal);
+        jedisPoolConfig.setMaxIdle(maxIdle);
+        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
+        jedisPoolConfig.setMinIdle(minIdle);
+        return jedisPoolConfig;
+    }
+
+    /**
+     * RedisTemplate&lt;?,?&gt;
+     * @param jedisConnectionFactory JedisConnectionFactory
+     * @return
+     */
+    @Bean
+    public RedisTemplate&lt;?,?&gt; redisTemplate(JedisConnectionFactory jedisConnectionFactory){
+        RedisTemplate&lt;?, ?&gt; redisTemplate = new RedisTemplate&lt;&gt;();
+        redisTemplate.setConnectionFactory(jedisConnectionFactory);
+        //key序列化方式;但是如果方法上有Long等非String类型的话，会报类型转换错误；
+        RedisSerializer&lt;String&gt; redisSerializer = new StringRedisSerializer();//Long类型不可以会出现异常信息;
+        redisTemplate.setKeySerializer(redisSerializer);
+        redisTemplate.setHashKeySerializer(redisSerializer);
+        //key序列化方式;但是如果方法上有Long等非String类型的话，会报类型转换错误；
+        redisTemplate.setValueSerializer(redisSerializer);
+        redisTemplate.setHashValueSerializer(redisSerializer);
+        redisTemplate.afterPropertiesSet();
+        //查看 StringRedisTemplate 的初始化源码，你会发现其实它和上面一样做了的key和value的序列化设置
+        return redisTemplate;
+    }
+
+    /**
+     * StringRedisTemplate
+     * @param jedisConnectionFactory JedisConnectionFactory
+     * @return  StringRedisTemplate
+     */
+    @Bean
+    public StringRedisTemplate stringRedisTemplate(JedisConnectionFactory jedisConnectionFactory){
+        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+        stringRedisTemplate.setConnectionFactory(jedisConnectionFactory);
+        return stringRedisTemplate;
+    }
+}
+</code></pre></li>
+<li><p>集群版</p>
+<pre><code>import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.JedisCluster;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * redis集群配置
+ */
+@Configuration //相当于以前的配置文件
+public class RedisConfig {
+
+    @Value(&quot;${spring.redis.cluster.nodes}&quot;)
+    private static String clusterNodes;
+
+    @Bean(&quot;jedisCluster&quot;)
+    public JedisCluster getJedisCluster(){
+
+        String[] cNodes = clusterNodes.split(&quot;,&quot;);
+        Set&lt;HostAndPort&gt; nodes = new HashSet&lt;HostAndPort&gt;();
+        for (String node: cNodes) {
+            String[] hp = node.split(&quot;:&quot;);
+            nodes.add(new HostAndPort(hp[0],Integer.parseInt(hp[1])));
+        }
+        //创建redis的集群对象
+        return new JedisCluster(nodes);
+    }
+}
+</code></pre></li>
+</ul>
+<p>使用方式同上面方式一的，这次你会发现他们的key是一样（因为序列化的方式是一样的了）。</p>
+<p>另附一个redis配置比较完整的配置文件<br><a href="https://www.cnblogs.com/EasonJim/p/7805665.html" target="_blank" rel="noopener">来源：https://www.cnblogs.com/EasonJim/p/7805665.html</a></p>
+<ul>
+<li><p>单机版    </p>
+<pre><code># REDIS（RedisProperties）
+# （普通集群，不使用则不用开启）在群集中执行命令时要遵循的最大重定向数目。
+# spring.redis.cluster.max-redirects=
+# （普通集群，不使用则不用开启）以逗号分隔的“主机：端口”对列表进行引导。
+# spring.redis.cluster.nodes=
+# 连接工厂使用的数据库索引。
+spring.redis.database=0
+# 连接URL，将覆盖主机，端口和密码（用户将被忽略），例如：redis://user:password@example.com:6379
+spring.redis.url=
+# Redis服务器主机。
+spring.redis.host=localhost
+# 登录redis服务器的密码。
+spring.redis.password=
+# 启用SSL支持。
+spring.redis.ssl=false
+# 池在给定时间可以分配的最大连接数。使用负值无限制。
+spring.redis.pool.max-total=8
+# 池中“空闲”连接的最大数量。使用负值表示无限数量的空闲连接。
+spring.redis.pool.max-idle=8
+# 连接分配在池被耗尽时抛出异常之前应该阻塞的最长时间量（以毫秒为单位）。使用负值可以无限期地阻止。
+spring.redis.pool.max-wait-millis=-1
+# 目标为保持在池中的最小空闲连接数。这个设置只有在正面的情况下才有效果。
+spring.redis.pool.min-idle=0
+# Redis服务器端口。
+spring.redis.port=6379
+# （哨兵模式，不使用则不用开启）Redis服务器的名称。
+# spring.redis.sentinel.master=
+# （哨兵模式，不使用则不用开启）主机：端口对的逗号分隔列表。 
+# spring.redis.sentinel.nodes=
+# 以毫秒为单位的连接超时。
+spring.redis.timeout=0
+</code></pre></li>
+<li><p>集群版，将下面这2项打开即可。</p>
+<pre><code># （普通集群，不使用则不用开启）在群集中执行命令时要遵循的最大重定向数目。
+spring.redis.cluster.max-redirects=
+# （普通集群，不使用则不用开启）以逗号分隔的“主机：端口”对列表进行引导。
+spring.redis.cluster.nodes=127.0.0.1:1001,127.0.0.1:1002
+</code></pre><blockquote>
+<p>注意：一旦开启了集群模式，那么基于单机的配置就会覆盖。</p>
+</blockquote>
+</li>
+</ul>
+<p>##使用到的注解说明<br>注解 | 说明<br>-|:-<br>@EnableAutoConfiguration| spring会自动的猜测你需要的那些配置，智能的帮助你去扫描配置</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python/python基础之linux基础-一.html" rel="next" title="Python基础之Linux基础(一)">
+                <i class="fa fa-chevron-left"></i> Python基础之Linux基础(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Java/hadoop安装及配置.html" rel="prev" title="Hadoop安装及配置">
+                Hadoop安装及配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Vchar Fred</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-boot学习笔记"><span class="nav-text">Spring boot学习笔记</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vchar Fred</span>
+
+  
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

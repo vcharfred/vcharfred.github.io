@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="IntelliJ-IDEA是一个非常强大的Java开发工具，强烈建议从eclipse上转移过来">
+<meta name="keywords" content="Java,软件安装,开发工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IntelliJ-IDEA-安装和配置">
+<meta property="og:url" content="http://blog.vchar.top/软件安装/intellij-idea-安装和配置.html">
+<meta property="og:site_name" content="VCHAR">
+<meta property="og:description" content="IntelliJ-IDEA是一个非常强大的Java开发工具，强烈建议从eclipse上转移过来">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-997587c6f91c95f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-072bee0334edb388.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-c7f4bdccc211b543.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-ea2ce85a7f4f8e57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8021450-e1834b0365fdefc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-04T17:41:44.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IntelliJ-IDEA-安装和配置">
+<meta name="twitter:description" content="IntelliJ-IDEA是一个非常强大的Java开发工具，强烈建议从eclipse上转移过来">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8021450-997587c6f91c95f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://blog.vchar.top/软件安装/intellij-idea-安装和配置">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>IntelliJ-IDEA-安装和配置 | VCHAR</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">VCHAR</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Java、Python等软件开发相关技术文章，以及软件安装教程</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.vchar.top/软件安装/intellij-idea-安装和配置.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Vchar Fred">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="VCHAR">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IntelliJ-IDEA-安装和配置
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 21:46:25 / 修改时间：01:41:44" itemprop="dateCreated datePublished" datetime="2019-05-05T21:46:25+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/软件安装/" itemprop="url" rel="index"><span itemprop="name">软件安装</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>IntelliJ-IDEA是一个非常强大的Java开发工具，强烈建议从eclipse上转移过来<br><a id="more"></a></p>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p><a href="http://www.jetbrains.com/idea/" target="_blank" rel="noopener">下载地址:http://www.jetbrains.com/idea</a></p>
+<p><a href="https://www.jetbrains.com/idea/download/previous.html" target="_blank" rel="noopener">历史版本下载:https://www.jetbrains.com/idea/download/previous.html</a></p>
+<p>有经济条件的还是支持一下直接购买吧，<br>激活码获取地址：<code>http://idea.lanyus.com</code></p>
+<h2 id="二、设置"><a href="#二、设置" class="headerlink" title="二、设置"></a>二、设置</h2><h4 id="2-1-编码设置"><a href="#2-1-编码设置" class="headerlink" title="2.1 编码设置"></a>2.1 编码设置</h4><p>file-&gt;Settings-&gt;Editor-&gt;File Encodings</p>
+<pre><code>Global Encoding:UTF-8
+Projectt Encoding:UTF-8
+Default encoding for properties files:UTF-8
+勾选上Transparent native-to-ascii conversion
+</code></pre><h4 id="2-2-代码样式"><a href="#2-2-代码样式" class="headerlink" title="2.2 代码样式"></a>2.2 代码样式</h4><p>file–&gt;settings–&gt;Editor–&gt;Font</p>
+<pre><code>font----consolas 
+size 14
+</code></pre><p>将show only monospaced fonts选上</p>
+<h4 id="2-3-关闭Intellij-IDEA自动更新"><a href="#2-3-关闭Intellij-IDEA自动更新" class="headerlink" title="2.3 关闭Intellij IDEA自动更新"></a>2.3 关闭Intellij IDEA自动更新</h4><p>在<code>File-&gt;Settings-&gt;Appearance &amp; Behavior-&gt;System Settings-&gt;Updates</code>下取消<code>Automatically check updates for</code>勾选</p>
+<h4 id="2-4-隐藏-idea文件夹和-iml等文件"><a href="#2-4-隐藏-idea文件夹和-iml等文件" class="headerlink" title="2.4 隐藏.idea文件夹和.iml等文件"></a>2.4 隐藏.idea文件夹和.iml等文件</h4><p>在<code>File-&gt;Settings-&gt;Editor-&gt;File Types</code>下的<code>”Ignore files and folders”</code>一栏添加<code>*.idea;*.iml;</code>等配置如下图所示　</p>
+<h4 id="2-5-设置代码编辑器主题风格"><a href="#2-5-设置代码编辑器主题风格" class="headerlink" title="2.5 设置代码编辑器主题风格　"></a>2.5 设置代码编辑器主题风格　</h4><blockquote>
+<p>编辑器风格修改个人并不推荐完全由自己来配置，因为网上提供了很多优秀的主题风格，我们可以导入自己喜欢的主题，然后在其基础上进行微调，推荐主题下载网站<a href="http://www.riaway.com" target="_blank" rel="noopener">http://www.riaway.com</a>。</p>
+</blockquote>
+<p>选择<code>File-&gt;Import Setting</code>.选择你下载的Jar文件，这个导入之后会叫你重启。等待重启之后进行配置打开<code>File-&gt;Settings-&gt;Editor-&gt;Colors and fonts</code> 然后选择你安装的主题即可完成.</p>
+<p>设置第一字体和第二字体，修改字体大小: 自行去网上下载相应字体安装后重启Intellij IDEA，在主菜单下选择</p>
+<pre><code>File-&gt;Settings-&gt;Editor-&gt;Colors &amp; Fonts -&gt; Font show only monospaced fonts
+</code></pre><p>表示筛选显示系统上的等宽字体，由于Windows系统上等宽字体并不多，勾选此选项出现的下拉字体可选择就很少，取消勾选之后，就可以显示系统上所有已安装的字体。英文字体选择<code>Monaco</code>，此字体不支持中文，所以把这个设置为第一字体，第二字体使用<code>Yahei Consolas Hybrid</code>，该字体含有中文。</p>
+<h4 id="2-6-修改类注释模板"><a href="#2-6-修改类注释模板" class="headerlink" title="2.6 修改类注释模板"></a>2.6 修改类注释模板</h4><p>在<code>File-&gt;Settings-&gt;Editor-&gt;File and Code Templates</code>下分别修改<code>Class，Interface，Enum</code>等注释模板，。以下所示的${DESCRIPTION}是自定义变量，会在创建类时请求输入　</p>
+<pre><code>/**
+  * Copyright (C), 2018-${YEAR}, XXX有限公司
+  * FileName: ${NAME}
+  * Author:   ${USER}
+  * Date:     ${DATE} ${TIME}
+  * Description: ${DESCRIPTION}
+  * History:
+  * &lt;author&gt;          &lt;time&gt;          &lt;version&gt;          &lt;desc&gt;
+  * 作者姓名           修改时间           版本号              描述
+  */
+#if (${PACKAGE_NAME} &amp;&amp; ${PACKAGE_NAME} != &quot;&quot;)
+    package ${PACKAGE_NAME};
+#end
+
+
+/**
+ *&lt;p&gt; #if(${DESCRIPTION} &amp;&amp; ${DESCRIPTION} != &quot;&quot;)${DESCRIPTION}#else TODO 功能描述#end &lt;/p&gt;
+ *
+ * @author vchar fred
+ * @create_date ${DATE} ${TIME}
+ * @version 1.0
+ */
+public class ${NAME} {
+
+}
+</code></pre><blockquote>
+<p>当我们自定义的一些注释标签不能识别时，可用添加自定义的标（可用快捷键自动添加）<br>添加的标签配置位置如下： 直接在file-setting中搜索 Unknown javadoc tags；找到Editor-&gt;Inspections-&gt;Javadoc issues-&gt;Declaration has Javadoc problems-&gt;Additional Javadoc Tags 中直接添加就可以了，使用英文逗号分隔</p>
+</blockquote>
+<h4 id="2-7-方法注释模板修改"><a href="#2-7-方法注释模板修改" class="headerlink" title="2.7 方法注释模板修改"></a>2.7 方法注释模板修改</h4><p>在<code>File-&gt;Settings-&gt;Editor-&gt;Live Templates</code>下添加自定义<code>Template Group</code>，并在自定义<code>Template Group</code>下添加自定义<code>Template</code></p>
+<h4 id="2-8-配置maven"><a href="#2-8-配置maven" class="headerlink" title="2.8 配置maven"></a>2.8 配置maven</h4><p>直接在搜索栏搜索maven；修改<code>Maven home directory</code>为安装maven的文件夹路径；将<code>User settings file</code>的修改为自己的setting文件</p>
+<h4 id="2-9-设置悬浮提示开关"><a href="#2-9-设置悬浮提示开关" class="headerlink" title="2.9 设置悬浮提示开关"></a>2.9 设置悬浮提示开关</h4><p>打开这个开关后。只要把鼠标放在相应的类上，就会出现提示，如下图所示：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8021450-997587c6f91c95f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h4 id="2-10-取消单行显示tabs的操作"><a href="#2-10-取消单行显示tabs的操作" class="headerlink" title="2.10 取消单行显示tabs的操作"></a>2.10 取消单行显示tabs的操作</h4><p><img src="https://upload-images.jianshu.io/upload_images/8021450-072bee0334edb388.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>效果如下：<br><img src="https://upload-images.jianshu.io/upload_images/8021450-c7f4bdccc211b543.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h4 id="2-11-配置idea的内存，提高运行速度"><a href="#2-11-配置idea的内存，提高运行速度" class="headerlink" title="2.11 配置idea的内存，提高运行速度"></a>2.11 配置idea的内存，提高运行速度</h4><p>打开 IDEA 安装目录，看到有一个 bin 目录，其中有两个 vmoptions 文件，需针对不同的JDK进行配置：</p>
+<pre><code>32 位：idea.exe.vmoptions
+64 位：idea64.exe.vmoptions
+</code></pre><hr>
+<pre><code>#修改如下配置：
+-Xms512m     #初始运行内存
+-Xmx1024m   #最大运行内存
+-XX:MaxPermSize=512m   #永久区的大小
+-XX:ReservedCodeCacheSize=225m  #代码缓存大小
+</code></pre><blockquote>
+<p>显示内存使用情况设置：Preferences–&gt;Appearance &amp; Behavior–&gt;Appearance，右侧勾选Window Options下面的Show memory indicator</p>
+</blockquote>
+<h2 id="三、安装常用插件"><a href="#三、安装常用插件" class="headerlink" title="三、安装常用插件"></a>三、安装常用插件</h2><p>插件配置位置：<code>File-&gt;Settings-&gt;Plugins</code>; 打勾的是启用的，可以搜索，当本地没有时会提示在线搜索。安装后需要重启idea才会生效。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8021450-ea2ce85a7f4f8e57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h4 id="3-1-翻译插件：-Translation"><a href="#3-1-翻译插件：-Translation" class="headerlink" title="3.1 翻译插件： Translation"></a>3.1 翻译插件： <code>Translation</code></h4><p>当前支持谷歌、有道、百度翻译；其中有道和百度需要密钥。</p>
+<blockquote>
+<p>有道的key获取方式在 有道智云：<a href="https://ai.youdao.com" target="_blank" rel="noopener">https://ai.youdao.com</a></p>
+<p>百度还没有用过</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/8021450-e1834b0365fdefc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h4 id="3-2-日志高亮插件：-Grep-Console"><a href="#3-2-日志高亮插件：-Grep-Console" class="headerlink" title="3.2 日志高亮插件： Grep Console"></a>3.2 日志高亮插件： <code>Grep Console</code></h4><p>可以将控制台打印的日日志颜色改变，更好查看</p>
+<h4 id="3-3-代码规范扫描插件：-Alibaba-Java-Coding-Guidelines"><a href="#3-3-代码规范扫描插件：-Alibaba-Java-Coding-Guidelines" class="headerlink" title="3.3 代码规范扫描插件： Alibaba Java Coding Guidelines"></a>3.3 代码规范扫描插件： <code>Alibaba Java Coding Guidelines</code></h4><p>这个是一个更加阿里巴巴开发规范来扫描代码中不符合的地方。</p>
+<h4 id="3-4-设置idea的背景：-Background-Image-Plus"><a href="#3-4-设置idea的背景：-Background-Image-Plus" class="headerlink" title="3.4 设置idea的背景： Background Image Plus"></a>3.4 设置idea的背景： <code>Background Image Plus</code></h4><p>指定一个存放图片的路径，这个插件会自动的将其加载为背景</p>
+<h2 id="四、问题"><a href="#四、问题" class="headerlink" title="四、问题"></a>四、问题</h2><h3 id="4-1-右键没有Subversivon相关操作"><a href="#4-1-右键没有Subversivon相关操作" class="headerlink" title="4.1 右键没有Subversivon相关操作"></a>4.1 右键没有Subversivon相关操作</h3><pre><code>VCS-&gt;Enable Version Control Integration
+</code></pre><p>选择Subversivon。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/软件安装/" rel="tag"># 软件安装</a>
+          
+            <a href="/tags/开发工具/" rel="tag"># 开发工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/软件安装/nginx安装和配置（linux版本）.html" rel="next" title="Nginx安装和配置（Linux版本）">
+                <i class="fa fa-chevron-left"></i> Nginx安装和配置（Linux版本）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/软件安装/jdk安装以及配置.html" rel="prev" title="JDK安装以及配置">
+                JDK安装以及配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Vchar Fred</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安装"><span class="nav-text">一、安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、设置"><span class="nav-text">二、设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-编码设置"><span class="nav-text">2.1 编码设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-代码样式"><span class="nav-text">2.2 代码样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-关闭Intellij-IDEA自动更新"><span class="nav-text">2.3 关闭Intellij IDEA自动更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-隐藏-idea文件夹和-iml等文件"><span class="nav-text">2.4 隐藏.idea文件夹和.iml等文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-设置代码编辑器主题风格"><span class="nav-text">2.5 设置代码编辑器主题风格　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-修改类注释模板"><span class="nav-text">2.6 修改类注释模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-方法注释模板修改"><span class="nav-text">2.7 方法注释模板修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-8-配置maven"><span class="nav-text">2.8 配置maven</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-9-设置悬浮提示开关"><span class="nav-text">2.9 设置悬浮提示开关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-10-取消单行显示tabs的操作"><span class="nav-text">2.10 取消单行显示tabs的操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-11-配置idea的内存，提高运行速度"><span class="nav-text">2.11 配置idea的内存，提高运行速度</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安装常用插件"><span class="nav-text">三、安装常用插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-翻译插件：-Translation"><span class="nav-text">3.1 翻译插件： Translation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-日志高亮插件：-Grep-Console"><span class="nav-text">3.2 日志高亮插件： Grep Console</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-代码规范扫描插件：-Alibaba-Java-Coding-Guidelines"><span class="nav-text">3.3 代码规范扫描插件： Alibaba Java Coding Guidelines</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-设置idea的背景：-Background-Image-Plus"><span class="nav-text">3.4 设置idea的背景： Background Image Plus</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、问题"><span class="nav-text">四、问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-右键没有Subversivon相关操作"><span class="nav-text">4.1 右键没有Subversivon相关操作</span></a></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Vchar Fred</span>
+
+  
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
