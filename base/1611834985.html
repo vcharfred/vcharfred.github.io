@@ -1,0 +1,1242 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="原码,反码,补码,计算机基础, 起岸星辰">
+    <meta name="description" content="原码，反码，补码的深入理解与原理剖析，解析为什么当初要这样设计，让你更透彻的理解">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="原码，反码，补码的深入理解与原理 | 起岸星辰"/>
+    <meta property="og:description" content="原码，反码，补码的深入理解与原理剖析，解析为什么当初要这样设计，让你更透彻的理解"/>
+    <meta property="og:site_name" content="起岸星辰">
+    <meta property="og:url" content="https://blog.vchar.top/base/1611834985.html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-IA8XRSu9fC" />
+    <meta name="360-site-verification" content="14ea430e0b22dd11ff0593fdeb96537b" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>原码，反码，补码的深入理解与原理 | 起岸星辰</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.min.css">
+<!--     <style> html {filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);} </style> -->
+    <!-- 百度统计 -->
+    <script>var _hmt = _hmt || [];(function () {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?3ce1a891c034d9ea1ca5da217345bb0c";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();</script>
+    <script src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">起岸星辰</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">起岸星辰</div>
+        <div class="logo-desc">
+            
+            起岸星辰
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">原码，反码，补码的深入理解与原理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                                <span class="chip bg-color">计算机基础</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8E%9F%E7%A0%81/">
+                                <span class="chip bg-color">原码</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%8F%8D%E7%A0%81/">
+                                <span class="chip bg-color">反码</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%A1%A5%E7%A0%81/">
+                                <span class="chip bg-color">补码</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%85%B6%E4%BB%96/" class="post-category">
+                                其他
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-10-25
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>原码，反码，补码大家都知道，下面通过解析为什么当初要这样设计，让你更透彻的理解它们的原理。</p>
+<blockquote>
+<p>文章参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/afsvsv/article/details/94553228">https://blog.csdn.net/afsvsv/article/details/94553228</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wu_nan_nan/article/details/54633506">https://blog.csdn.net/wu_nan_nan/article/details/54633506</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/28685048">https://www.zhihu.com/question/28685048</a></p>
+</blockquote>
+<h3 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h3><p>原码：是计算机机器数中最简单的一种形式，数值位就是真值的绝对值，即二进制表示的格式；其中最高位是符号位，符号位中0表示正数，1表示负数。</p>
+<p>反码：正数的反码和原码一样；负数的反码是它原码除符号位外，其他位按位取反。</p>
+<p>补码：正数的补码和原码一样；负数的补码等于它反码+1，或者说是等于它的原码自低位向高位，尾数的第一个‘1’及其右边的‘0’保持不变，左边的各位按位取反，符号位不变。</p>
+<h3 id="为什么这样要计算呢？"><a href="#为什么这样要计算呢？" class="headerlink" title="为什么这样要计算呢？"></a>为什么这样要计算呢？</h3><p>由于计算机的硬件设计决定，其本质都是以二进制码来存储和运算的；根据冯~诺依曼提出的经典计算机体系结构框架。一台计算机由运算器，控制器，存储器，输入和输出设备组成。其中运算器，只有加法运算器，没有减法运算器（据说一开始是有的，后来由于减法器硬件开销太大，被废了 ）。</p>
+<p>因此在计算机中是没有减法的，只有加法运算。即减一个数相当于加上一个负数。</p>
+<p>所以需要设计一种新的计算规则来实现计算机的加法运算；注意我们需要的是一个新的规则来适配计算机的加法运算，使其最终结果和我们现有的计算规则的结果一样！！</p>
+<p>下面我们以4位的二进制数为例做设计。</p>
+<h4 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h4><p>原码：是最简单的机器数表示法。用最高位表示符号位，‘1’表示负号，‘0’表示正号。其他位存放该数的二进制的绝对值。</p>
+<p>下面这个以原码的规则计算机中存储的数据</p>
+<table>
+<thead>
+<tr>
+<th align="left">/</th>
+<th align="left">正数</th>
+<th align="left">/</th>
+<th align="left">负数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="left">0000</td>
+<td align="left">-0</td>
+<td align="left">1000</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">0001</td>
+<td align="left">-1</td>
+<td align="left">1001</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">0010</td>
+<td align="left">-2</td>
+<td align="left">1010</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">0011</td>
+<td align="left">-3</td>
+<td align="left">1011</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">0100</td>
+<td align="left">-4</td>
+<td align="left">1100</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">0101</td>
+<td align="left">-5</td>
+<td align="left">1101</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">0110</td>
+<td align="left">-6</td>
+<td align="left">1110</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">0111</td>
+<td align="left">-7</td>
+<td align="left">1111</td>
+</tr>
+</tbody></table>
+<p>这种设计方式很简单，虽然出现了-0和+0，但是还能接受；下面我们开始做运算：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">0001+0010&#x3D;0011  &#x3D;&#x3D;&gt;&gt; 1+2&#x3D;3      没得问题
+0000+1000&#x3D;1000  &#x3D;&#x3D;&gt;&gt; 0+(-0)&#x3D;-0  可以接受
+0001+1001&#x3D;1010  &#x3D;&#x3D;&gt;&gt; 1+(-1)&#x3D;-2  哦，这个...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这种方式在正数之间进行没得问题，但是有负数的运算就不行了，看来原码干不了这个活啊；于是反码来了。</p>
+<h4 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h4><p>我们知道，在十进制中一个数和其相反数相加等于0，对应的减法也可定义为一个数加上另一个数的相反数；基于这一点反码的设计思路出来，那就是定义二进制的相反数求法。</p>
+<p>直接按十进制的套用明显不行，那么让它的原码除符号位外，按位取反；由于正数使用原码进行计算没得问题，就暂时不动它，只让其适用于负数。得到如下的结果：</p>
+<p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/other/1611737313.png"></p>
+<p>现在再来计算：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">0001+1110&#x3D;1111  &#x3D;&#x3D;&gt;&gt; 1+(-1)&#x3D;-0  现在正确了<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>注意现在计算机中实际存储的是反码了。</p>
+</blockquote>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">1110+1101&#x3D;1011  &#x3D;&#x3D;&gt;&gt; -1+(-2)&#x3D;--4  哦，这个...<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这种方式好像在计算负数+负数的时候不得行啊。</p>
+<p>不过我们已经解决了相反数相加的问题了，对于负数我们直接让其符号位固定为1即可达到正确结果。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">0001+1110&#x3D;1111 &#x3D;&#x3D;&gt;&gt; 1+(-1)&#x3D;-0  这个看着怪别扭的<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这种负0看着怪别扭的，同时需要在负数+负数的时候还要做个符号位强制位1的操作，太麻烦了，要想个办法偷懒（平时编程中也应当有个偷懒的思维 hhh）; 于是补码出现了。</p>
+<h4 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h4><p>由于正数是没得问题的，不做修改，所以正数的补码等于他的原码；负数的补码等于反码+1。（这只是一种算补码的方式，多数书对于补码就是这句话）</p>
+<blockquote>
+<p>负数的补码等于他的原码自低位向高位，尾数的第一个‘1’及其右边的‘0’保持不变，左边的各位按位取反，符号位不变。</p>
+</blockquote>
+<p>想想当年那些计算机学家（高级专业偷懒户），并不会心血来潮的把反码+1就定义为补码。下面来看看其设计原因。</p>
+<p>由于使用十进制的计算方式已经不能满足二进制的需求了，因此我们需要跳出来，重新找灵感。</p>
+<blockquote>
+<p>生活中的时钟有12个刻度，如果时针现在在10点的位置，那么什么时候会停止在8点钟的位置呢？</p>
+</blockquote>
+<p>这个很简单再过10个小时，或者2个小时前，那么得到如下公式：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">10-2&#x3D;8&#x3D;10+10 时间超过12就会重新开始，这种称为模。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在时钟运算中，减去一个数，其实就相当于加上另外一个数（这个数与减数相加正好等于12，也称为同余数）</p>
+<p>通过时钟的例子可以发现最终转换后的计算表达式是2个正数相加，而从前面的结论中2个正数进行运算其符号位并不是必须的，那么现在设计补码时我们暂时就将符号位去掉。</p>
+<blockquote>
+<p>这也是为什么正数的符号位是0，负数的符号位是1的原因；因为如果正数的符号位是1的话，由于其符号位被忽略，当其参与运算时就会发生进位的情况，而使用0就不会有这种情况。</p>
+</blockquote>
+<ul>
+<li>同余数</li>
+</ul>
+<p>现在就是需要求这个同余数的问题，根据数学中对同余数的定义：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">两个整数a，b，若它们除以整数m所得的余数相等，则称a，b对于模m同余。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>例如，当m=12时，3跟15是同余的，因为3mod12=3=15mod12,对于同余，有如下结论:</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">a，b是关于m同余的，当且仅当，二者相差m的整数倍，
+a−b&#x3D;k×m, with k&#x3D;……−2,−1,0,1,2,……
+即，
+a&#x3D;b+k×m, with k&#x3D;……−2,−1,0,1,2,……
+一个数x加a对m取余，等于x加a的同余b对m取余，即，
+(x+a) mod m&#x3D;(x+b) mod m.
+由1.易知2.是成立的。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将参数带入：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">3-15&#x3D;-1*12  &#x3D;&#x3D;&#x3D; 3&#x3D;15+（-1）*12
+(x+3)%12&#x3D;(x+15)%12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>将上面的表达式在简化下：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">若：a&#x3D;b+m，则 (x+a) mod m &#x3D; (x+b) mod m<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>相当于是：x+b = x+a；而若b为负数，那么前面的就相当于是x减去一个数，思考一下前面是减小(相当于是时钟中倒着走)，根据上面的时钟计算法那么另外一个就应该是一个正数(时钟顺着走，如果还是倒着走就还是减法，而我们需要的是加法因此应当顺着走，即为应该为一个正数)；由此我们就将成功的将减法转换为加法运算了。</p>
+</blockquote>
+<p>那么现在该如何来求这个同余数呢？也就是找到负数补码的求法。</p>
+<p>若b为一个负数，表达式可以转为类似如下：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">a-b&#x3D;m  &#x3D;&#x3D;&#x3D;&gt;&gt; 设c&#x3D;-b，则：a+c&#x3D;m<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>现在要 求a；通过上面的推导，我们在运算时可以减法转换为加法，相当于将负数转换为了正数，那么符号位也就没有用了；因此我们新设计的补码就可以不要符号位(因为都是正数的运算了，注意实际是符号参与运算)。 <br/><br>参考时钟的案例，我们最终其实只关注二进制位数能够表示的数(因为多余的位数也没地方存储)，即时钟刻度的最大值就是m，也就是二进制位数表达的最大值，例如4位的最大值就是16。 <br/></p>
+<p>所以求a即计算m-c就是求其二进制的另一半。而c的另一半就是把二进制位上的0变1、1变0即取反，它们相加后全是1，而m是其最大值+1,因此还需要加1才行。而这就是补码的求法。这个计算的方法还可以参考时钟的情况。下面来实际计算验证一下：</p>
+<p>示例1：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">3-5&#x3D;-2&#x3D;(3+11)%16
+
+0011(3的补码) + 1011(-5的补码，11的原码) &#x3D; 1110
+1110是一个补码(此时最高位就是符号位)转为原码：1010 即为-2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例2：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">5-3&#x3D;2&#x3D;(5+13)%16
+
+0101(5的补码) + 1101(-3的补码，13的原码) &#x3D; 1 0010
+由于总共只有4位，产生的进位会被丢掉，因此最终的补码为 0010 转为原码：0010即为2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例3：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">0001+1111&#x3D;1 0000 &#x3D;&#x3D;&gt;&gt; 1+(-1)&#x3D;0  这样之前的-0问题也解决了<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>最终使用补码满足了我们的要求，因此在计算机中实际存储的是补码，进行操作的时候也是通过补码来进行操作。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__type" align="center">
+                <img src="/medias/promote/wx-qr-qaxc-8.jpg" width="250px;"/>
+            </div>
+            <div class="reprint__notice" align="center">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright" style="color: #ff0000">
+                        特别提醒：扫码关注微信订阅号'起岸星辰'，实时掌握IT业界技术资讯!
+                    </i>
+                </span>
+                <span class="reprint-info"> 转载请保留原文中的链接!</span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+    <!--<script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>-->
+    <script src="/js/readmore.min.js" type="text/javascript"></script>
+    <script>
+        var articleId = 'base/1611834985';
+        articleId = articleId.split('/')
+        const btw = new BTWPlugin();
+        btw.init({
+            id: 'articleContent',
+            blogId: 'blog.vchar.top.2021',
+            articleId: articleId[1],
+            name: '起岸星辰',
+            qrcode: '/medias/promote/wx-qr-qaxc-8.jpg',
+            keyword: '1213',
+        });
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                                    <span class="chip bg-color">计算机基础</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8E%9F%E7%A0%81/">
+                                    <span class="chip bg-color">原码</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%8F%8D%E7%A0%81/">
+                                    <span class="chip bg-color">反码</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%A1%A5%E7%A0%81/">
+                                    <span class="chip bg-color">补码</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/soft/1610333893.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="GitBook安装和使用">
+                        
+                        <span class="card-title">GitBook安装和使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            GitBook 编写API接口文档非常的不错，但由于访问太慢，在此搭建本地的GitBook
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="post-category">
+                                    软件安装
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/GitBook/">
+                        <span class="chip bg-color">GitBook</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/">
+                        <span class="chip bg-color">接口文档</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/mongodb/1610333650.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="MongoDB常用命令">
+                        
+                        <span class="card-title">MongoDB常用命令</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            MongoDB常用命令：查询字段不为空或为空的数据
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                    <a href="/tags/MongoDB/">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/latest/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="https://lib.baomitu.com/aplayer/latest/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 10px !important;display: flex;justify-content: center;">
+        <div class="copy-right">
+            
+                <span id="year">&copy;2020-2021</span>
+            
+            <a href="/about" target="_blank">Vchar Fred</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                &nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备18011021号</a>
+            </span>
+            
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "json",
+            success: function (datas) {
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_tags = data.tags.join(",");
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var index_tag = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                index_tag = data_tags.indexOf(keyword)
+                                if (index_title < 0 && index_content < 0 && index_tag < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.json', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://lib.baomitu.com/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

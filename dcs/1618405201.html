@@ -1,0 +1,2732 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Elasticsearch,es,分布式搜索, 起岸星辰">
+    <meta name="description" content="Elasticsearch是实时全文搜索和分析引擎，提供搜集、分析、存储数据三大功能；是一套开放REST和JAVA API等结构提供高效搜索功能，可扩展的分布式系统。它构建于Apache Lucene搜索引擎库之上。">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Elasticsearch7学习笔记(中) | 起岸星辰"/>
+    <meta property="og:description" content="Elasticsearch是实时全文搜索和分析引擎，提供搜集、分析、存储数据三大功能；是一套开放REST和JAVA API等结构提供高效搜索功能，可扩展的分布式系统。它构建于Apache Lucene搜索引擎库之上。"/>
+    <meta property="og:site_name" content="起岸星辰">
+    <meta property="og:url" content="https://blog.vchar.top/dcs/1618405201.html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-IA8XRSu9fC" />
+    <meta name="360-site-verification" content="14ea430e0b22dd11ff0593fdeb96537b" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Elasticsearch7学习笔记(中) | 起岸星辰</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.min.css">
+<!--     <style> html {filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);} </style> -->
+    <!-- 百度统计 -->
+    <script>var _hmt = _hmt || [];(function () {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?3ce1a891c034d9ea1ca5da217345bb0c";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();</script>
+    <script src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">起岸星辰</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">起岸星辰</div>
+        <div class="logo-desc">
+            
+            起岸星辰
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/30.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Elasticsearch7学习笔记(中)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Elasticsearch/">
+                                <span class="chip bg-color">Elasticsearch</span>
+                            </a>
+                        
+                            <a href="/tags/es/">
+                                <span class="chip bg-color">es</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/">
+                                <span class="chip bg-color">分布式搜索</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/" class="post-category">
+                                分布式搜索
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-04-14
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Elasticsearch是实时全文搜索和分析引擎，提供搜集、分析、存储数据三大功能；是一套开放REST和JAVA API等结构提供高效搜索功能，可扩展的分布式系统。它构建于Apache Lucene搜索引擎库之上。</p>
+<blockquote>
+<p>本文是在学习 中华石杉老师的 Elasticsearch顶尖高手系列 的视频教程的过程中做的笔记，实际操作使用的Elasticsearch7而非视频教程中使用的版本；现在这套视频教程是免费公开的（网上直接搜索就有），强烈推荐大家去观看学习。</p>
+</blockquote>
+<ul>
+<li><a href="/dcs/1618405200.html">Elasticsearch7学习笔记(上)</a></li>
+<li><a href="/dcs/1618405201.html">Elasticsearch7学习笔记(中)</a></li>
+<li><a href="/dcs/1618405202.html">Elasticsearch7学习笔记(下)</a></li>
+<li><a href="/java/1610333320.html">Elasticsearch7学习笔记(实战)</a></li>
+</ul>
+<h2 id="七、内核原理"><a href="#七、内核原理" class="headerlink" title="七、内核原理"></a>七、内核原理</h2><h3 id="7-1-倒排索引组成结构以及其索引不可变原因"><a href="#7-1-倒排索引组成结构以及其索引不可变原因" class="headerlink" title="7.1 倒排索引组成结构以及其索引不可变原因"></a>7.1 倒排索引组成结构以及其索引不可变原因</h3><p>倒排索引，是适合用于进行搜索的；倒排索引的结构：</p>
+<ol>
+<li>包含这个关键词的document list</li>
+<li>包含这个关键词的所有document的数量：IDF（inverse document frequency）</li>
+<li>这个关键词在每个document中出现的次数：TF（term frequency）</li>
+<li>这个关键词在这个document中的次序</li>
+<li>每个document的长度：length norm</li>
+<li>包含这个关键词的所有document的平均长度</li>
+</ol>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">word		doc1		doc2
+
+dog		     *		     *
+hello		 *
+you				         *<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>倒排索引不可变的好处</p>
+<ol>
+<li>不需要锁，提升并发能力，避免锁的问题</li>
+<li>数据不变，一直保存在os cache中，只要cache内存足够</li>
+<li>filter cache一直驻留在内存，因为数据不变</li>
+<li>可以压缩，节省cpu和io开销</li>
+</ol>
+<p>倒排索引不可变的坏处：每次都要重新构建整个索引</p>
+<h3 id="7-2-图解剖析document写入原理（buffer，segment，commit）"><a href="#7-2-图解剖析document写入原理（buffer，segment，commit）" class="headerlink" title="7.2 图解剖析document写入原理（buffer，segment，commit）"></a>7.2 图解剖析document写入原理（buffer，segment，commit）</h3><h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/dsc/es-008.png"></p>
+<ol>
+<li>数据写入buffer</li>
+<li>commit point</li>
+<li>buffer中的数据写入新的index segment</li>
+<li>等待在os cache中的index segment被fsync强制刷到磁盘上</li>
+<li>新的index segment被打开，供search使用</li>
+<li>buffer被清空</li>
+</ol>
+<p>每次commit point时，会有一个.del文件，标记了哪些segment中的哪些document被标记为deleted; 搜索的时候，会依次查询所有的segment，从旧的到新的，比如被修改过的document，在旧的segment中，会标记为deleted，在新的segment中会有其新的数据。</p>
+<h4 id="优化后的流程"><a href="#优化后的流程" class="headerlink" title="优化后的流程"></a>优化后的流程</h4><p>在基础流程中通常写入磁盘是比较耗时，因此无法实现NTR近实时的查询。主要瓶颈在于fsync实际发生磁盘IO写数据进磁盘，是很耗时的。</p>
+<p>写入流程别改进如下：</p>
+<p>（1）数据写入buffer<br>（2）每隔一定时间，buffer中的数据被写入segment文件，但是先写入os cache<br>（3）只要segment写入os cache，那就直接打开供search使用，不立即执行commit</p>
+<p>数据写入os cache，并被打开供搜索的过程，叫做refresh，默认是每隔1秒refresh一次。 也就是说，每隔一秒就会将buffer中的数据写入一个新的index segment file，先写入os cache中。 所以，es是近实时的，数据写入到可以被搜索，默认是1秒。</p>
+<p><code>POST /index_demo/_refresh</code>，可以手动refresh，一般不需要手动执行，没必要，让es自己搞就可以了</p>
+<p>比如现在的时效性要求，比较低，只要求一条数据写入es，一分钟以后才让我们搜索到就可以了，那么就可以调整refresh interval</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;index_demo
+&#123;
+  &quot;settings&quot;: &#123;
+    &quot;refresh_interval&quot;: &quot;30s&quot; 
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="最终优化流程"><a href="#最终优化流程" class="headerlink" title="最终优化流程"></a>最终优化流程</h4><p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/dsc/es-009.png"></p>
+<ol>
+<li>数据写入buffer缓冲和trans log日志文件</li>
+<li>每隔一秒钟，buffer中的数据被写入新的segment file，并进入os cache，此时segment被打开并供search使用</li>
+<li>buffer被清空</li>
+<li>重复1~3，新的segment不断添加，buffer不断被清空，而trans log中的数据不断累加</li>
+<li>当trans log长度达到一定程度的时候，commit操作发生<ul>
+<li>buffer中的所有数据写入一个新的segment，并写入os cache，打开供使用</li>
+<li>buffer被清空 </li>
+<li>一个commit point被写入磁盘，标明了所有的index segment</li>
+<li>filesystem cache中的所有index segment file缓存数据，被fsync强行刷到磁盘上</li>
+<li>现有的trans log被清空，创建一个新的trans log</li>
+</ul>
+</li>
+</ol>
+<h4 id="基于trans-log和commit-point，如何进行数据恢复"><a href="#基于trans-log和commit-point，如何进行数据恢复" class="headerlink" title="基于trans log和commit point，如何进行数据恢复"></a>基于trans log和commit point，如何进行数据恢复</h4><p>fsync+清空trans log，就是flush，默认每隔30分钟flush一次，或者当trans log过大的时候，也会flush</p>
+<p><code>POST /index_demo/_flush</code>，一般来说别手动flush，让它自动执行就可以了</p>
+<p>trans log，每隔5秒被fsync一次到磁盘上。在一次增删改操作之后，当fsync在primary shard和replica shard都成功之后，那次增删改操作才会成功。但是这种在一次增删改时强行fsync trans log可能会导致部分操作比较耗时，也可以允许部分数据丢失，设置异步fsync trans log</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;index_demo&#x2F;_settings
+&#123;
+    &quot;index.translog.durability&quot;: &quot;async&quot;,
+    &quot;index.translog.sync_interval&quot;: &quot;5s&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="最后优化写入流程实现海量磁盘文件合并（segment-merge，optimize）"><a href="#最后优化写入流程实现海量磁盘文件合并（segment-merge，optimize）" class="headerlink" title="最后优化写入流程实现海量磁盘文件合并（segment merge，optimize）"></a>最后优化写入流程实现海量磁盘文件合并（segment merge，optimize）</h4><p>每秒一个segment file，文件过多，而且每次search都要搜索所有的segment，很耗时。默认会在后台执行segment merge操作，在merge的时候，被标记为deleted的document也会被彻底物理删除。每次merge操作的执行流程</p>
+<ol>
+<li>选择一些有相似大小的segment，merge成一个大的segment</li>
+<li>将新的segment flush到磁盘上去</li>
+<li>写一个新的commit point，包括了新的segment，并且排除旧的那些segment</li>
+<li>将新的segment打开供搜索</li>
+<li>将旧的segment删除</li>
+</ol>
+<p><code>POST /index_demo/_optimize?max_num_segments=1</code>，尽量不要手动执行，让它自动默认执行就可以了</p>
+<h2 id="八、Java-API初步使用"><a href="#八、Java-API初步使用" class="headerlink" title="八、Java API初步使用"></a>八、Java API初步使用</h2><h3 id="CRUD"><a href="#CRUD" class="headerlink" title="CRUD"></a>CRUD</h3><h4 id="老版本（下面的方法都是过期的，在es8开始将会被移除）"><a href="#老版本（下面的方法都是过期的，在es8开始将会被移除）" class="headerlink" title="老版本（下面的方法都是过期的，在es8开始将会被移除）"></a>老版本（下面的方法都是过期的，在es8开始将会被移除）</h4><p>引入maven依赖：</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.elasticsearch.client<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>transport<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>7.8.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加日志依赖（可选）：</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.logging.log4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>log4j-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.13.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.logging.log4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>log4j-core<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.13.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>代码测试</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">// 构建client</span>
+    <span class="token class-name">Settings</span> settings <span class="token operator">=</span> <span class="token class-name">Settings</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"cluster.name"</span><span class="token punctuation">,</span> <span class="token string">"docker-cluster"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">TransportClient</span> client <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PreBuiltTransportClient</span><span class="token punctuation">(</span>settings<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">addTransportAddress</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TransportAddress</span><span class="token punctuation">(</span><span class="token class-name">InetAddress</span><span class="token punctuation">.</span><span class="token function">getByName</span><span class="token punctuation">(</span><span class="token string">"192.168.111.40"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">9300</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//addDoc(client);</span>
+    <span class="token comment">//getDoc(client);</span>
+    <span class="token comment">//updateDoc(client);</span>
+    <span class="token function">delDoc</span><span class="token punctuation">(</span>client<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    client<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 添加
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">addDoc</span><span class="token punctuation">(</span><span class="token class-name">TransportClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">IndexResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">prepareIndex</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setSource</span><span class="token punctuation">(</span><span class="token class-name">XContentFactory</span><span class="token punctuation">.</span><span class="token function">jsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">startObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"position"</span><span class="token punctuation">,</span> <span class="token string">"scientist"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"country"</span><span class="token punctuation">,</span> <span class="token string">"China"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"join_data"</span><span class="token punctuation">,</span> <span class="token string">"2020-01-01"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"salary"</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">endObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 查询
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getDoc</span><span class="token punctuation">(</span><span class="token class-name">TransportClient</span> client<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">GetResponse</span> documentFields <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">prepareGet</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>documentFields<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 更新
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">updateDoc</span><span class="token punctuation">(</span><span class="token class-name">TransportClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">UpdateResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">prepareUpdate</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setDoc</span><span class="token punctuation">(</span><span class="token class-name">XContentFactory</span><span class="token punctuation">.</span><span class="token function">jsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">startObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"salary"</span><span class="token punctuation">,</span> <span class="token number">1000000</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">endObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 删除
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">delDoc</span><span class="token punctuation">(</span><span class="token class-name">TransportClient</span> client<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">DeleteResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">prepareDelete</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span> <span class="token string">"_doc"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/***
+ * 查询职位中包含scientist，并且年龄在28到40岁之间
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token class-name">TransportClient</span> client<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">prepareSearch</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setQuery</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">boolQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">must</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"position"</span><span class="token punctuation">,</span> <span class="token string">"scientist"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">rangeQuery</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gte</span><span class="token punctuation">(</span><span class="token number">28</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">lte</span><span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setFrom</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setSize</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/***
+ * 聚合查询(需要重建mapping)
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">search2</span><span class="token punctuation">(</span><span class="token class-name">TransportClient</span> client<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token class-name">SearchResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">prepareSearch</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">addAggregation</span><span class="token punctuation">(</span><span class="token class-name">AggregationBuilders</span><span class="token punctuation">.</span><span class="token function">terms</span><span class="token punctuation">(</span><span class="token string">"group_by_country"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"country"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">subAggregation</span><span class="token punctuation">(</span><span class="token class-name">AggregationBuilders</span><span class="token punctuation">.</span><span class="token function">dateHistogram</span><span class="token punctuation">(</span><span class="token string">"group_by_join_date"</span><span class="token punctuation">)</span>
+                            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"joinDate"</span><span class="token punctuation">)</span>
+                            <span class="token punctuation">.</span><span class="token function">dateHistogramInterval</span><span class="token punctuation">(</span><span class="token class-name">DateHistogramInterval</span><span class="token punctuation">.</span>YEAR<span class="token punctuation">)</span>
+                            <span class="token punctuation">.</span><span class="token function">subAggregation</span><span class="token punctuation">(</span><span class="token class-name">AggregationBuilders</span><span class="token punctuation">.</span><span class="token function">avg</span><span class="token punctuation">(</span><span class="token string">"avg_salary"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"salary"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">actionGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>重建mapping语句：</p>
+</blockquote>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;employee
+&#123;
+  &quot;mappings&quot;: &#123;
+    &quot;properties&quot;: &#123;
+      &quot;age&quot;: &#123;
+        &quot;type&quot;: &quot;long&quot;
+      &#125;,
+      &quot;country&quot;: &#123;
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;fields&quot;: &#123;
+          &quot;keyword&quot;: &#123;
+            &quot;type&quot;: &quot;keyword&quot;,
+            &quot;ignore_above&quot;: 256
+          &#125;
+        &#125;,
+        &quot;fielddata&quot;: true
+      &#125;,
+      &quot;joinData&quot;: &#123;
+        &quot;type&quot;: &quot;date&quot;
+      &#125;,
+      &quot;name&quot;: &#123;
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;fields&quot;: &#123;
+          &quot;keyword&quot;: &#123;
+            &quot;type&quot;: &quot;keyword&quot;,
+            &quot;ignore_above&quot;: 256
+          &#125;
+        &#125;
+      &#125;,
+      &quot;position&quot;: &#123;
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;fields&quot;: &#123;
+          &quot;keyword&quot;: &#123;
+            &quot;type&quot;: &quot;keyword&quot;,
+            &quot;ignore_above&quot;: 256
+          &#125;
+        &#125;
+      &#125;,
+      &quot;salary&quot;: &#123;
+        &quot;type&quot;: &quot;long&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="新版本"><a href="#新版本" class="headerlink" title="新版本"></a>新版本</h4><p>添加maven依赖：</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.elasticsearch.client<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>elasticsearch-rest-high-level-client<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>7.8.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>代码测试</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">HttpHost</span><span class="token punctuation">[</span><span class="token punctuation">]</span> httpHost <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token class-name">HttpHost</span><span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"192.168.111.40:9200"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token class-name">RestHighLevelClient</span> restHighLevelClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RestHighLevelClient</span><span class="token punctuation">(</span><span class="token class-name">RestClient</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span>httpHost<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// addDoc(restHighLevelClient);</span>
+    <span class="token comment">// getDoc(restHighLevelClient);</span>
+    <span class="token comment">// updateDoc(restHighLevelClient);</span>
+    <span class="token function">delDoc</span><span class="token punctuation">(</span>restHighLevelClient<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    restHighLevelClient<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 添加
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">addDoc</span><span class="token punctuation">(</span><span class="token class-name">RestHighLevelClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">IndexRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IndexRequest</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token class-name">XContentFactory</span><span class="token punctuation">.</span><span class="token function">jsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">startObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"tom"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"position"</span><span class="token punctuation">,</span> <span class="token string">"scientist"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"country"</span><span class="token punctuation">,</span> <span class="token string">"China"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"join_data"</span><span class="token punctuation">,</span> <span class="token string">"2020-01-01"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"salary"</span><span class="token punctuation">,</span> <span class="token number">10000</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">endObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">IndexResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">index</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 查询
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">getDoc</span><span class="token punctuation">(</span><span class="token class-name">RestHighLevelClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 通过ID来查询</span>
+    <span class="token class-name">GetRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetRequest</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">GetResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 更丰富的查询条件</span>
+    <span class="token comment">/// SearchRequest searchRequest = new SearchRequest();</span>
+    <span class="token comment">/// client.search(searchRequest, RequestOptions.DEFAULT);</span>
+
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getSourceAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 更新
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">updateDoc</span><span class="token punctuation">(</span><span class="token class-name">RestHighLevelClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">UpdateRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UpdateRequest</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">doc</span><span class="token punctuation">(</span><span class="token class-name">XContentFactory</span><span class="token punctuation">.</span><span class="token function">jsonBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">startObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">field</span><span class="token punctuation">(</span><span class="token string">"salary"</span><span class="token punctuation">,</span> <span class="token number">1000000</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">endObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">UpdateResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 删除
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">delDoc</span><span class="token punctuation">(</span><span class="token class-name">RestHighLevelClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">DeleteRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeleteRequest</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">DeleteResponse</span> response <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>  
+
+ <span class="token comment">/**
+ * 查询职位中包含scientist，并且年龄在28到40岁之间
+ */</span>
+ <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token class-name">RestHighLevelClient</span> client<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">SearchRequest</span> request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchRequest</span><span class="token punctuation">(</span><span class="token string">"employee"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">source</span><span class="token punctuation">(</span><span class="token class-name">SearchSourceBuilder</span><span class="token punctuation">.</span><span class="token function">searchSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">boolQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">must</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">matchQuery</span><span class="token punctuation">(</span><span class="token string">"position"</span><span class="token punctuation">,</span> <span class="token string">"scientist"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">QueryBuilders</span><span class="token punctuation">.</span><span class="token function">rangeQuery</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gte</span><span class="token punctuation">(</span><span class="token string">"28"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">lte</span><span class="token punctuation">(</span><span class="token string">"28"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">SearchResponse</span> search <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token class-name">RequestOptions</span><span class="token punctuation">.</span>DEFAULT<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">JSONObject</span><span class="token punctuation">.</span><span class="token function">toJSONString</span><span class="token punctuation">(</span>search<span class="token punctuation">.</span><span class="token function">getHits</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="九、深度探索搜索技术"><a href="#九、深度探索搜索技术" class="headerlink" title="九、深度探索搜索技术"></a>九、深度探索搜索技术</h2><h3 id="9-1-使用term-filter来搜索数据"><a href="#9-1-使用term-filter来搜索数据" class="headerlink" title="9.1 使用term filter来搜索数据"></a>9.1 使用term filter来搜索数据</h3><h4 id="准备测试数据"><a href="#准备测试数据" class="headerlink" title="准备测试数据"></a>准备测试数据</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 1 &#125;&#125;
+&#123; &quot;articleID&quot; : &quot;XHDK-A-1293-#fJ3&quot;, &quot;userID&quot; : 1, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2020-09-09&quot; &#125;
+&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 2 &#125;&#125;
+&#123; &quot;articleID&quot; : &quot;KDKE-B-9947-#kL5&quot;, &quot;userID&quot; : 1, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2020-09-10&quot; &#125;
+&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 3 &#125;&#125;
+&#123; &quot;articleID&quot; : &quot;JODL-X-1937-#pV7&quot;, &quot;userID&quot; : 2, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2020-09-09&quot; &#125;
+&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 4 &#125;&#125;
+&#123; &quot;articleID&quot; : &quot;QQPX-R-3956-#aD8&quot;, &quot;userID&quot; : 2, &quot;hidden&quot;: true, &quot;postDate&quot;: &quot;2020-09-10&quot; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="查看mapping"><a href="#查看mapping" class="headerlink" title="查看mapping"></a>查看mapping</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_mapping<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查询结果：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+  &quot;forum&quot;: &#123;
+    &quot;mappings&quot;: &#123;
+      &quot;article&quot;: &#123;
+        &quot;properties&quot;: &#123;
+          &quot;articleID&quot;: &#123;
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;fields&quot;: &#123;
+              &quot;keyword&quot;: &#123;
+                &quot;type&quot;: &quot;keyword&quot;,
+                &quot;ignore_above&quot;: 256
+              &#125;
+            &#125;
+          &#125;,
+          &quot;hidden&quot;: &#123;
+            &quot;type&quot;: &quot;boolean&quot;
+          &#125;,
+          &quot;postDate&quot;: &#123;
+            &quot;type&quot;: &quot;date&quot;
+          &#125;,
+          &quot;userID&quot;: &#123;
+            &quot;type&quot;: &quot;long&quot;
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>type=text，默认会设置两个field，一个是field本身，比如articleID，就是分词的；还有一个的就是field.keyword，articleID.keyword，默认不分词，会最多保留256个字符</p>
+<h4 id="根据用户ID搜索帖子"><a href="#根据用户ID搜索帖子" class="headerlink" title="根据用户ID搜索帖子"></a>根据用户ID搜索帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;constant_score&quot; : &#123; 
+            &quot;filter&quot; : &#123;
+                &quot;term&quot; : &#123; 
+                    &quot;userID&quot; : 1
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>term filter/query：对搜索文本不分词，直接拿去倒排索引中匹配，你输入的是什么，就去匹配什么；比如如果对搜索文本进行分词的话，“helle world” –&gt; 直接去倒排索引中匹配“hello world”；而不会去分词后再匹配。</p>
+<h4 id="搜索没有隐藏的帖子"><a href="#搜索没有隐藏的帖子" class="headerlink" title="搜索没有隐藏的帖子"></a>搜索没有隐藏的帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;constant_score&quot; : &#123; 
+            &quot;filter&quot; : &#123;
+                &quot;term&quot; : &#123; 
+                    &quot;hidden&quot; : false
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="根据发帖日期搜索帖子"><a href="#根据发帖日期搜索帖子" class="headerlink" title="根据发帖日期搜索帖子"></a>根据发帖日期搜索帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;constant_score&quot; : &#123; 
+            &quot;filter&quot; : &#123;
+                &quot;term&quot; : &#123; 
+                    &quot;postDate&quot; : &quot;2020-09-09&quot;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="根据帖子ID搜索帖子"><a href="#根据帖子ID搜索帖子" class="headerlink" title="根据帖子ID搜索帖子"></a>根据帖子ID搜索帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;constant_score&quot; : &#123; 
+            &quot;filter&quot; : &#123;
+                &quot;term&quot; : &#123; 
+                    &quot;articleID&quot; : &quot;XHDK-A-1293-#fJ3&quot;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面那个查询不得任何结果</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;constant_score&quot; : &#123; 
+            &quot;filter&quot; : &#123;
+                &quot;term&quot; : &#123; 
+                    &quot;articleID.keyword&quot; : &quot;XHDK-A-1293-#fJ3&quot;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第一个为什么查询不到结果？前面讲了对应类型是text的es会建立2次索引，一个是分词一个不分词（在keyword中）； 使用term 进行查询时不会对其进行分词就开始查询，此时直接通过字段查询是取匹配分词的倒排索引自然也就匹配不到了；因此需要使用articleID.keyword去匹配。</p>
+<blockquote>
+<p>articleID.keyword，是es最新版本内置建立的field，就是不分词的。所以一个articleID过来的时候，会建立两次索引，一次是自己本身，是要分词的，分词后放入倒排索引；<br>另外一次是基于articleID.keyword，不分词，最多保留256个字符，直接一个字符串放入倒排索引中。<br>term filter，对text过滤，可以考虑使用内置的field.keyword来进行匹配。但是有个问题，默认就保留256个字符，如果超过了就GG了。<br>所以尽可能还是自己去手动建立索引，指定not_analyzed。在最新版本的es中，不需要指定not_analyzed也可以，将type设为keyword即可。</p>
+</blockquote>
+<h4 id="查看分词"><a href="#查看分词" class="headerlink" title="查看分词"></a>查看分词</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_analyze
+&#123;
+  &quot;field&quot;: &quot;articleID&quot;,
+  &quot;text&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>默认是analyzed的text类型的field，建立倒排索引的时候，会对所有的articleID分词，分词以后，原本的articleID就没有了，只有分词后的各个word存在于倒排索引中。 term，是不对搜索文本分词的，但是articleID建立索引为 xhdk，a，1293，fj3，自然直接搜索也就没得结果了。</p>
+<h4 id="重建索引"><a href="#重建索引" class="headerlink" title="重建索引"></a>重建索引</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">DELETE &#x2F;forum
+
+PUT &#x2F;forum
+&#123;
+  &quot;mappings&quot;: &#123;
+      &quot;properties&quot;: &#123;
+        &quot;articleID&quot;: &#123;
+          &quot;type&quot;: &quot;keyword&quot;
+        &#125;
+      &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上面的初始化数据语句，再次直接查询即可查询到结果</p>
+<blockquote>
+<p>term filter：根据exact value进行搜索，数字、boolean、date天然支持<br>相当于SQL中的单个where条件</p>
+</blockquote>
+<h3 id="9-2-filter执行原理深度剖析（bitset机制与caching机制）"><a href="#9-2-filter执行原理深度剖析（bitset机制与caching机制）" class="headerlink" title="9.2 filter执行原理深度剖析（bitset机制与caching机制）"></a>9.2 filter执行原理深度剖析（bitset机制与caching机制）</h3><ul>
+<li>（1）在倒排索引中查找搜索串，获取document list；</li>
+<li>（2）为每个在倒排索引中搜索到的结果（doc list），构建一个bitset，就是一个二进制的数组，数组每个元素都是0或1，用来标识一个doc对一个filter条件是否匹配，如果匹配就是1，不匹配就是0，类似这样：[0, 0, 0, 1, 0, 1]； 这样尽可能用简单数据结构去实现复杂的功能，可以节省内存空间，提升性能；</li>
+<li>（3）遍历每个过滤条件对应的bitset，优先从最稀疏的开始搜索，查找满足所有条件的document</li>
+</ul>
+<blockquote>
+<p>一次性其实可以在一个search请求中，发出多个filter条件，每个filter条件都会对应一个bitset；<br>遍历每个filter条件对应的bitset，先从最稀疏的开始遍历</p>
+</blockquote>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">[0, 0, 0, 1, 0, 0]：比较稀疏
+[0, 1, 0, 1, 0, 1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>先遍历比较稀疏的bitset，就可以先过滤掉尽可能多的数据； 遍历所有的bitset，找到匹配所有filter条件的doc；就可以将document作为结果返回给client了</p>
+<ul>
+<li>（4）caching bitset，跟踪query，在最近256个query中超过一定次数的过滤条件，缓存其bitset。对于小segment（&lt;1000，或&lt;3%），不缓存bitset。</li>
+</ul>
+<p>比如条件为postDate=2017-01-01，生成的bitset为[0, 0, 1, 1, 0, 0]，可以缓存在内存中，这样下次如果再有这个条件过来的时候，就不用重新扫描倒排索引，反复生成bitset，可以大幅度提升性能。 在最近的256个filter中，有某个filter超过了一定的次数，这个次数不固定，就会自动缓存这个filter对应的bitset。 </p>
+<p>segment（分片），filter针对小segment获取到的结果，可以不缓存，segment记录数&lt;1000，或者segment大小&lt;index总大小的3%。 segment数据量很小时，哪怕是扫描也很快；同时segment会在后台自动合并，小segment很快就会跟其他小segment合并成大segment，此时缓存也没有什么意义，因为这些小segment合并后很快就消失了。</p>
+<p>filter比query的好处就在于会caching，实际上并不是一个filter返回的完整的doc list数据结果。而是filter bitset缓存完整的doc list数据结果。下次不用扫描倒排索引了。</p>
+<ul>
+<li>（5）filter大部分情况下来说，在query之前执行，先尽量过滤掉尽可能多的数据</li>
+</ul>
+<p>query：是会计算doc对搜索条件的relevance score，还会根据这个score去排序</p>
+<p>filter：只是简单过滤出想要的数据，不计算relevance score，也不排序</p>
+<ul>
+<li><p>（6）如果document有新增或修改，那么cached bitset会被自动更新；即当document有新增或修改时，会自动更新到相关filter的bitset中缓存中。</p>
+</li>
+<li><p>（7）以后只要是有相同的filter条件的，会直接来使用这个过滤条件对应的cached bitset即可快速将数据过滤出来返回。</p>
+</li>
+</ul>
+<h3 id="9-3-基于bool组合多个filter条件来搜索数据"><a href="#9-3-基于bool组合多个filter条件来搜索数据" class="headerlink" title="9.3 基于bool组合多个filter条件来搜索数据"></a>9.3 基于bool组合多个filter条件来搜索数据</h3><p>bool中可以通过must，must_not，should来组合多个过滤条件；bool可以嵌套,类似SQL中的and</p>
+<h4 id="搜索发帖日期为2020-09-09，或者帖子ID为XHDK-A-1293-fJ3的帖子，同时要求帖子的发帖日期绝对不为2020-09-09"><a href="#搜索发帖日期为2020-09-09，或者帖子ID为XHDK-A-1293-fJ3的帖子，同时要求帖子的发帖日期绝对不为2020-09-09" class="headerlink" title="搜索发帖日期为2020-09-09，或者帖子ID为XHDK-A-1293-#fJ3的帖子，同时要求帖子的发帖日期绝对不为2020-09-09"></a>搜索发帖日期为2020-09-09，或者帖子ID为XHDK-A-1293-#fJ3的帖子，同时要求帖子的发帖日期绝对不为2020-09-09</h4><p>类似SQL如下：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">SELECT
+    * 
+FROM
+    forum.article 
+WHERE
+    ( post_date &#x3D; &#39;2020-09-09&#39; OR article_id &#x3D; &#39;XHDK-A-1293-#fJ3&#39; ) 
+    AND post_date !&#x3D; &#39;2020-09-10&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>es查询语句</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;bool&quot;: &#123;
+          &quot;should&quot;: [
+            &#123;&quot;term&quot;: &#123; &quot;postDate&quot;: &quot;2020-09-09&quot; &#125;&#125;,
+            &#123;&quot;term&quot;: &#123;&quot;articleID&quot;: &quot;XHDK-A-1293-#fJ3&quot;&#125;&#125;
+          ],
+          &quot;must_not&quot;: &#123;
+            &quot;term&quot;: &#123;
+              &quot;postDate&quot;: &quot;2020-09-10&quot;
+            &#125;
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>must 必须匹配 ，should 可以匹配其中任意一个即可，must_not 必须不匹配</p>
+</blockquote>
+<h4 id="搜索帖子ID为XHDK-A-1293-fJ3，或者是帖子ID为JODL-X-1937-pV7而且发帖日期为2020-09-09的帖子"><a href="#搜索帖子ID为XHDK-A-1293-fJ3，或者是帖子ID为JODL-X-1937-pV7而且发帖日期为2020-09-09的帖子" class="headerlink" title="搜索帖子ID为XHDK-A-1293-#fJ3，或者是帖子ID为JODL-X-1937-#pV7而且发帖日期为2020-09-09的帖子"></a>搜索帖子ID为XHDK-A-1293-#fJ3，或者是帖子ID为JODL-X-1937-#pV7而且发帖日期为2020-09-09的帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;bool&quot;: &#123;
+          &quot;should&quot;: [
+            &#123;
+              &quot;term&quot;: &#123;
+                &quot;articleID&quot;: &quot;XHDK-A-1293-#fJ3&quot;
+              &#125;
+            &#125;,
+            &#123;
+              &quot;bool&quot;: &#123;
+                &quot;must&quot;: [
+                  &#123;
+                    &quot;term&quot;:&#123;
+                      &quot;articleID&quot;: &quot;JODL-X-1937-#pV7&quot;
+                    &#125;
+                  &#125;,
+                  &#123;
+                    &quot;term&quot;: &#123;
+                      &quot;postDate&quot;: &quot;2020-09-09&quot;
+                    &#125;
+                  &#125;
+                ]
+              &#125;
+            &#125;
+          ]
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-4-使用terms搜索多个值以及多值搜索结果优化"><a href="#9-4-使用terms搜索多个值以及多值搜索结果优化" class="headerlink" title="9.4 使用terms搜索多个值以及多值搜索结果优化"></a>9.4 使用terms搜索多个值以及多值搜索结果优化</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">term: &#123;&quot;field&quot;: &quot;value&quot;&#125;
+terms: &#123;&quot;field&quot;: [&quot;value1&quot;, &quot;value2&quot;]&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>sql中的in</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">select * from tbl where col in (&quot;value1&quot;, &quot;value2&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="为帖子数据增加tag字段"><a href="#为帖子数据增加tag字段" class="headerlink" title="为帖子数据增加tag字段"></a>为帖子数据增加tag字段</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag&quot; : [&quot;java&quot;, &quot;hadoop&quot;]&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag&quot; : [&quot;java&quot;]&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag&quot; : [&quot;hadoop&quot;]&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag&quot; : [&quot;java&quot;, &quot;elasticsearch&quot;]&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索articleID为KDKE-B-9947-kL5或QQPX-R-3956-aD8的帖子，"><a href="#搜索articleID为KDKE-B-9947-kL5或QQPX-R-3956-aD8的帖子，" class="headerlink" title="搜索articleID为KDKE-B-9947-#kL5或QQPX-R-3956-#aD8的帖子，"></a>搜索articleID为KDKE-B-9947-#kL5或QQPX-R-3956-#aD8的帖子，</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;terms&quot;: &#123;
+          &quot;articleID&quot;: [
+            &quot;KDKE-B-9947-#kL5&quot;,
+            &quot;QQPX-R-3956-#aD8&quot;
+          ]
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索tag中包含java的帖子"><a href="#搜索tag中包含java的帖子" class="headerlink" title="搜索tag中包含java的帖子"></a>搜索tag中包含java的帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot; : &#123;
+        &quot;constant_score&quot; : &#123;
+            &quot;filter&quot; : &#123;
+                &quot;terms&quot; : &#123; 
+                    &quot;tag&quot; : [&quot;java&quot;]
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="优化搜索结果，仅仅搜索tag只包含java的帖子"><a href="#优化搜索结果，仅仅搜索tag只包含java的帖子" class="headerlink" title="优化搜索结果，仅仅搜索tag只包含java的帖子"></a>优化搜索结果，仅仅搜索tag只包含java的帖子</h4><p>现有的数据结构无法完成要求，因此我们添加一个标识字段</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag_cnt&quot; : 2&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag_cnt&quot; : 1&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag_cnt&quot; : 1&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;tag_cnt&quot; : 2&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行查询语句</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;bool&quot;: &#123;
+          &quot;must&quot;: [
+            &#123;
+              &quot;term&quot;: &#123;
+                &quot;tag_cnt&quot;: 1
+              &#125;
+            &#125;,
+            &#123;
+              &quot;terms&quot;: &#123;
+                &quot;tag&quot;: [&quot;java&quot;]
+              &#125;
+            &#125;
+          ]
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-5-基于range-filter来进行范围过滤"><a href="#9-5-基于range-filter来进行范围过滤" class="headerlink" title="9.5 基于range filter来进行范围过滤"></a>9.5 基于range filter来进行范围过滤</h3><h4 id="为帖子数据增加浏览量的字段"><a href="#为帖子数据增加浏览量的字段" class="headerlink" title="为帖子数据增加浏览量的字段"></a>为帖子数据增加浏览量的字段</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;view_cnt&quot; : 30&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;view_cnt&quot; : 50&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;view_cnt&quot; : 100&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;view_cnt&quot; : 80&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索浏览量在30-60之间的帖子"><a href="#搜索浏览量在30-60之间的帖子" class="headerlink" title="搜索浏览量在30~60之间的帖子"></a>搜索浏览量在30~60之间的帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;range&quot;: &#123;
+          &quot;view_cnt&quot;: &#123;
+            &quot;gt&quot;: 30,
+            &quot;lt&quot;: 60
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索发帖日期在最近1个月的帖子"><a href="#搜索发帖日期在最近1个月的帖子" class="headerlink" title="搜索发帖日期在最近1个月的帖子"></a>搜索发帖日期在最近1个月的帖子</h4><p>准备示例数据</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 5 &#125;&#125;
+&#123; &quot;articleID&quot; : &quot;DHJK-B-1395-#Ky5&quot;, &quot;userID&quot; : 3, &quot;hidden&quot;: false, &quot;postDate&quot;: &quot;2020-10-01&quot;, &quot;tag&quot;: [&quot;elasticsearch&quot;], &quot;tag_cnt&quot;: 1, &quot;view_cnt&quot;: 10 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>执行查询语句</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;range&quot;: &#123;
+          &quot;postDate&quot;: &#123;
+            &quot;lt&quot;: &quot;2020-10-10||-30d&quot;
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;
+
+GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;constant_score&quot;: &#123;
+      &quot;filter&quot;: &#123;
+        &quot;range&quot;: &#123;
+          &quot;postDate&quot;: &#123;
+            &quot;gt&quot;: &quot;now-30d&quot;
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>range相当于sql中的between，做范围过滤</p>
+<h3 id="9-6-手动控制全文检索结果的精准度"><a href="#9-6-手动控制全文检索结果的精准度" class="headerlink" title="9.6 手动控制全文检索结果的精准度"></a>9.6 手动控制全文检索结果的精准度</h3><p>全文检索的时候，进行多个值的检索，有两种做法，match query；should；控制搜索结果精准度：and operator，minimum_should_match</p>
+<h4 id="为帖子数据增加标题字段"><a href="#为帖子数据增加标题字段" class="headerlink" title="为帖子数据增加标题字段"></a>为帖子数据增加标题字段</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;title&quot; : &quot;this is java and elasticsearch blog&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;title&quot; : &quot;this is java blog&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;title&quot; : &quot;this is elasticsearch blog&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;title&quot; : &quot;this is java, elasticsearch, hadoop blog&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;title&quot; : &quot;this is spark blog&quot;&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索标题中包含java或elasticsearch的blog"><a href="#搜索标题中包含java或elasticsearch的blog" class="headerlink" title="搜索标题中包含java或elasticsearch的blog"></a>搜索标题中包含java或elasticsearch的blog</h4><p>这个和之前的那个term query不一样。不是搜索exact value，是进行全文检索（full text）。负责进行全文检索的是match query。当然，如果要检索的field，是not_analyzed类型的，那么match query也相当于term query。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;java elasticsearch&quot;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索标题中包含java和elasticsearch的"><a href="#搜索标题中包含java和elasticsearch的" class="headerlink" title="搜索标题中包含java和elasticsearch的"></a>搜索标题中包含java和elasticsearch的</h4><p>搜索结果精准控制的第一步：灵活使用and关键字，如果你是希望所有的搜索关键字都要匹配的，那么就用and，可以实现单纯match query无法实现的效果。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;title&quot;: &#123;
+        &quot;query&quot;: &quot;java elasticsearch&quot;,
+        &quot;operator&quot;: &quot;and&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索包含java，elasticsearch，spark，hadoop，4个关键字中，至少3个"><a href="#搜索包含java，elasticsearch，spark，hadoop，4个关键字中，至少3个" class="headerlink" title="搜索包含java，elasticsearch，spark，hadoop，4个关键字中，至少3个"></a>搜索包含java，elasticsearch，spark，hadoop，4个关键字中，至少3个</h4><p>控制搜索结果的精准度的第二步：指定一些关键字中，必须至少匹配其中的多少个关键字，才能作为结果返回</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;title&quot;: &#123;
+        &quot;query&quot;: &quot;java elasticsearch spark hadoop&quot;,
+        &quot;minimum_should_match&quot;: &quot;75%&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="用bool组合多个搜索条件，来搜索title"><a href="#用bool组合多个搜索条件，来搜索title" class="headerlink" title="用bool组合多个搜索条件，来搜索title"></a>用bool组合多个搜索条件，来搜索title</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;must&quot;: &#123;
+        &quot;match&quot;: &#123;
+          &quot;title&quot;: &quot;java&quot;
+        &#125;
+      &#125;,
+      &quot;must_not&quot;: &#123;
+        &quot;match&quot;: &#123;
+          &quot;title&quot;: &quot;spark&quot;
+        &#125;
+      &#125;,
+      &quot;should&quot;: [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;hadoop&quot;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;elasticsearch&quot;
+          &#125;
+        &#125;
+      ]
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="bool组合多个搜索条件，如何计算relevance-score？"><a href="#bool组合多个搜索条件，如何计算relevance-score？" class="headerlink" title="bool组合多个搜索条件，如何计算relevance score？"></a>bool组合多个搜索条件，如何计算relevance score？</h4><p>must和should搜索对应的分数，加起来，除以must和should的总数</p>
+<ul>
+<li>排名第一：java，同时包含should中所有的关键字，hadoop，elasticsearch</li>
+<li>排名第二：java，同时包含should中的elasticsearch</li>
+<li>排名第三：java，不包含should中的任何关键字</li>
+</ul>
+<p>should是可以影响相关度分数的。must是确保谁必须有这个关键字，同时会根据这个must的条件去计算出document对这个搜索条件的relevance score。在满足must的基础之上，should中的条件，不匹配也可以，但是如果匹配的更多，那么document的relevance score就会更高。</p>
+<h4 id="搜索java，hadoop，spark，elasticsearch，至少包含其中3个关键字"><a href="#搜索java，hadoop，spark，elasticsearch，至少包含其中3个关键字" class="headerlink" title="搜索java，hadoop，spark，elasticsearch，至少包含其中3个关键字"></a>搜索java，hadoop，spark，elasticsearch，至少包含其中3个关键字</h4><p>默认情况下，should是可以不匹配任何一个的，比如上面的搜索中，this is java blog，就不匹配任何一个should条件。但是有个例外的情况，如果没有must的话，那么should中必须至少匹配一个才可以。比如下面的搜索，should中有4个条件，默认情况下，只要满足其中一个条件，就可以匹配作为结果返回。但是可以精准控制，should的4个条件中，至少匹配几个才能作为结果返回：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;should&quot;: [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;java&quot;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;elasticsearch&quot;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;hadoop&quot;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;spark&quot;
+          &#125;
+        &#125;
+      ],
+      &quot;minimum_should_match&quot;: 3
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-7-基于term-bool实现的multi-word搜索底层原理剖析"><a href="#9-7-基于term-bool实现的multi-word搜索底层原理剖析" class="headerlink" title="9.7 基于term+bool实现的multi word搜索底层原理剖析"></a>9.7 基于term+bool实现的multi word搜索底层原理剖析</h3><h4 id="普通match如何转换为term-should"><a href="#普通match如何转换为term-should" class="headerlink" title="普通match如何转换为term+should"></a>普通match如何转换为term+should</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+    &quot;match&quot;: &#123; &quot;title&quot;: &quot;java elasticsearch&quot;&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用诸如上面的match query进行多值搜索的时候，es会在底层自动将这个match query转换为bool的语法。<br>bool should，指定多个搜索词，同时使用term query</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+  &quot;bool&quot;: &#123;
+    &quot;should&quot;: [
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;java&quot; &#125;&#125;,
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;elasticsearch&quot;   &#125;&#125;
+    ]
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="and-match如何转换为term-must"><a href="#and-match如何转换为term-must" class="headerlink" title="and match如何转换为term+must"></a>and match如何转换为term+must</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+    &quot;match&quot;: &#123;
+        &quot;title&quot;: &#123;
+            &quot;query&quot;:    &quot;java elasticsearch&quot;,
+            &quot;operator&quot;: &quot;and&quot;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>转化为：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+  &quot;bool&quot;: &#123;
+    &quot;must&quot;: [
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;java&quot; &#125;&#125;,
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;elasticsearch&quot;   &#125;&#125;
+    ]
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="minimum-should-match如何转换"><a href="#minimum-should-match如何转换" class="headerlink" title="minimum_should_match如何转换"></a>minimum_should_match如何转换</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+    &quot;match&quot;: &#123;
+        &quot;title&quot;: &#123;
+            &quot;query&quot;: &quot;java elasticsearch hadoop spark&quot;,
+            &quot;minimum_should_match&quot;: &quot;75%&quot;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>转化为</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+  &quot;bool&quot;: &#123;
+    &quot;should&quot;: [
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;java&quot; &#125;&#125;,
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;elasticsearch&quot;   &#125;&#125;,
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;hadoop&quot; &#125;&#125;,
+      &#123; &quot;term&quot;: &#123; &quot;title&quot;: &quot;spark&quot; &#125;&#125;
+    ],
+    &quot;minimum_should_match&quot;: 3 
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-8-基于boost的细粒度搜索条件权重控制"><a href="#9-8-基于boost的细粒度搜索条件权重控制" class="headerlink" title="9.8 基于boost的细粒度搜索条件权重控制"></a>9.8 基于boost的细粒度搜索条件权重控制</h3><h5 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h5><p>搜索标题中包含java的帖子，同时呢，如果标题中包含hadoop或elasticsearch就优先搜索出来，同时呢，如果一个帖子包含java hadoop，一个帖子包含java elasticsearch，包含hadoop的帖子要比elasticsearch优先搜索出来</p>
+<h5 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a>知识点：</h5><p>搜索条件的权重，boost，可以将某个搜索条件的权重加大，此时当匹配这个搜索条件和匹配另一个搜索条件的document， 计算relevance score时，匹配权重更大的搜索条件的document，relevance score会更高，当然也就会优先被返回回来。 默认情况下，搜索条件的权重是相同的，都是1</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;must&quot;: [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &quot;java&quot;
+          &#125;
+        &#125;
+      ],
+      &quot;should&quot;: [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &#123;
+              &quot;query&quot;: &quot;elasticsearch&quot;
+            &#125;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &#123;
+              &quot;query&quot;: &quot;hadoop&quot;,
+              &quot;boost&quot;: 5
+            &#125;
+          &#125;
+        &#125;
+      ]
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-9-多shard场景下relevance-score不准确问题"><a href="#9-9-多shard场景下relevance-score不准确问题" class="headerlink" title="9.9 多shard场景下relevance score不准确问题"></a>9.9 多shard场景下relevance score不准确问题</h3><h4 id="多shard场景下relevance-score不准确问题"><a href="#多shard场景下relevance-score不准确问题" class="headerlink" title="多shard场景下relevance score不准确问题"></a>多shard场景下relevance score不准确问题</h4><p>如果你的一个index有多个shard的话，可能搜索结果会不准确<br><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/dsc/es-010.png"></p>
+<h4 id="如何解决该问题？"><a href="#如何解决该问题？" class="headerlink" title="如何解决该问题？"></a>如何解决该问题？</h4><ul>
+<li>（1）生产环境下，数据量大，尽可能实现均匀分配</li>
+</ul>
+<p>数据量很大的话，其实一般情况下，在概率学的背景下，es都是在多个shard中均匀路由数据的，路由的时候根据_id，负载均衡 比如说有10个document，title都包含java，一共有5个shard，那么在概率学的背景下，如果负载均衡的话，其实每个shard都应该有2个doc，title包含java。如果数据分布均匀的话，其实就没有刚才说的那个问题了。</p>
+<ul>
+<li>（2）测试环境下，将索引的primary shard设置为1个，number_of_shards=1，index settings</li>
+</ul>
+<p>如果只有一个shard，所有的document都在这个shard里面，也就没有这个问题了</p>
+<ul>
+<li>（3）测试环境下，搜索附带search_type=dfs_query_then_fetch参数，会将local IDF取出来计算global IDF</li>
+</ul>
+<p>计算一个doc的相关度分数的时候，就会将所有shard对local IDF计算一下获取出来，然后在本地进行global IDF分数的计算，之后将所有shard的doc作为上下文来进行计算，也能确保准确性。但是production生产环境下，不推荐这个参数，因为性能很差。</p>
+<h3 id="9-10-基于dis-max实现best-fields策略进行多字段搜索"><a href="#9-10-基于dis-max实现best-fields策略进行多字段搜索" class="headerlink" title="9.10 基于dis_max实现best fields策略进行多字段搜索"></a>9.10 基于dis_max实现best fields策略进行多字段搜索</h3><h4 id="为帖子数据增加content字段"><a href="#为帖子数据增加content字段" class="headerlink" title="为帖子数据增加content字段"></a>为帖子数据增加content字段</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;i like to write best elasticsearch article&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;i think java is the best programming language&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;i am only an elasticsearch beginner&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;elasticsearch and hadoop are all very good solution, i am a beginner&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;spark is best big data solution based on scala ,an programming language similar to java&quot;&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索title或content中包含java或solution的帖子"><a href="#搜索title或content中包含java或solution的帖子" class="headerlink" title="搜索title或content中包含java或solution的帖子"></a>搜索title或content中包含java或solution的帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;bool&quot;: &#123;
+            &quot;should&quot;: [
+                &#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java solution&quot; &#125;&#125;,
+                &#123; &quot;match&quot;: &#123; &quot;content&quot;:  &quot;java solution&quot; &#125;&#125;
+            ]
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="搜索结果分析"><a href="#搜索结果分析" class="headerlink" title="搜索结果分析"></a>搜索结果分析</h4><p>期望的是doc5，结果是doc2,doc4排在了前面。计算每个document的relevance score：每个query的分数，乘以matched query数量，除以总query数量</p>
+<ul>
+<li><p>算一下doc4的分数</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java solution&quot; &#125;&#125;，针对doc4，是有一个分数的
+&#123; &quot;match&quot;: &#123; &quot;content&quot;:  &quot;java solution&quot; &#125;&#125;，针对doc4，也是有一个分数的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>所以是两个分数加起来，比如说，1.1 + 1.2 = 2.3；matched query数量 = 2；总query数量 = 2；即：2.3 * 2 / 2 = 2.3</p>
+</li>
+<li><p>算一下doc5的分数</p>
+</li>
+</ul>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java solution&quot; &#125;&#125;，针对doc5，是没有分数的
+&#123; &quot;match&quot;: &#123; &quot;content&quot;:  &quot;java solution&quot; &#125;&#125;，针对doc5，是有一个分数的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>只有一个query是有分数的，比如2.3；matched query数量 = 1；总query数量 = 2；即：2.3 * 1 / 2 = 1.15。doc5的分数 = 1.15 &lt; doc4的分数 = 2.3</p>
+<h4 id="best-fields策略，dis-max"><a href="#best-fields策略，dis-max" class="headerlink" title="best fields策略，dis_max"></a>best fields策略，dis_max</h4><p>best fields策略，搜索到的结果，应该是某一个field中匹配到了尽可能多的关键词，被排在前面；而不是尽可能多的field匹配到了少数的关键词，排在了前面。</p>
+<p>dis_max语法，直接取多个query中，分数最高的那一个query的分数即可</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java solution&quot; &#125;&#125;，针对doc4，是有一个分数的，1.1
+&#123; &quot;match&quot;: &#123; &quot;content&quot;:  &quot;java solution&quot; &#125;&#125;，针对doc4，也是有一个分数的，1.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>取最大分数，1.2</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java solution&quot; &#125;&#125;，针对doc5，是没有分数的
+&#123; &quot;match&quot;: &#123; &quot;content&quot;:  &quot;java solution&quot; &#125;&#125;，针对doc5，是有一个分数的，2.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>取最大分数，2.3。然后doc4的分数 = 1.2 &lt; doc5的分数 = 2.3，所以doc5就可以排在更前面的地方，符合我们的需要</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;dis_max&quot;: &#123;
+            &quot;queries&quot;: [
+                &#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java solution&quot; &#125;&#125;,
+                &#123; &quot;match&quot;: &#123; &quot;content&quot;:  &quot;java solution&quot; &#125;&#125;
+            ]
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-11-基于tie-breaker参数优化dis-max搜索效果"><a href="#9-11-基于tie-breaker参数优化dis-max搜索效果" class="headerlink" title="9.11 基于tie_breaker参数优化dis_max搜索效果"></a>9.11 基于tie_breaker参数优化dis_max搜索效果</h3><h4 id="搜索title或content中包含java-beginner的帖子"><a href="#搜索title或content中包含java-beginner的帖子" class="headerlink" title="搜索title或content中包含java beginner的帖子"></a>搜索title或content中包含java beginner的帖子</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;dis_max&quot;: &#123;
+            &quot;queries&quot;: [
+                &#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java beginner&quot; &#125;&#125;,
+                &#123; &quot;match&quot;: &#123; &quot;body&quot;:  &quot;java beginner&quot; &#125;&#125;
+            ]
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可能在实际场景中出现的一个情况是这样的：</p>
+<ul>
+<li>（1）某个帖子，doc1，title中包含java，content不包含java beginner任何一个关键词</li>
+<li>（2）某个帖子，doc2，content中包含beginner，title中不包含任何一个关键词</li>
+<li>（3）某个帖子，doc3，title中包含java，content中包含beginner</li>
+<li>（4）最终搜索，可能出来的结果是，doc1和doc2排在doc3的前面，而不是我们期望的doc3排在最前面</li>
+</ul>
+<p>dis_max，只是取分数最高的那个query的分数而已</p>
+<h4 id="dis-max只取某一个query最大的分数，完全不考虑其他query的分数"><a href="#dis-max只取某一个query最大的分数，完全不考虑其他query的分数" class="headerlink" title="dis_max只取某一个query最大的分数，完全不考虑其他query的分数"></a>dis_max只取某一个query最大的分数，完全不考虑其他query的分数</h4><h4 id="使用tie-breaker将其他query的分数也考虑进去"><a href="#使用tie-breaker将其他query的分数也考虑进去" class="headerlink" title="使用tie_breaker将其他query的分数也考虑进去"></a>使用tie_breaker将其他query的分数也考虑进去</h4><p>tie_breaker参数的意义，在于将其他query的分数，乘以tie_breaker，然后综合与最高分数的那个query的分数，综合在一起进行计算；除了取最高分以外，还会考虑其他的query的分数；tie_breaker的值，在0~1之间，是个小数，就ok</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;dis_max&quot;: &#123;
+            &quot;queries&quot;: [
+                &#123; &quot;match&quot;: &#123; &quot;title&quot;: &quot;java beginner&quot; &#125;&#125;,
+                &#123; &quot;match&quot;: &#123; &quot;body&quot;:  &quot;java beginner&quot; &#125;&#125;
+            ],
+            &quot;tie_breaker&quot;: 0.3
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-12-基于multi-match语法实现dis-max-tie-breaker"><a href="#9-12-基于multi-match语法实现dis-max-tie-breaker" class="headerlink" title="9.12 基于multi_match语法实现dis_max+tie_breaker"></a>9.12 基于multi_match语法实现dis_max+tie_breaker</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;multi_match&quot;: &#123;
+        &quot;query&quot;:                &quot;java solution&quot;,
+        &quot;type&quot;:                 &quot;best_fields&quot;, 
+        &quot;fields&quot;:               [ &quot;title^2&quot;, &quot;content&quot; ],
+        &quot;tie_breaker&quot;:          0.3,
+        &quot;minimum_should_match&quot;: &quot;50%&quot; 
+    &#125;
+  &#125; 
+&#125;
+
+GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;dis_max&quot;: &#123;
+      &quot;queries&quot;:  [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &#123;
+              &quot;query&quot;: &quot;java beginner&quot;,
+              &quot;minimum_should_match&quot;: &quot;50%&quot;,
+          &quot;boost&quot;: 2
+            &#125;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;body&quot;: &#123;
+              &quot;query&quot;: &quot;java beginner&quot;,
+              &quot;minimum_should_match&quot;: &quot;30%&quot;
+            &#125;
+          &#125;
+        &#125;
+      ],
+      &quot;tie_breaker&quot;: 0.3
+    &#125;
+  &#125; 
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>minimum_should_match，主要是用来干嘛的？</p>
+<p>去长尾 long tail，什么是长尾，比如你搜索5个关键词，但是很多结果只匹配1个关键词，其实跟你想要的结果相差甚远，这些结果就是长尾； minimum_should_match，控制搜索结果的精准度，只有匹配一定数量的关键词的数据，才能返回</p>
+<h3 id="9-13-基于multi-match-most-fields策略进行multi-field搜索"><a href="#9-13-基于multi-match-most-fields策略进行multi-field搜索" class="headerlink" title="9.13 基于multi_match+most fields策略进行multi-field搜索"></a>9.13 基于multi_match+most fields策略进行multi-field搜索</h3><p>从best-fields换成most-fields策略；best-fields策略，主要是将某一个field匹配尽可能多的关键词的doc优先返回回来 ；most-fields策略，主要是尽可能返回更多field匹配到某个关键词的doc，优先返回回来</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_mapping
+&#123;
+  &quot;properties&quot;: &#123;
+      &quot;sub_title&quot;: &#123; 
+          &quot;type&quot;:     &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;english&quot;,
+          &quot;fields&quot;: &#123;
+              &quot;std&quot;:   &#123; 
+                  &quot;type&quot;:     &quot;text&quot;,
+                  &quot;analyzer&quot;: &quot;standard&quot;
+              &#125;
+          &#125;
+      &#125;
+  &#125;
+&#125;
+
+POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;sub_title&quot; : &quot;learning more courses&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;sub_title&quot; : &quot;learned a lot of course&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;sub_title&quot; : &quot;we have a lot of fun&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;sub_title&quot; : &quot;both of them are good&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;sub_title&quot; : &quot;haha, hello world&quot;&#125; &#125;
+
+GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;sub_title&quot;: &quot;learning courses&quot;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>sub_title用的是english analyzer，所以还原了单词</p>
+<p>为什么，因为如果我们用的是类似于english analyzer这种分词器的话，就会将单词还原为其最基本的形态，stemmer</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">learning --&gt; learn
+learned --&gt; learn
+courses --&gt; course
+
+
+GET &#x2F;forum&#x2F;_search
+&#123;
+   &quot;query&quot;: &#123;
+        &quot;multi_match&quot;: &#123;
+            &quot;query&quot;:  &quot;learning courses&quot;,
+            &quot;type&quot;:   &quot;most_fields&quot;, 
+            &quot;fields&quot;: [ &quot;sub_title&quot;, &quot;sub_title.std&quot; ]
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="与best-fields的区别"><a href="#与best-fields的区别" class="headerlink" title="与best_fields的区别"></a>与best_fields的区别</h4><ul>
+<li>（1）best_fields，是对多个field进行搜索，挑选某个field匹配度最高的那个分数，同时在多个query最高分相同的情况下，在一定程度上考虑其他query的分数。 简单来说，你对多个field进行搜索，就想搜索到某一个field尽可能包含更多关键字的数据。</li>
+</ul>
+<p>优点：通过best_fields策略，以及综合考虑其他field，还有minimum_should_match支持，可以尽可能精准地将匹配的结果推送到最前面。</p>
+<p>缺点：除了那些精准匹配的结果，其他差不多大的结果，排序结果不是太均匀，没有什么区分度了。</p>
+<p>实际的例子：百度之类的搜索引擎，最匹配的到最前面，但是其他的就没什么区分度了</p>
+<ul>
+<li>（2）most_fields，综合多个field一起进行搜索，尽可能多地让所有field的query参与到总分数的计算中来，此时就会是个大杂烩，出现类似best_fields案例最开始的那个结果，结果不一定精准，某一个document的一个field包含更多的关键字，但是因为其他document有更多field匹配到了，所以排在了前面；因此需要建立类似sub_title.std这样的field，尽可能让某一个field精准匹配query string，贡献更高的分数，将更精准匹配的数据排到前面</li>
+</ul>
+<p>优点：将尽可能匹配更多field的结果推送到最前面，整个排序结果是比较均匀的；</p>
+<p>缺点：可能那些精准匹配的结果，无法推送到最前面</p>
+<p>实际的例子：wiki，明显的most_fields策略，搜索结果比较均匀，但是的确要翻好几页才能找到最匹配的结果</p>
+<h3 id="9-14-使用most-fields策略进行cross-fields-search弊端"><a href="#9-14-使用most-fields策略进行cross-fields-search弊端" class="headerlink" title="9.14 使用most_fields策略进行cross-fields search弊端"></a>9.14 使用most_fields策略进行cross-fields search弊端</h3><p>cross-fields搜索，一个唯一标识，跨了多个field。比如一个人，标识，是姓名；一个建筑，它的标识是地址。姓名可以散落在多个field中，比如first_name和last_name中，地址可以散落在country，province，city中。 </p>
+<p>跨多个field搜索一个标识，比如搜索一个人名，或者一个地址，就是cross-fields搜索</p>
+<p>初步来说，如果要实现，可能用most_fields比较合适。因为best_fields是优先搜索单个field最匹配的结果，cross-fields本身就不是一个field的问题了。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;author_first_name&quot; : &quot;Peter&quot;, &quot;author_last_name&quot; : &quot;Smith&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;author_first_name&quot; : &quot;Smith&quot;, &quot;author_last_name&quot; : &quot;Williams&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;author_first_name&quot; : &quot;Jack&quot;, &quot;author_last_name&quot; : &quot;Ma&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;author_first_name&quot; : &quot;Robbin&quot;, &quot;author_last_name&quot; : &quot;Li&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;author_first_name&quot; : &quot;Tonny&quot;, &quot;author_last_name&quot; : &quot;Peter Smith&quot;&#125; &#125;
+
+GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;multi_match&quot;: &#123;
+      &quot;query&quot;:       &quot;Peter Smith&quot;,
+      &quot;type&quot;:        &quot;most_fields&quot;,
+      &quot;fields&quot;:      [ &quot;author_first_name&quot;, &quot;author_last_name&quot; ]
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Peter Smith，匹配author_first_name，匹配到了Smith，这时候它的分数很高，为什么啊？？？</p>
+<p>因为IDF分数高，IDF分数要高，那么这个匹配到的term（Smith），在所有doc中的出现频率要低，author_first_name field中，Smith就出现过1次。Peter Smith这个人，doc 1，Smith在author_last_name中，但是author_last_name出现了两次Smith，所以导致doc 1的IDF分数较低。</p>
+<p>问题1：只是找到尽可能多的field匹配的doc，而不是某个field完全匹配的doc</p>
+<p>问题2：most_fields，没办法用minimum_should_match去掉长尾数据，就是匹配的特别少的结果</p>
+<p>问题3：TF/IDF算法，比如Peter Smith和Smith Williams，搜索Peter Smith的时候，由于first_name中很少有Smith的，所以query在所有document中的频率很低，得到的分数很高，可能Smith Williams反而会排在Peter Smith前面</p>
+<h3 id="9-15-使用copy-to定制组合field解决cross-fields搜索弊端"><a href="#9-15-使用copy-to定制组合field解决cross-fields搜索弊端" class="headerlink" title="9.15 使用copy_to定制组合field解决cross-fields搜索弊端"></a>9.15 使用copy_to定制组合field解决cross-fields搜索弊端</h3><p>上一讲，我们说了用most_fields策略，去实现cross-fields搜索，有3大弊端，而且搜索结果也显示出了这3大弊端</p>
+<p>第一个办法：用copy_to，将多个field组合成一个field。问题其实就出在有多个field，有多个field以后，就很尴尬，我们要想办法将一个标识跨在多个field的情况，合并成一个field。 比如说，一个人名，本来是first_name，last_name，现在合并成一个full_name，这样就直接查full_name 就ok了。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;forum&#x2F;_mapping
+&#123;
+  &quot;properties&quot;: &#123;
+      &quot;new_author_first_name&quot;: &#123;
+          &quot;type&quot;:     &quot;text&quot;,
+          &quot;copy_to&quot;:  &quot;new_author_full_name&quot; 
+      &#125;,
+      &quot;new_author_last_name&quot;: &#123;
+          &quot;type&quot;:     &quot;text&quot;,
+          &quot;copy_to&quot;:  &quot;new_author_full_name&quot; 
+      &#125;,
+      &quot;new_author_full_name&quot;: &#123;
+          &quot;type&quot;:     &quot;text&quot;
+      &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>用了这个copy_to语法之后，就可以将多个字段的值拷贝到一个字段中，并建立倒排索引</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;new_author_first_name&quot; : &quot;Peter&quot;, &quot;new_author_last_name&quot; : &quot;Smith&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;	
+&#123; &quot;doc&quot; : &#123;&quot;new_author_first_name&quot; : &quot;Smith&quot;, &quot;new_author_last_name&quot; : &quot;Williams&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;new_author_first_name&quot; : &quot;Jack&quot;, &quot;new_author_last_name&quot; : &quot;Ma&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;new_author_first_name&quot; : &quot;Robbin&quot;, &quot;new_author_last_name&quot; : &quot;Li&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;new_author_first_name&quot; : &quot;Tonny&quot;, &quot;new_author_last_name&quot; : &quot;Peter Smith&quot;&#125; &#125;
+
+GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;new_author_full_name&quot;: &quot;Peter Smith&quot;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>问题1：只是找到尽可能多的field匹配的doc，而不是某个field完全匹配的doc –&gt; 解决，最匹配的document被最先返回</p>
+<p>问题2：most_fields，没办法用minimum_should_match去掉长尾数据，就是匹配的特别少的结果 –&gt; 解决，可以使用minimum_should_match去掉长尾数据</p>
+<p>问题3：TF/IDF算法，比如Peter Smith和Smith Williams，搜索Peter Smith的时候，由于first_name中很少有Smith的，所以query在所有document中的频率很低，得到的分数很高，可能Smith Williams反而会排在Peter Smith前面 –&gt; 解决，Smith和Peter在一个field了，所以在所有document中出现的次数是均匀的，不会有极端的偏差</p>
+<h3 id="9-16-使用原生cross-fields技术解决搜索弊端"><a href="#9-16-使用原生cross-fields技术解决搜索弊端" class="headerlink" title="9.16 使用原生cross-fields技术解决搜索弊端"></a>9.16 使用原生cross-fields技术解决搜索弊端</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;multi_match&quot;: &#123;
+      &quot;query&quot;: &quot;Peter Smith&quot;,
+      &quot;type&quot;: &quot;cross_fields&quot;, 
+      &quot;operator&quot;: &quot;and&quot;,
+      &quot;fields&quot;: [&quot;author_first_name&quot;, &quot;author_last_name&quot;]
+    &#125;
+  &#125;
+&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>问题1：只是找到尽可能多的field匹配的doc，而不是某个field完全匹配的doc –&gt; 解决，要求每个term都必须在任何一个field中出现</p>
+<p>问题2：most_fields，没办法用minimum_should_match去掉长尾数据，就是匹配的特别少的结果 –&gt; 解决，既然每个term都要求出现，长尾肯定被去除掉了</p>
+<p>问题3：TF/IDF算法，比如Peter Smith和Smith Williams，搜索Peter Smith的时候，由于first_name中很少有Smith的，<br>所以query在所有document中的频率很低，得到的分数很高，可能Smith Williams反而会排在Peter Smith前面 –&gt; 计算IDF的时候，将每个query在每个field中的IDF都取出来，取最小值，就不会出现极端情况下的极大值了</p>
+<h3 id="9-17-掌握phrase-matching搜索技术"><a href="#9-17-掌握phrase-matching搜索技术" class="headerlink" title="9.17 掌握phrase matching搜索技术"></a>9.17 掌握phrase matching搜索技术</h3><p>如果我们要尽量让java和spark离的很近的document优先返回，要给它一个更高的relevance score，这就涉及到了proximity match，近似匹配。</p>
+<p>需求：</p>
+<ol>
+<li>java spark，就靠在一起，中间不能插入任何其他字符，就要搜索出来这种doc</li>
+<li>java spark，但是要求，java和spark两个单词靠的越近，doc的分数越高，排名越靠前</li>
+</ol>
+<p>要实现上述两个需求，用match做全文检索，是搞不定的，必须得用proximity match，近似匹配</p>
+<p>phrase match，proximity match：短语匹配，近似匹配</p>
+<h4 id="使用match-phrase来查询包含java-and-elasticsearch的数据"><a href="#使用match-phrase来查询包含java-and-elasticsearch的数据" class="headerlink" title="使用match_phrase来查询包含java and elasticsearch的数据"></a>使用match_phrase来查询包含<code>java and elasticsearch</code>的数据</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;java elasticsearch is friend&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;java and elasticsearch very good&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;this is elasticsearch blog&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;this is java, elasticsearch, hadoop blog&quot;&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;content&quot; : &quot;this is spark blog&quot;&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用match_phrase来查询包含<code>java and elasticsearch</code>的数据</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;match_phrase&quot;: &#123;
+            &quot;content&quot;: &quot;java and elasticsearch&quot;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="match-phrase的基本原理"><a href="#match-phrase的基本原理" class="headerlink" title="match_phrase的基本原理"></a>match_phrase的基本原理</h4><p>这里举个简单例子来说明；有如下2个文档内容，我们需要 match_phrase匹配的是<code>java elasticsearch</code></p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">doc1 : hello, java elasticsearch
+doc2 : hello, elasticsearch java<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>首先对文档内容建立类似如下的倒排索引，在value中保存了term（单词）的position（位置）</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">hello -------------- [doc1(1), doc2(1)]  
+java --------------- [doc1(2), doc2(3)]
+elasticsearch ------ [doc1(3), doc2(2)]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这样在查询时先对查询的内容<code>java elasticsearch</code>进行分词得到<code>java</code>、<code>elasticsearch</code>然后根据倒排索引进行查询得到匹配的文档doc1,doc2; 现在对数据进一步做匹配处理：</p>
+<p>doc1–&gt;&gt; java-doc1(2)，elasticsearch-doc1(3)；elasticsearch的position刚好比java的大1，符合实际的顺序，doc1 符合条件；</p>
+<p>doc2–&gt;&gt; java-doc2(3)，elasticsearch-doc2(2)；elasticsearch的position比java的小1，不符合实际的顺序，doc2 不符合条件；</p>
+<p>最终只有doc1符合条件。</p>
+<h3 id="9-18-基于slop参数实现近似匹配以及原理剖析和相关实验"><a href="#9-18-基于slop参数实现近似匹配以及原理剖析和相关实验" class="headerlink" title="9.18 基于slop参数实现近似匹配以及原理剖析和相关实验"></a>9.18 基于slop参数实现近似匹配以及原理剖析和相关实验</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+    &quot;query&quot;: &#123;
+        &quot;match_phrase&quot;: &#123;
+            &quot;content&quot;: &#123;
+                &quot;query&quot;: &quot;java elasticsearch&quot;,
+                &quot;slop&quot;:  1
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>slop的含义：query string，搜索文本中的几个term，要经过几次移动才能与一个document匹配，这个移动的次数，就是slop；<br>这里设置slop的意思就是在匹配的过程中最多可以移动多少次；</p>
+<blockquote>
+<p>其实，加了slop的phrase match，就是proximity match，近似匹配</p>
+</blockquote>
+<h3 id="9-19-混合使用match和近似匹配实现召回率与精准度的平衡"><a href="#9-19-混合使用match和近似匹配实现召回率与精准度的平衡" class="headerlink" title="9.19 混合使用match和近似匹配实现召回率与精准度的平衡"></a>9.19 混合使用match和近似匹配实现召回率与精准度的平衡</h3><p>召回率：搜索一个java elasticsearch，总共有100个doc，能返回多少个doc作为结果，就是召回率（recall）</p>
+<p>精准度：搜索一个java elasticsearch，能不能尽可能让包含java elasticsearch，或者是java和elasticsearch离的很近的doc，排在最前面，就是精准度（precision）</p>
+<p>直接用match_phrase短语搜索，会导致必须所有term都在doc field中出现，而且距离在slop限定范围内，才能匹配上</p>
+<p>match phrase和proximity match要求doc必须包含所有的term，才能作为结果返回；如果某一个doc可能就是有某个term没有包含，那么就无法作为结果返回。</p>
+<p>近似匹配的时候，召回率比较低，精准度太高了</p>
+<p>但是有时我们希望的是匹配到几个term中的部分，就可以作为结果出来，这样可以提高召回率。 同时我们也希望用上match_phrase根据距离提升分数的功能，让几个term距离越近分数就越高，优先返回。 就是优先满足召回率意思，比如搜索java elasticsearch，包含java的也返回，包含elasticsearch的也返回，包含java和elasticsearch的也返回； 同时兼顾精准度，就是包含java和elasticsearch，同时java和elasticsearch离的越近的doc排在最前面</p>
+<p>此时可以用bool组合match query和match_phrase query一起，来实现上述效果</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;must&quot;: &#123;
+        &quot;match&quot;: &#123; 
+          &quot;content&quot;: &#123;
+            &quot;query&quot;: &quot;java elasticsearch&quot; 
+          &#125;
+        &#125;
+      &#125;,
+      &quot;should&quot;: &#123;
+        &quot;match_phrase&quot;: &#123; 
+          &quot;content&quot;: &#123;
+            &quot;query&quot;: &quot;java elasticsearch&quot;,
+            &quot;slop&quot;:  50
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>在match query中java或elasticsearch或java elasticsearch，java和elasticsearch靠前，但是没法区分java和elasticsearch的距离，也许java和elasticsearch靠的很近，但是没法排在最前面<br>match_phrase在slop以内，如果java elasticsearch能匹配上一个doc，那么就会对doc贡献自己的relevance score，如果java和elasticsearch靠的越近，那么就分数越高</p>
+</blockquote>
+<h3 id="9-20-使用rescoring机制优化近似匹配搜索的性能"><a href="#9-20-使用rescoring机制优化近似匹配搜索的性能" class="headerlink" title="9.20 使用rescoring机制优化近似匹配搜索的性能"></a>9.20 使用rescoring机制优化近似匹配搜索的性能</h3><h4 id="match和phrase-match-proximity-match-区别"><a href="#match和phrase-match-proximity-match-区别" class="headerlink" title="match和phrase match(proximity match)区别"></a>match和phrase match(proximity match)区别</h4><p>match： 只要简单的匹配到了一个term，就可以理解将term对应的doc作为结果返回，扫描倒排索引，扫描到了就ok</p>
+<p>phrase match ：首先扫描到所有term的doc list; 找到包含所有term的doc list; 然后对每个doc都计算每个term的position，是否符合指定的范围; slop，需要进行复杂的运算，来判断能否通过slop移动，匹配一个doc</p>
+<p>match query的性能比phrase match和proximity match（有slop）要高很多。因为后两者都要计算position的距离。 match query比phrase match的性能要高10倍，比proximity match的性能要高20倍。</p>
+<p>但是别太担心，因为es的性能一般都在毫秒级别，match query一般就在几毫秒，或者几十毫秒，而phrase match和proximity match的性能在几十毫秒到几百毫秒之间，所以也是可以接受的。</p>
+<p>优化proximity match的性能，一般就是减少要进行proximity match搜索的document数量。 主要思路就是，用match query先过滤出需要的数据，然后再用proximity match来根据term距离提高doc的分数， 同时proximity match只针对每个shard的分数排名前n个doc起作用，来重新调整它们的分数，这个过程称之为重计分(rescoring)。 因为一般用户会分页查询，只会看到前几页的数据，所以不需要对所有结果进行proximity match操作。</p>
+<p>用我们刚才的说法，match + proximity match同时实现召回率和精准度</p>
+<p>默认情况下，match也许匹配了1000个doc，proximity match全都需要对每个doc进行一遍运算，判断能否slop移动匹配上，然后去贡献自己的分数。但是很多情况下，match出来也许1000个doc，其实用户大部分情况下是分页查询的，所以可能最多只会看前几页，比如一页是10条，最多也许就看5页，就是50条。proximity match只要对前50个doc进行slop移动去匹配，去贡献自己的分数即可，不需要对全部1000个doc都去进行计算和贡献分数</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;content&quot;: &quot;java elasticsearch&quot;
+    &#125;
+  &#125;,
+  &quot;rescore&quot;: &#123;
+    &quot;window_size&quot;: 50,
+    &quot;query&quot;: &#123;
+      &quot;rescore_query&quot;: &#123;
+        &quot;match_phrase&quot;: &#123;
+          &quot;content&quot;: &#123;
+            &quot;query&quot;: &quot;java elasticsearch&quot;,
+            &quot;slop&quot;: 50
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-21-实战前缀搜索、通配符搜索、正则搜索等技术"><a href="#9-21-实战前缀搜索、通配符搜索、正则搜索等技术" class="headerlink" title="9.21 实战前缀搜索、通配符搜索、正则搜索等技术"></a>9.21 实战前缀搜索、通配符搜索、正则搜索等技术</h3><h4 id="前缀搜索"><a href="#前缀搜索" class="headerlink" title="前缀搜索"></a>前缀搜索</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;prefix&quot;: &#123;
+      &quot;articleID.keyword&quot;: &#123;
+        &quot;value&quot;: &quot;X&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>前缀搜索的原理：prefix query不计算relevance score，与prefix filter唯一的区别就是，filter会cache bitset；扫描整个倒排索引。前缀越短，要处理的doc越多，性能越差，尽可能用长前缀搜索</p>
+<p>前缀搜索，它是怎么执行的？性能为什么差呢？</p>
+<p>根据前缀扫描完整个的倒排索引，一个个匹配将结果返回，这就是为什么性能差</p>
+<h4 id="通配符搜索"><a href="#通配符搜索" class="headerlink" title="通配符搜索"></a>通配符搜索</h4><p>跟前缀搜索类似，使用通配符去表达更加复杂的模糊搜索的语义，功能更加强大</p>
+<p>5?-*5：5个字符 D 任意个字符5</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;wildcard&quot;: &#123;
+      &quot;articleID&quot;: &#123;
+        &quot;value&quot;: &quot;X?K*5&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>?：任意字符; *：0个或任意多个字符</p>
+</blockquote>
+<p>性能一样差，必须扫描整个倒排索引</p>
+<h4 id="正则搜索"><a href="#正则搜索" class="headerlink" title="正则搜索"></a>正则搜索</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;regexp&quot;: &#123;
+      &quot;articleID&quot;: &quot;X[0-9].+&quot;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>wildcard和regexp，与prefix原理一致，都会扫描整个索引，性能很差</p>
+<h3 id="9-22-实战match-phrase-prefix实现search-time搜索推荐"><a href="#9-22-实战match-phrase-prefix实现search-time搜索推荐" class="headerlink" title="9.22 实战match_phrase_prefix实现search-time搜索推荐"></a>9.22 实战match_phrase_prefix实现search-time搜索推荐</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match_phrase_prefix&quot;: &#123;
+      &quot;content&quot;: &quot;java e&quot;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>原理跟match_phrase类似，唯一的区别，就是把最后一个term作为前缀去搜索。大致流程：</p>
+<ol>
+<li>搜索<code>java e</code>会先分词为java、e；</li>
+<li>然后java会进行match搜索对应的doc;</li>
+<li>e会作为前缀，去扫描整个倒排索引，找到所有w开头的doc;</li>
+<li>然后找到所有doc中，即包含java，又包含e开头的字符的doc; 根据你的slop去计算，看在slop范围内，能不能让java e， 正好跟doc中的java和e开头的单词的position相匹配；也可以指定slop，但是只有最后一个term会作为前缀。</li>
+</ol>
+<p>max_expansions：指定prefix最多匹配多少个term，超过这个数量就不继续匹配了，限定性能。</p>
+<p>默认情况下，前缀要扫描所有的倒排索引中的term，去查找e打头的单词，但是这样性能太差。可以用max_expansions限定，e前缀最多匹配多少个term，就不再继续搜索倒排索引了。尽量不要用，因为，最后一个前缀始终要去扫描大量的索引，性能可能会很差。</p>
+<h3 id="9-23-实战通过ngram分词机制实现index-time搜索推荐"><a href="#9-23-实战通过ngram分词机制实现index-time搜索推荐" class="headerlink" title="9.23 实战通过ngram分词机制实现index-time搜索推荐"></a>9.23 实战通过ngram分词机制实现index-time搜索推荐</h3><h4 id="ngram和index-time搜索推荐原理"><a href="#ngram和index-time搜索推荐原理" class="headerlink" title="ngram和index-time搜索推荐原理"></a>ngram和index-time搜索推荐原理</h4><p>什么是ngram？按词语可以拆分的长度进行处理，下面举例说明：</p>
+<p>quick，5种长度下的ngram</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">ngram length&#x3D;1，q u i c k
+ngram length&#x3D;2，qu ui ic ck
+ngram length&#x3D;3，qui uic ick
+ngram length&#x3D;4，quic uick
+ngram length&#x3D;5，quick<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>什么是edge ngram？固定首字母，然后依次叠加词；下面举例说明： quick，根据首字母后进行ngram</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">q
+qu
+qui
+quic
+quick<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用edge ngram将每个单词都进行进一步的分词切分，用切分后的ngram来实现前缀搜索推荐功能。搜索的时候，不用再根据一个前缀，然后扫描整个倒排索引了; 直接拿前缀去倒排索引中匹配即可，如果匹配上了，那么就好了。</p>
+<h4 id="ngram示例"><a href="#ngram示例" class="headerlink" title="ngram示例"></a>ngram示例</h4><p>设置ngram</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;ngram-demo
+&#123;
+    &quot;settings&quot;: &#123;
+        &quot;analysis&quot;: &#123;
+            &quot;filter&quot;: &#123;
+                &quot;autocomplete_filter&quot;: &#123; 
+                    &quot;type&quot;:     &quot;edge_ngram&quot;,
+                    &quot;min_gram&quot;: 1,
+                    &quot;max_gram&quot;: 20
+                &#125;
+            &#125;,
+            &quot;analyzer&quot;: &#123;
+                &quot;autocomplete&quot;: &#123;
+                    &quot;type&quot;:      &quot;custom&quot;,
+                    &quot;tokenizer&quot;: &quot;standard&quot;,
+                    &quot;filter&quot;: [
+                        &quot;lowercase&quot;,
+                        &quot;autocomplete_filter&quot; 
+                    ]
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看分词</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;ngram-demo&#x2F;_analyze
+&#123;
+  &quot;analyzer&quot;: &quot;autocomplete&quot;,
+  &quot;text&quot;: &quot;quick brown&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>_mapping设置</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;ngram-demo&#x2F;_mapping
+&#123;
+  &quot;properties&quot;: &#123;
+      &quot;title&quot;: &#123;
+          &quot;type&quot;:     &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;autocomplete&quot;,
+          &quot;search_analyzer&quot;: &quot;standard&quot;
+      &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加测试数据</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;ngram-demo&#x2F;_bulk
+&#123; &quot;index&quot;: &#123; &quot;_id&quot;: 1 &#125;&#125;
+&#123; &quot;title&quot; : &quot;hello wiki&quot;, &quot;userID&quot; : 1, &quot;hidden&quot;: false &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>数据查询</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;ngram-demo&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match_phrase&quot;: &#123;
+      &quot;title&quot;: &quot;hello w&quot;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果用match，只有hello的也会出来，全文检索，只是分数比较低；推荐使用match_phrase，要求每个term都有，而且position刚好靠着1位，符合我们的期望的</p>
+<h3 id="9-24-深入揭秘TF-amp-IDF算法以及向量空间模型算法"><a href="#9-24-深入揭秘TF-amp-IDF算法以及向量空间模型算法" class="headerlink" title="9.24 深入揭秘TF&amp;IDF算法以及向量空间模型算法"></a>9.24 深入揭秘TF&amp;IDF算法以及向量空间模型算法</h3><h4 id="boolean-model："><a href="#boolean-model：" class="headerlink" title="boolean model："></a>boolean model：</h4><p>类似and这种逻辑操作符，先过滤出包含指定term的doc；比如：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">query &quot;hello world&quot; --&gt; 过滤 --&gt; hello &#x2F; world &#x2F; hello &amp; world
+bool --&gt; must&#x2F;must not&#x2F;should --&gt; 过滤 --&gt; 包含 &#x2F; 不包含 &#x2F; 可能包含
+doc --&gt; 不打分数 --&gt; 正或反 true or false --&gt; 为了减少后续要计算的doc的数量，提升性能<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="单个term在doc中的分数"><a href="#单个term在doc中的分数" class="headerlink" title="单个term在doc中的分数"></a>单个term在doc中的分数</h4><ul>
+<li>TF/IDF： 一个term在一个doc中，根据出现的次数给个分数，出现的次数越多，那么最后给的相关度评分就会越高</li>
+<li>IDF：inversed document frequency；一个term在所有的doc中，出现的次数越多，那么最后给的相关度评分就会越低</li>
+<li>length norm：搜索的那个field内容的长度，field长度越长，给的相关度评分越低; field长度越短，给的相关度评分越高 。最后，会将这个term，对doc1的分数，综合TF，IDF，length norm，计算出来一个综合性的分数</li>
+<li>vector space model：多个term对一个doc的总分数</li>
+</ul>
+<p>es会根据搜索词语在所有doc中的评分情况，计算出一个query vector(query向量)； 会给每一个doc，拿每个term计算出一个分数来，再拿所有term的分数组成一个doc vector； 画在一个图中，取每个doc vector对query vector的弧度，给出每个doc对多个term的总分数 每个doc vector计算出对query vector的弧度，最后基于这个弧度给出一个doc相对于query中多个term的总分数；弧度越大，分数月底; 弧度越小，分数越高。如果是多个term，那么就是线性代数来计算，无法用图表示</p>
+<h3 id="9-25-实战掌握四种常见的相关度分数优化方法"><a href="#9-25-实战掌握四种常见的相关度分数优化方法" class="headerlink" title="9.25 实战掌握四种常见的相关度分数优化方法"></a>9.25 实战掌握四种常见的相关度分数优化方法</h3><h4 id="query-time-boost"><a href="#query-time-boost" class="headerlink" title="query-time boost"></a>query-time boost</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;should&quot;: [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;title&quot;: &#123;
+              &quot;query&quot;: &quot;java spark&quot;,
+              &quot;boost&quot;: 2
+            &#125;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;content&quot;: &quot;java spark&quot;
+          &#125;
+        &#125;
+      ]
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="重构查询结构"><a href="#重构查询结构" class="headerlink" title="重构查询结构"></a>重构查询结构</h4><p>重构查询结果，在es新版本中，影响越来越小了。一般情况下，没什么必要的话，大家不用也行。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;article&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;should&quot;: [
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;content&quot;: &quot;java&quot;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;match&quot;: &#123;
+            &quot;content&quot;: &quot;spark&quot;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;bool&quot;: &#123;
+            &quot;should&quot;: [
+              &#123;
+                &quot;match&quot;: &#123;
+                  &quot;content&quot;: &quot;solution&quot;
+                &#125;
+              &#125;,
+              &#123;
+                &quot;match&quot;: &#123;
+                  &quot;content&quot;: &quot;beginner&quot;
+                &#125;
+              &#125;
+            ]
+          &#125;
+        &#125;
+      ]
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="negative-boost降低相关度"><a href="#negative-boost降低相关度" class="headerlink" title="negative boost降低相关度"></a>negative boost降低相关度</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;boosting&quot;: &#123;
+      &quot;positive&quot;: &#123;
+        &quot;match&quot;: &#123;
+          &quot;content&quot;: &quot;java&quot;
+        &#125;
+      &#125;,
+      &quot;negative&quot;: &#123;
+        &quot;match&quot;: &#123;
+          &quot;content&quot;: &quot;spark&quot;
+        &#125;
+      &#125;,
+      &quot;negative_boost&quot;: 0.2
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>negative的doc，会乘以negative_boost，降低分数</p>
+</blockquote>
+<h4 id="constant-score"><a href="#constant-score" class="headerlink" title="constant_score"></a>constant_score</h4><p>如果你压根儿不需要相关度评分，直接走constant_score加filter，所有的doc分数都是1，没有评分的概念了</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search 
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      &quot;should&quot;: [
+        &#123;
+          &quot;constant_score&quot;: &#123;
+            &quot;query&quot;: &#123;
+              &quot;match&quot;: &#123;
+                &quot;title&quot;: &quot;java&quot;
+              &#125;
+            &#125;
+          &#125;
+        &#125;,
+        &#123;
+          &quot;constant_score&quot;: &#123;
+            &quot;query&quot;: &#123;
+              &quot;match&quot;: &#123;
+                &quot;title&quot;: &quot;spark&quot;
+              &#125;
+            &#125;
+          &#125;
+        &#125;
+      ]
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="9-26-实战用function-score自定义相关度分数算法"><a href="#9-26-实战用function-score自定义相关度分数算法" class="headerlink" title="9.26 实战用function_score自定义相关度分数算法"></a>9.26 实战用function_score自定义相关度分数算法</h3><p>我们可以做到自定义一个function_score函数，自己将某个field的值，跟es内置算出来的分数进行运算，然后由自己指定的field来进行分数的增强</p>
+<p>数据准备</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">POST &#x2F;forum&#x2F;_bulk
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;1&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;follower_num&quot; : 5&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;2&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;follower_num&quot; : 10&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;3&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;follower_num&quot; : 25&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;4&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;follower_num&quot; : 3&#125; &#125;
+&#123; &quot;update&quot;: &#123; &quot;_id&quot;: &quot;5&quot;&#125; &#125;
+&#123; &quot;doc&quot; : &#123;&quot;follower_num&quot; : 60&#125; &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将搜索得到的分数，跟follower_num进行运算，由follower_num在一定程度上增强其分数；follower_num越大，那么分数就越高</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;function_score&quot;: &#123;
+      &quot;query&quot;: &#123;
+        &quot;multi_match&quot;: &#123;
+          &quot;query&quot;: &quot;java spark&quot;,
+          &quot;fields&quot;: [&quot;tile&quot;, &quot;content&quot;]
+        &#125;
+      &#125;,
+      &quot;field_value_factor&quot;: &#123;
+        &quot;field&quot;: &quot;follower_num&quot;,
+        &quot;modifier&quot;: &quot;log1p&quot;,
+        &quot;factor&quot;: 0.5
+      &#125;,
+      &quot;boost_mode&quot;: &quot;sum&quot;,
+      &quot;max_boost&quot;: 2
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果只有field，那么会将每个doc的分数都乘以follower_num，如果有的doc follower是0，那么分数就会变为0，效果很不好。 因此一般会加个log1p函数，公式会变为，new_score = old_score * log(1 + number_of_votes)，这样出来的分数会比较合理； 再加个factor，可以进一步影响分数，new_score = old_score * log(1 + factor * number_of_votes)； boost_mode，可以决定分数与指定字段的值如何计算，multiply，sum，min，max，replace； max_boost，限制计算出来的分数不要超过max_boost指定的值。</p>
+<h3 id="9-27-实战掌握误拼写时的fuzzy模糊搜索技术"><a href="#9-27-实战掌握误拼写时的fuzzy模糊搜索技术" class="headerlink" title="9.27 实战掌握误拼写时的fuzzy模糊搜索技术"></a>9.27 实战掌握误拼写时的fuzzy模糊搜索技术</h3><p>搜索的时候，可能输入的搜索文本会出现误拼写的情况；fuzzy搜索技术 –&gt; 自动将拼写错误的搜索文本，进行纠正，纠正以后去尝试匹配索引中的数据。</p>
+<p>实际想要hello，但是少写个o</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;fuzzy&quot;: &#123;
+      &quot;title&quot;: &#123;
+        &quot;value&quot;: &quot;hell&quot;,
+        &quot;fuzziness&quot;: 2
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>fuzziness 指定的修订最大次数，默认为2</p>
+</blockquote>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">GET &#x2F;forum&#x2F;_search
+&#123;
+  &quot;query&quot;: &#123;
+    &quot;match&quot;: &#123;
+      &quot;title&quot;: &#123;
+        &quot;query&quot;: &quot;helio&quot;,
+        &quot;fuzziness&quot;: &quot;AUTO&quot;,
+        &quot;operator&quot;: &quot;and&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="十、IK中文分词器"><a href="#十、IK中文分词器" class="headerlink" title="十、IK中文分词器"></a>十、IK中文分词器</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>从github上下载安装包（或者自己编译）：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>将解压后的文件放到es的docker容器中（也可以做个文件目录的映射）：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker cp &#x2F;home&#x2F;ik es7:&#x2F;usr&#x2F;share&#x2F;elasticsearch&#x2F;plugins&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>ik目录就是解压后的文件目录<br>如果不确定plugins目录在哪儿，可以通过<code>docker exec -it es7 /bin/bash</code>命令进入容器内查看</p>
+</blockquote>
+<p>然后重启es</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">docker restart es7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="ik分词器基础知识"><a href="#ik分词器基础知识" class="headerlink" title="ik分词器基础知识"></a>ik分词器基础知识</h3><p>两种analyzer，根据自己的需要选择，但是一般是选用ik_max_word</p>
+<p>ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合；</p>
+<p>ik_smart: 会做最粗粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,国歌”。</p>
+<h3 id="ik分词器的使用"><a href="#ik分词器的使用" class="headerlink" title="ik分词器的使用"></a>ik分词器的使用</h3><p>配置mapping：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">PUT &#x2F;news
+&#123;
+  &quot;mappings&quot;: &#123;
+    &quot;properties&quot;: &#123;
+      &quot;content&quot;:&#123;
+        &quot;type&quot;: &quot;text&quot;,
+        &quot;analyzer&quot;: &quot;ik_max_word&quot;
+      &#125;
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="IK分词器配置文件讲解以及自定义词库"><a href="#IK分词器配置文件讲解以及自定义词库" class="headerlink" title="IK分词器配置文件讲解以及自定义词库"></a>IK分词器配置文件讲解以及自定义词库</h3><ul>
+<li>IKAnalyzer.cfg.xml：用来配置自定义词库</li>
+<li>main.dic：ik原生内置的中文词库，总共有27万多条，只要是这些单词，都会被分在一起</li>
+<li>quantifier.dic：放了一些单位相关的词</li>
+<li>suffix.dic：放了一些后缀</li>
+<li>surname.dic：中国的姓氏</li>
+<li>stopword.dic：英文停用词</li>
+</ul>
+<p>ik原生最重要的两个配置文件</p>
+<ul>
+<li>main.dic：包含了原生的中文词语，会按照这个里面的词语去分词</li>
+<li>stopword.dic：包含了英文的停用词，停用词，stopword。一般，像停用词，会在分词的时候，直接被干掉，不会建立在倒排索引中</li>
+</ul>
+<h3 id="自定义词库"><a href="#自定义词库" class="headerlink" title="自定义词库"></a>自定义词库</h3><p>（1）自己建立词库：每年都会涌现一些特殊的流行词，网红，蓝瘦香菇，喊麦，鬼畜，一般不会在ik的原生词典里 </p>
+<p>自己补充自己的最新的词语，到ik的词库里面去；在IKAnalyzer.cfg.xml中配置自定义的词，ext_dict，custom/mydict.dic 。补充自己的词语，然后需要重启es，才能生效</p>
+<p>（2）自己建立停用词库：比如了，的，啥，么，我们可能并不想去建立索引，让人家搜索 custom/ext_stopword.dic，已经有了常用的中文停用词，可以补充自己的停用词，然后重启es</p>
+<h3 id="修改IK分词器源码来基于mysql热更新词库"><a href="#修改IK分词器源码来基于mysql热更新词库" class="headerlink" title="修改IK分词器源码来基于mysql热更新词库"></a>修改IK分词器源码来基于mysql热更新词库</h3><p>热更新</p>
+<p>每次都是在es的扩展词典中，手动添加新词语，很坑<br>（1）每次添加完，都要重启es才能生效，非常麻烦<br>（2）es是分布式的，可能有数百个节点，你不能每次都一个一个节点上面去修改</p>
+<p>es不停机，直接我们在外部某个地方添加新的词语，es中立即热加载到这些新词语</p>
+<p>热更新的方案</p>
+<p>（1）修改ik分词器源码，然后手动支持从mysql中每隔一定时间，自动加载新的词库<br>（2）基于ik分词器原生支持的热更新方案，部署一个web服务器，提供一个http接口，通过modified和tag两个http响应头，来提供词语的热更新</p>
+<p>用第一种方案，第二种，ik git社区官方都不建议采用，觉得不太稳定</p>
+<h2 id="十一、ICU分词器"><a href="#十一、ICU分词器" class="headerlink" title="十一、ICU分词器"></a>十一、ICU分词器</h2><p>ICU Analysis插件是一组将Lucene ICU模块集成到Elasticsearch中的库。<br>本质上，ICU的目的是增加对Unicode和全球化的支持，以提供对亚洲语言更好的文本分割分析，还有大量对除英语外其他语言进行正确匹配和排序所必须的分词过滤器。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__type" align="center">
+                <img src="/medias/promote/wx-qr-qaxc-8.jpg" width="250px;"/>
+            </div>
+            <div class="reprint__notice" align="center">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright" style="color: #ff0000">
+                        特别提醒：扫码关注微信订阅号'起岸星辰'，实时掌握IT业界技术资讯!
+                    </i>
+                </span>
+                <span class="reprint-info"> 转载请保留原文中的链接!</span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+    <!--<script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>-->
+    <script src="/js/readmore.min.js" type="text/javascript"></script>
+    <script>
+        var articleId = 'dcs/1618405201';
+        articleId = articleId.split('/')
+        const btw = new BTWPlugin();
+        btw.init({
+            id: 'articleContent',
+            blogId: 'blog.vchar.top.2021',
+            articleId: articleId[1],
+            name: '起岸星辰',
+            qrcode: '/medias/promote/wx-qr-qaxc-8.jpg',
+            keyword: '1213',
+        });
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Elasticsearch/">
+                                    <span class="chip bg-color">Elasticsearch</span>
+                                </a>
+                            
+                                <a href="/tags/es/">
+                                    <span class="chip bg-color">es</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/">
+                                    <span class="chip bg-color">分布式搜索</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/dcs/1618405202.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/30.jpg" class="responsive-img" alt="Elasticsearch7学习笔记(下)">
+                        
+                        <span class="card-title">Elasticsearch7学习笔记(下)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Elasticsearch是实时全文搜索和分析引擎，提供搜集、分析、存储数据三大功能；是一套开放REST和JAVA API等结构提供高效搜索功能，可扩展的分布式系统。它构建于Apache Lucene搜索引擎库之上。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/" class="post-category">
+                                    分布式搜索
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Elasticsearch/">
+                        <span class="chip bg-color">Elasticsearch</span>
+                    </a>
+                    
+                    <a href="/tags/es/">
+                        <span class="chip bg-color">es</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/">
+                        <span class="chip bg-color">分布式搜索</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/dcs/1618405200.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="Elasticsearch7学习笔记(上)">
+                        
+                        <span class="card-title">Elasticsearch7学习笔记(上)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Elasticsearch是实时全文搜索和分析引擎，提供搜集、分析、存储数据三大功能；是一套开放REST和JAVA API等结构提供高效搜索功能，可扩展的分布式系统。它构建于Apache Lucene搜索引擎库之上。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/" class="post-category">
+                                    分布式搜索
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Elasticsearch/">
+                        <span class="chip bg-color">Elasticsearch</span>
+                    </a>
+                    
+                    <a href="/tags/es/">
+                        <span class="chip bg-color">es</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%9C%E7%B4%A2/">
+                        <span class="chip bg-color">分布式搜索</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/latest/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="https://lib.baomitu.com/aplayer/latest/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 10px !important;display: flex;justify-content: center;">
+        <div class="copy-right">
+            
+                <span id="year">&copy;2020-2021</span>
+            
+            <a href="/about" target="_blank">Vchar Fred</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                &nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备18011021号</a>
+            </span>
+            
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "json",
+            success: function (datas) {
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_tags = data.tags.join(",");
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var index_tag = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                index_tag = data_tags.indexOf(keyword)
+                                if (index_title < 0 && index_content < 0 && index_tag < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.json', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://lib.baomitu.com/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1243 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="数据库,Redis,Redis主从复制,Redis哨兵模式,Redis-Cluster模式,Docker, 起岸星辰">
+    <meta name="description" content="Docker上分别实现Redis单机模式、Redis主从复制、Redis哨兵模式、Redis-Cluster模式的搭建详解">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Docker上安装Redis | 起岸星辰"/>
+    <meta property="og:description" content="Docker上分别实现Redis单机模式、Redis主从复制、Redis哨兵模式、Redis-Cluster模式的搭建详解"/>
+    <meta property="og:site_name" content="起岸星辰">
+    <meta property="og:url" content="https://blog.vchar.top/redis/1610674996.html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-IA8XRSu9fC" />
+    <meta name="360-site-verification" content="14ea430e0b22dd11ff0593fdeb96537b" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Docker上安装Redis | 起岸星辰</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.min.css">
+<!--     <style> html {filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);} </style> -->
+    <!-- 百度统计 -->
+    <script>var _hmt = _hmt || [];(function () {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?3ce1a891c034d9ea1ca5da217345bb0c";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();</script>
+    <script src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">起岸星辰</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">起岸星辰</div>
+        <div class="logo-desc">
+            
+            起岸星辰
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Docker上安装Redis</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Redis/">
+                                <span class="chip bg-color">Redis</span>
+                            </a>
+                        
+                            <a href="/tags/Docker/">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                            <a href="/tags/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                                <span class="chip bg-color">Redis主从复制</span>
+                            </a>
+                        
+                            <a href="/tags/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/">
+                                <span class="chip bg-color">Redis哨兵模式</span>
+                            </a>
+                        
+                            <a href="/tags/Redis-Cluster%E6%A8%A1%E5%BC%8F/">
+                                <span class="chip bg-color">Redis-Cluster模式</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-15
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Docker可以很方便的进行服务部署和管理，下面我们通过docker来搭建Redis的单机模式、Redis主从复制、Redis哨兵模式、Redis-Cluster模式</p>
+<h2 id="一、在Docker上安装单机版Redis"><a href="#一、在Docker上安装单机版Redis" class="headerlink" title="一、在Docker上安装单机版Redis"></a>一、在Docker上安装单机版Redis</h2><p>首先需要先在服务器上安装docker <a href="/soft/1610330176.html">Docker安装教程</a> 、<a href="/docker/1610452576.html">Docker命令快速入门</a>；</p>
+<h3 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker pull redis<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="启动Redis"><a href="#启动Redis" class="headerlink" title="启动Redis"></a>启动Redis</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d  -v $PWD&#x2F;data:&#x2F;data --name redis -p 6379:6379 redis redis-server --requirepass &quot;123456&quot; --appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>启动命令说明：</p>
+<ul>
+<li><code>$PWD/data:/data</code> : 映射redis的data目录到当前目录下的data目录</li>
+<li><code>--requirepass</code> : 是设置redis的密码</li>
+<li><code>--appendonly yes</code> : 启用持久化存储</li>
+</ul>
+<p>例如：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d  -v &#x2F;home&#x2F;app&#x2F;redis&#x2F;data:&#x2F;data --name redis -p 6379:6379 redis  redis-server --requirepass &quot;123456&quot; --appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果需要使用配置文件，则需要做个文件映射；注意所在目录下必须要有redis.conf这个文件，否则将启动失败。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d  -v &#x2F;home&#x2F;app&#x2F;redis&#x2F;data:&#x2F;data  -v &#x2F;home&#x2F;app&#x2F;redis&#x2F;conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis --name redis -p 6379:6379 redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>redis的这个配置文件可以到官方的这个地址上去获取 <a target="_blank" rel="noopener" href="http://download.redis.io/redis-stable">http://download.redis.io/redis-stable</a></p>
+</blockquote>
+<h3 id="启动成功连接失败的问题"><a href="#启动成功连接失败的问题" class="headerlink" title="启动成功连接失败的问题"></a>启动成功连接失败的问题</h3><ul>
+<li>如果是<a target="_blank" rel="noopener" href="https://www.aliyun.com/activity/daily/bestoffer?userCode=yk3sqxxe">阿里云</a> 或者是<a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/cps/redirect?redirect=1062&cps_key=4fda4618fb133125079769157174b8b6&from=console">腾讯云</a> 这些云服务器；那么还需要配置安全组，将redis的连接端口6379开放，否则将无法连接。</li>
+<li>服务器开启了防火墙；这种情况需要使用命令让防火墙打开端口；注意启动或关闭防火墙后docker也需要重启才能生效；下面是常用命令：<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 查看防火墙状态
+systemctl status firewalld
+# 禁用防火墙
+systemctl disable firewalld
+# 开启防火墙
+systemctl start firewalld
+# 关闭防火墙
+systemctl stop firewalld
+# 查看已开启的端口
+firewall-cmd --zone&#x3D;public --list-ports
+# 添加端口
+firewall-cmd --zone&#x3D;public --add-port&#x3D;9876&#x2F;tcp --permanent
+firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>其他情况：启动有错误，查看启动日志；redis绑定了端口，导致只有本地可以访问；</li>
+</ul>
+<h2 id="二、在Docker上搭建Redis主从复制"><a href="#二、在Docker上搭建Redis主从复制" class="headerlink" title="二、在Docker上搭建Redis主从复制"></a>二、在Docker上搭建Redis主从复制</h2><p>Redis主从复制模式就是采用读写分离的模式，因为通常读取数据的时候比较多，写入数据的时候少以此来提高性能；但是一旦主节点挂了，整个集群就只能提供读取的服务了，因此缺乏高可用性。<br>搭建步骤和上面单机版的一样，只是后面需要做相关的集群配置</p>
+<h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><p>分别在3台服务器上启动redis容器，端口号为6379</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p &#x2F;home&#x2F;app&#x2F;redis-rw&#x2F;data
+
+docker run -d  -v &#x2F;home&#x2F;app&#x2F;redis-rw&#x2F;data:&#x2F;data --name redis-rw -p 6379:6379 redis redis-server --requirepass &quot;123456&quot; --appendonly yes --masterauth &quot;123456&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="在一台服务器上做实验的注意点"><a href="#在一台服务器上做实验的注意点" class="headerlink" title="在一台服务器上做实验的注意点"></a>在一台服务器上做实验的注意点</h3><p>需要让容器间可以相互访问，好像需要在防火墙上开启对应的端口号；但是不建议这样搞，只是实验可以试哈，实际使用不要这样弄（因为这样的集群没有意义）。</p>
+<h3 id="配置redis集群"><a href="#配置redis集群" class="headerlink" title="配置redis集群"></a>配置redis集群</h3><p>通过docker交互命令登陆redis；为了方便这里直接用容器名称（可以使用容器ID）</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker exec -it redis-rw redis-cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/db/redis001.jpg"> </p>
+<blockquote>
+<p>如果redis设置了认证密码，则登陆进去了使用<code>auth 密码</code>进行认证；然后使用<code>info replication</code>命令查看redis的信息，可以看到都是master节点</p>
+</blockquote>
+<p>现在我们将redis-c1这个容器作为master节点；因此我们分别登陆到其它的redis容器中执行如下命令(下面的命令就相当于在配置文件中添加相关配置)：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 这里是设置跟随哪台机器
+SLAVEOF 192.168.56.102 6379<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>设置主节点访问密码；由于我们在启动参数上已经设置了<code>--masterauth</code>参数，因此这里就不用再设置</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 由于我们设置了访问密码，因此需要设置主节点的访问密码；否则从节点将无法访问主节点信息
+config set masterauth 123456
+# 如果是使用配置文件来启动，再加上下面的这条命令将其重新写入配置文件中
+config rewrite
+# 如果修改或设置密码可以使用这个命令
+config set requirepass 密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>如果设置redis密码，就是必须设置masterauth的值；否则将出现这个错误：<code>Master does not understand REPLCONF listening-port: -NOAUTH Authentication required.</code></p>
+</blockquote>
+<h2 id="三、在Docker上搭建Sentinel模式"><a href="#三、在Docker上搭建Sentinel模式" class="headerlink" title="三、在Docker上搭建Sentinel模式"></a>三、在Docker上搭建Sentinel模式</h2><blockquote>
+<p>文章参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/miss1181248983/article/details/90056960">https://blog.csdn.net/miss1181248983/article/details/90056960</a></p>
+</blockquote>
+<p>主从模式的弊端就是不具备高可用性，当master挂掉以后，Redis将不能再对外提供写入操作，因此sentinel应运而生。<br>Sentinel即哨兵，它主要是用来监控redis主从节点的运行状态，用于解决在master节点挂了后选举出新的主节点，保证整个集群可以继续提供写数据的能力。</p>
+<p>Sentinel模式具有以下特点：</p>
+<ul>
+<li>sentinel模式是建立在主从模式的基础上，如果只有一个Redis节点，sentinel就没有任何意义；</li>
+<li>当master挂了以后，sentinel会在slave中选择一个做为master，其他slave的会指向新的master；</li>
+<li>当master重新启动后，它将不再是master而是做为slave接收新的master的同步数据；</li>
+<li>sentinel因为也是一个进程有挂掉的可能，所以sentinel也会启动多个形成一个sentinel集群；</li>
+<li>多sentinel配置的时候，sentinel之间也会自动监控；</li>
+<li>当主从模式配置密码时，sentinel也会同步将配置信息修改到配置文件中，不需要担心；</li>
+<li>一个sentinel或sentinel集群可以管理多个主从Redis，多个sentinel也可以监控同一个redis；</li>
+<li>sentinel最好不要和Redis部署在同一台机器，不然Redis的服务器挂了以后，sentinel也挂了；</li>
+</ul>
+<p>Sentinel模式的工作机制：</p>
+<ul>
+<li>每个sentinel以每秒钟一次的频率向它所知的master，slave以及其他sentinel实例发送一个 PING 命令；</li>
+<li>如果一个实例距离最后一次有效回复 PING 命令的时间超过 <code>down-after-milliseconds</code> 选项所指定的值， 则这个实例会被sentinel标记为主观下线；</li>
+<li>如果一个master被标记为主观下线，则正在监视这个master的所有sentinel要以每秒一次的频率确认master的确进入了主观下线状态；</li>
+<li>当有足够数量的sentinel（大于等于配置指定的值）在指定的时间范围内确认master的确进入了主观下线状态， 则master会被标记为客观下线；</li>
+<li>在一般情况下， 每个sentinel会以每 10 秒一次的频率向它已知的所有master，slave发送 INFO 命令；</li>
+<li>当master被sentinel标记为客观下线时，sentinel向下线的master的所有slave发送 INFO 命令的频率会从 10 秒一次改为 1 秒一次；</li>
+<li>若没有足够数量的sentinel同意master已经下线，master的客观下线状态就会被移除；若master重新向sentinel的 PING 命令返回有效回复，master的主观下线状态就会被移除；</li>
+</ul>
+<blockquote>
+<p>当使用sentinel模式的时候，客户端就不要直接连接Redis，而是连接sentinel的ip和port，由sentinel来提供具体的可提供服务的Redis实现，这样当master节点挂掉以后，sentinel就会感知并将新的master节点提供给使用者。</p>
+</blockquote>
+<h3 id="开始部署Sentinel模式的Redis集群"><a href="#开始部署Sentinel模式的Redis集群" class="headerlink" title="开始部署Sentinel模式的Redis集群"></a>开始部署Sentinel模式的Redis集群</h3><p>现在准备一个主从模式的集群，然后开始搭建Sentinel服务；为了保证高可用我们将Sentinel也是使用集群模式搭建，使用3台服务器来搭建集群，在每台机器上都部署一台。</p>
+<h4 id="下载和修改sentinel配置文件"><a href="#下载和修改sentinel配置文件" class="headerlink" title="下载和修改sentinel配置文件"></a>下载和修改sentinel配置文件</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">mkdir -p &#x2F;home&#x2F;app&#x2F;redis&#x2F;conf
+cd &#x2F;home&#x2F;app&#x2F;redis&#x2F;conf
+wget http:&#x2F;&#x2F;download.redis.io&#x2F;redis-stable&#x2F;sentinel.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>修改<code>sentinel.conf</code>配置文件</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 配置主节点的信息
+sentinel monitor mymaster 192.168.56.105 6379 2
+# sentinel的访问地址
+requirepass 123456
+# 配置主节点的访问密码
+sentinel auth-pass mymaster 123456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="启动Sentinel"><a href="#启动Sentinel" class="headerlink" title="启动Sentinel"></a>启动Sentinel</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d -v &#x2F;home&#x2F;app&#x2F;redis-sentinel&#x2F;data:&#x2F;data -v &#x2F;home&#x2F;app&#x2F;redis&#x2F;conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis --name redis-sentinel -p 26379:26379 redis redis-sentinel &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;sentinel.conf --appendonly yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>启动成功后就可以直接通过Sentinel的端口进行链接了，Sentinel会返回当前主节点信息</p>
+<h2 id="四、在Docker上搭建Redis-Cluster模式"><a href="#四、在Docker上搭建Redis-Cluster模式" class="headerlink" title="四、在Docker上搭建Redis Cluster模式"></a>四、在Docker上搭建Redis Cluster模式</h2><p>我们使用Sentinel模式搭建的redis集群虽然解决了高可用的问题，但是最终也只有一个主节点；<br>当业务量大的时候会产生如下问题：</p>
+<ul>
+<li>并发写的请求增高；</li>
+<li>数据量增大；此时需要考虑数据分片存储了；</li>
+<li>单个服务器的网卡上限达到瓶颈；</li>
+</ul>
+<p>由此单个主从复制就无法满足需求了，因此Redis Cluster模式登场了；</p>
+<p>Redis Cluster是分布式架构：即Redis Cluster中有多个节点（主从复制节点），每个节点都负责进行数据读写操作；每个节点之间会进行通信。简单来说就是多个主从复制节点集群提供服务。</p>
+<h3 id="集群要求"><a href="#集群要求" class="headerlink" title="集群要求"></a>集群要求</h3><ul>
+<li>Redis集群至少需要3个节点，因为投票容错机制要求超过半数节点认为某个节点挂了该节点才是挂了，所以2个节点无法构成集群。 </li>
+<li>要保证集群的高可用，需要每个节点都有从节点，也就是备份节点，所以Redis集群至少需要6台服务器。</li>
+</ul>
+<h3 id="部署集群"><a href="#部署集群" class="headerlink" title="部署集群"></a>部署集群</h3><p>我们在每台机器上执行如下命令来创建6个redis服务</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d  -v &#x2F;home&#x2F;app&#x2F;redis-cluster&#x2F;data:&#x2F;data --name redis-cluster -p 6379:6379 -p 16379:16379 redis redis-server --requirepass &quot;123456&quot; --appendonly yes --masterauth &quot;123456&quot; --cluster-enabled yes<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>后面这个16379端口使用redis集群间进行数据通讯的端口，它是在你设置的redis访问端口上+10000；</p>
+</blockquote>
+<p>如果向使用配置文件实现可以修改redis.conf配置中集群相关配置即可，获取redis.conf配置：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">wget http:&#x2F;&#x2F;download.redis.io&#x2F;redis-stable&#x2F;redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在上面的命令需要加上配置文件路径映射，下面是示例命令</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker run -d  -v &#x2F;home&#x2F;app&#x2F;redis-cluster&#x2F;data:&#x2F;data  -v &#x2F;home&#x2F;app&#x2F;redis&#x2F;conf:&#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis --name redis-c1 -p 6381:6379 -p 16379:16379 redis redis-server &#x2F;usr&#x2F;local&#x2F;etc&#x2F;redis&#x2F;redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>下面开始集群的配置，直接使用redis-cli创建集群即可；</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">docker exec -it redis-cluster &#x2F;bin&#x2F;bash
+redis-cli --cluster create 192.168.56.101:6379 192.168.56.102:6379 192.168.56.103:6379 192.168.56.104:6379 192.168.56.105:6379 192.168.56.106:6379 --cluster-replicas 1 -a 123456<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>参数最后加<code>-a</code>是因为我们设置了密码，因此需要加上访问密码；之后输入yes即可。</p>
+</blockquote>
+<p>注意如果在一台机器上搞的docker需要使用host模式的网络连接类型才行，在创建的时候需要使用docker容器的IP；我们通过<code>docker inspect 容器ID</code>命令获取容器的IP。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__type" align="center">
+                <img src="/medias/promote/wx-qr-qaxc-8.jpg" width="250px;"/>
+            </div>
+            <div class="reprint__notice" align="center">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright" style="color: #ff0000">
+                        特别提醒：扫码关注微信订阅号'起岸星辰'，实时掌握IT业界技术资讯!
+                    </i>
+                </span>
+                <span class="reprint-info"> 转载请保留原文中的链接!</span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+    <!--<script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>-->
+    <script src="/js/readmore.min.js" type="text/javascript"></script>
+    <script>
+        var articleId = 'redis/1610674996';
+        articleId = articleId.split('/')
+        const btw = new BTWPlugin();
+        btw.init({
+            id: 'articleContent',
+            blogId: 'blog.vchar.top.2021',
+            articleId: articleId[1],
+            name: '起岸星辰',
+            qrcode: '/medias/promote/wx-qr-qaxc-8.jpg',
+            keyword: '1213',
+        });
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Redis/">
+                                    <span class="chip bg-color">Redis</span>
+                                </a>
+                            
+                                <a href="/tags/Docker/">
+                                    <span class="chip bg-color">Docker</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
+                                </a>
+                            
+                                <a href="/tags/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                                    <span class="chip bg-color">Redis主从复制</span>
+                                </a>
+                            
+                                <a href="/tags/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/">
+                                    <span class="chip bg-color">Redis哨兵模式</span>
+                                </a>
+                            
+                                <a href="/tags/Redis-Cluster%E6%A8%A1%E5%BC%8F/">
+                                    <span class="chip bg-color">Redis-Cluster模式</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/news/1610799960.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="2021年1月资讯(二)">
+                        
+                        <span class="card-title">2021年1月资讯(二)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Parler被拖库；HTTP/3来了；字节跳动注册“大力教育”；官宣！Steam中国版2021年初上线
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%B5%84%E8%AE%AF/" class="post-category">
+                                    资讯
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%8B%B9%E6%9E%9C/">
+                        <span class="chip bg-color">苹果</span>
+                    </a>
+                    
+                    <a href="/tags/steam/">
+                        <span class="chip bg-color">steam</span>
+                    </a>
+                    
+                    <a href="/tags/http3/">
+                        <span class="chip bg-color">http3</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/soft/1610602891.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="干掉Redis，腾讯Tendis开源">
+                        
+                        <span class="card-title">干掉Redis，腾讯Tendis开源</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            干掉Redis，腾讯Tendis开源；Tendis安装配置教程。Tendis存储版是腾讯互娱CROS DBA团队 & 腾讯云数据库团队 自主设计和研发的开源分布式高性能KV存储。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="post-category">
+                                    软件安装
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                    <a href="/tags/Tendis/">
+                        <span class="chip bg-color">Tendis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/latest/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="https://lib.baomitu.com/aplayer/latest/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 10px !important;display: flex;justify-content: center;">
+        <div class="copy-right">
+            
+                <span id="year">&copy;2020-2021</span>
+            
+            <a href="/about" target="_blank">Vchar Fred</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                &nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备18011021号</a>
+            </span>
+            
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "json",
+            success: function (datas) {
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_tags = data.tags.join(",");
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var index_tag = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                index_tag = data_tags.indexOf(keyword)
+                                if (index_title < 0 && index_content < 0 && index_tag < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.json', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://lib.baomitu.com/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

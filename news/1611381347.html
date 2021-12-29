@@ -1,0 +1,1146 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="IT资讯,jdk17,nacos,安全,游戏,Flash, 起岸星辰">
+    <meta name="description" content="Java17展望；Nacos最新安全漏洞，可绕过身份验证；微软更改Defender杀毒软件策略：发现病毒会自动删除；最成功中国出海游戏！消息称《原神》开发商成上海服务业纳税金额第一">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="2021年1月资讯(三) | 起岸星辰"/>
+    <meta property="og:description" content="Java17展望；Nacos最新安全漏洞，可绕过身份验证；微软更改Defender杀毒软件策略：发现病毒会自动删除；最成功中国出海游戏！消息称《原神》开发商成上海服务业纳税金额第一"/>
+    <meta property="og:site_name" content="起岸星辰">
+    <meta property="og:url" content="https://blog.vchar.top/news/1611381347.html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-IA8XRSu9fC" />
+    <meta name="360-site-verification" content="14ea430e0b22dd11ff0593fdeb96537b" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>2021年1月资讯(三) | 起岸星辰</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.min.css">
+<!--     <style> html {filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);} </style> -->
+    <!-- 百度统计 -->
+    <script>var _hmt = _hmt || [];(function () {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?3ce1a891c034d9ea1ca5da217345bb0c";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();</script>
+    <script src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">起岸星辰</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">起岸星辰</div>
+        <div class="logo-desc">
+            
+            起岸星辰
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">2021年1月资讯(三)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/jdk17/">
+                                <span class="chip bg-color">jdk17</span>
+                            </a>
+                        
+                            <a href="/tags/nacos/">
+                                <span class="chip bg-color">nacos</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">安全</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B8%B8%E6%88%8F/">
+                                <span class="chip bg-color">游戏</span>
+                            </a>
+                        
+                            <a href="/tags/Flash/">
+                                <span class="chip bg-color">Flash</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%B5%84%E8%AE%AF/" class="post-category">
+                                资讯
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-23
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="Java17展望"><a href="#Java17展望" class="headerlink" title="Java17展望"></a>Java17展望</h3><p>当前Java面临一个非常严峻的问题，那就是在技术的不断升级更新，之前Java号称一次编译到处运行的口号；在微服务、云原生时代这个优势已经被容器削弱了，<br>同时大家开始希望能够用到什么才去加载什么，而Java却是在程序还未开始时Java虚拟机就需要耗费不少资源，导致启动时间很长的问题。未来对于原生语言的挑战，最有力最彻底的反击无疑是将字节码直接编译成可以脱离Java虚拟机的原生代码。<br>如果真的能够生成脱离Java虚拟机的运行的原生程序，将意味着启动时间长的问题能够彻底解决，因为次此时已经不存在初始化虚拟机和类加载过程。</p>
+<p>Java支持提取编译的困难在于它是一门动态链接的语言，它允许程序在任何时候可以通过类加载器去加载新的类。而要进行提前编译就必须放弃这些动态特性，也就是要运行的代码都必需在编译期就是可知的，<br>这一点就很大的影响大了类加载器的正常运行，随之受影响的是反射、动态代理、字节码生成库等一切会运行时产生新代码的功能不可用，如果将这些功能抽离了，hello world还是可以正常运行的，<br>但是当前Spring全家桶、Hibernate这些直接就没法玩了，这将导致整个Java生态中几乎团灭。</p>
+<p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/news/1611554944.png"></p>
+<p>云原生时代，Java体系之前很多的假设都受到了挑战，但是Java语言已经意识到这些，同时以及开始向这方面做努力了，在即将发布的Java17长期支持版就将会增加新的能力，减少Java虚拟机的影响，如果真的能够实现将是一个里程碑的版本，期待Java的转型成功，再攀高峰。</p>
+<h3 id="Nacos最新安全漏洞，可绕过身份验证"><a href="#Nacos最新安全漏洞，可绕过身份验证" class="headerlink" title="Nacos最新安全漏洞，可绕过身份验证"></a>Nacos最新安全漏洞，可绕过身份验证</h3><p><span style="color: #BFBFBF;"> 漏洞描述详情：<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/issues/4701">https://github.com/alibaba/nacos/issues/4701</a> </span></p>
+<p>  nacos官方在1.4.1版本中新增了服务间的鉴权机制；即在1.2~1.4.0版本期间，考虑到服务端之间的通信应该是可信的，因此直接通过User-Agent中是否包含Nacos-Server来进行判断请求是否来自其他服务端。<br>但是这种方式非常的简单，我们在使用中相信你也感受到了，就是项目配置中只是配置了nacos的地址等信息，对应鉴权信息就没有配置了，<br>这意味着如果配置中心支持公网访问的话，那么其他人可以直接通过相关API就能够获取到我们的相关配置了，因此可能存在安全隐患。新发布的1.4.1版本增加的这个服务间的鉴权机制就是为了解决这个问题的。</p>
+<p>  但是刚刚发布的新版本1.4.1上又出现了新的<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/issues/4701">安全漏洞</a> ，即只要在API接口地址后面多加上一个<code>/</code>就会可以直接绕过鉴权执行请求；比如：<br>一个正常的访问，比如<code>curl -XPOST &#39;http://127.0.0.1:8848/nacos/v1/auth/users?username=test&amp;password=test&#39;</code> ，得到的path将会是<code>/nacos/v1/auth/users</code> ，而通过特殊构造的url，比如<code>curl -XPOST &#39;http://127.0.0.1:8848/nacos/v1/auth/users/?username=test&amp;password=test&#39;</code> ,得到的path将会是<code>/nacos/v1/auth/users/</code><br>由于代码中判断存在问题，这种多一个<code>/</code> 的会被直接放行进行执行；基于此我们就可以直接调用添加用户接口新增一个用户，之后直接用新增的用户直接登陆即可。</p>
+<p>  目前官方已经修复了这个问题，因此大家部署的时候直接拉取最新的1.4.1版本即可。</p>
+<h3 id="微软更改Defender杀毒软件策略：发现病毒会自动删除"><a href="#微软更改Defender杀毒软件策略：发现病毒会自动删除" class="headerlink" title="微软更改Defender杀毒软件策略：发现病毒会自动删除"></a>微软更改Defender杀毒软件策略：发现病毒会自动删除</h3><p><span style="color: #BFBFBF;"> 原文链接：<a target="_blank" rel="noopener" href="https://news.mydrivers.com/1/735/735767.htm">https://news.mydrivers.com/1/735/735767.htm</a> </span></p>
+<p>  如果不需要或者不信任第三方杀毒软件，微软 Win10 自带的 Defender 杀毒软件也够用了，比较烦人的就是它太敏感了，动不动就提示病毒。<br>通常情况下，Defender 杀毒软件发现病毒或者危险文件之后，会询问用户如何处理，删除、隔离或者啥也不做都是用户来判断的，不过微软已经决定改变这个策略，至少对部分用户如此。</p>
+<p>  据报道，微软计划从 2021 年 2 月 16 日开始的下一个预览版 Win10 中，将 Defender for Endpoint 的杀毒策略从默认的半自动改为全自动，这意味着在发现病毒等情况下，它会自动删除病毒，不再需要用户手动选择。<br>针对这一改变，微软解释说，通过过去一年的数据分析，相比使用低级别的处理策略（也就是半自动），全自动处理策略的客户删除的高可信度恶意软件数量提升了 40%。<br>微软表示，全自动处理策略释放了客户的安全资源，以便他们可以将更多精力放在他们的战略计划上。</p>
+<h3 id="你开始社区团购了吗？"><a href="#你开始社区团购了吗？" class="headerlink" title="你开始社区团购了吗？"></a>你开始社区团购了吗？</h3><p><span style="color: #BFBFBF;"> 原文链接：<a target="_blank" rel="noopener" href="https://news.cnblogs.com/n/685570/">https://news.cnblogs.com/n/685570/</a> </span></p>
+<p>今天你出门买菜了吗？或者，你也可以在小区团购微信群看一眼今日特价菜信息，在微信小程序下单，选择送货上门或下班顺路自提。<br>以生鲜市场切入、依托线下城市社区、采取“线上预定，线下自提”方式的“社区团购”模式自 2016 年出现，至 2019 年底时，多个社区团购项目曾面临着裁员、倒闭与合并的局面。<br>而 2020 年疫情发生，此前陷入发展困境的社区团购再度火热，现已成为继打车、外卖、共享单车后，互联网巨头们瞄准的新风口。但还是希望这些互联网巨头们能够多去做更酷的事。</p>
+<h3 id="8-2K星标“程序员考公指南”登顶GitHub"><a href="#8-2K星标“程序员考公指南”登顶GitHub" class="headerlink" title="8.2K星标“程序员考公指南”登顶GitHub"></a>8.2K星标“程序员考公指南”登顶GitHub</h3><p>996 文化之下，程序员们也要另谋出路了。</p>
+<p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/news/1611555029.png"></p>
+<p>最近一个“程序员考公指南（coder2gwy）”项目在 GitHub 上火了。短短几天收获了 8.2k Star、 1.1k Fork。<br>这并不让人感到意外。近几年“工作 996，生病 ICU”已经成为这个高薪行业的普遍状态。“过劳猝死”、“35 岁程序员被劝退”等事件被频频曝出后，不少程序员开始寻找新的出路。</p>
+<p>作者阿特就是其中一个。</p>
+<p>这是一个分享程序员如何逃离996另谋出路，为想进体制内的程序员写了这份考公务员/事业编制/教师的指南。</p>
+<h3 id="网友报告QQ扫描并上传用户的浏览器历史"><a href="#网友报告QQ扫描并上传用户的浏览器历史" class="headerlink" title="网友报告QQ扫描并上传用户的浏览器历史"></a>网友报告QQ扫描并上传用户的浏览器历史</h3><p>1 月 18 日消息，腾讯消息应用 QQ 以及 QQ 办公版 TIM 被发现会扫描用户的浏览器历史，搜索购物记录选择性上传。</p>
+<h3 id="清静了：Flash-Player已在Windows-10上停止工作！"><a href="#清静了：Flash-Player已在Windows-10上停止工作！" class="headerlink" title="清静了：Flash Player已在Windows 10上停止工作！"></a>清静了：Flash Player已在Windows 10上停止工作！</h3><p>按照 Adobe 方面正式公告，Flash Player 已经在 Windows 10 上停止工作。<br>微软方面已经证实，其正在逐步提供自动的 Windows 10 更新，将在 2021 年彻底结束 Adobe Flash Player 的运行。<br>这一 Windows 10 更新不会影响任何第三方程序和 Chrome 或 Edge 浏览器插件，但 Adobe 现在推出了一个服务器端更新，阻止 Flash Player 内容。</p>
+<h3 id="最成功中国出海游戏！消息称《原神》开发商成上海服务业纳税金额第一"><a href="#最成功中国出海游戏！消息称《原神》开发商成上海服务业纳税金额第一" class="headerlink" title="最成功中国出海游戏！消息称《原神》开发商成上海服务业纳税金额第一"></a>最成功中国出海游戏！消息称《原神》开发商成上海服务业纳税金额第一</h3><p><span style="color: #BFBFBF;"> 原文链接：<a target="_blank" rel="noopener" href="https://news.mydrivers.com/1/735/735626.htm">https://news.mydrivers.com/1/735/735626.htm</a> </span></p>
+<p>作为去年最成功的中国出海游戏，《原神》给了腾讯很大的压力，其背后的开发商米哈游也是大赚特赚。<br>据 GameLook 报道，网上传出了一份服务业及商业企业入库税金前 30 名的名单，其中，米哈游以 2.28 亿元纳税金排在了榜首，第二名为鹰角，纳税金额达到 1.7 亿元，<br>第三名游族网络两家公司入榜合计 1.31 亿元，第四名的莉莉丝两家公司入榜合计缴税 1.17 亿元，此外叠纸、紫龙上海分公司也在榜单内。<br>在 NGA 上有玩家表示，根据纳税金额分析，这个排名应该是 2019 年的数据，因为 2020 年的数据搜集并没有这么快。</p>
+<h3 id="正规军来了-中国首批电竞专业学生即将毕业"><a href="#正规军来了-中国首批电竞专业学生即将毕业" class="headerlink" title="正规军来了 中国首批电竞专业学生即将毕业"></a>正规军来了 中国首批电竞专业学生即将毕业</h3><p><span style="color: #BFBFBF;"> 原文链接：<a target="_blank" rel="noopener" href="https://news.mydrivers.com/1/735/735689.htm">https://news.mydrivers.com/1/735/735689.htm</a> </span></p>
+<p>2016 年 9 月，教育部发出通知，要求高校应在体育类项目中增加“电子竞技运动与管理”专业。<br>2017 年，多所高校开设电竞相关专业，首批电竞专业学生入学。经过 4 年，这批学生今年夏季即将毕业，面临就业的大考。<br>据悉，高素质的电竞人才需要综合掌握经济学、管理学、传媒、计算机编程等领域的知识，为满足一些企业拓展海外市场，有的还要具有较强的外语能力。</p>
+<h3 id="不可思议！为啥眼睛感觉不到冷？奇怪的知识又增加了"><a href="#不可思议！为啥眼睛感觉不到冷？奇怪的知识又增加了" class="headerlink" title="不可思议！为啥眼睛感觉不到冷？奇怪的知识又增加了"></a>不可思议！为啥眼睛感觉不到冷？奇怪的知识又增加了</h3><p><span style="color: #BFBFBF;"> 原文链接： <a target="_blank" rel="noopener" href="https://news.cnblogs.com/n/685497/">https://news.cnblogs.com/n/685497/</a> </span></p>
+<p>寒冬腊月，简直是一刻都不想出门。 如果非要出门，那也是衣服、帽子、围巾统统安排上。 但你发现没有，眼睛好像从来都没有什么防护。<br>不论天气有多冷，即便眼睫毛上都有白霜了，眼睛还能活动自如。那这是究竟为什么呢？</p>
+<p>原来是眼睛的结构比较特殊，眼球镶嵌在眼眶里，门口由上下眼睑守护，结构分眼球壁和内容物两部分。<br>其中眼球壁分三层，纤维膜、血管膜和视网膜。内容物是由角膜、水状液、晶体状和玻璃液组成的折光系统，以及后端负责连接大脑的视神经。<br>而身体之所以能感到冷，是因为在每个人的体表皮肤上都有冷热感受器，这个感受器以“点”分布，分别感受“冷点”和“热点”。<br>人体的角膜、结膜、巩膜上触觉和痛觉神经安排了挺多，眼睛上管冷热的感受器却一个都没有。 这样一来，因为眼睛上没有感受器向大脑反馈信息，所以每次降温，自然感受不到冷暖。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__type" align="center">
+                <img src="/medias/promote/wx-qr-qaxc-8.jpg" width="250px;"/>
+            </div>
+            <div class="reprint__notice" align="center">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright" style="color: #ff0000">
+                        特别提醒：扫码关注微信订阅号'起岸星辰'，实时掌握IT业界技术资讯!
+                    </i>
+                </span>
+                <span class="reprint-info"> 转载请保留原文中的链接!</span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+    <!--<script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>-->
+    <script src="/js/readmore.min.js" type="text/javascript"></script>
+    <script>
+        var articleId = 'news/1611381347';
+        articleId = articleId.split('/')
+        const btw = new BTWPlugin();
+        btw.init({
+            id: 'articleContent',
+            blogId: 'blog.vchar.top.2021',
+            articleId: articleId[1],
+            name: '起岸星辰',
+            qrcode: '/medias/promote/wx-qr-qaxc-8.jpg',
+            keyword: '1213',
+        });
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/jdk17/">
+                                    <span class="chip bg-color">jdk17</span>
+                                </a>
+                            
+                                <a href="/tags/nacos/">
+                                    <span class="chip bg-color">nacos</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">安全</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B8%B8%E6%88%8F/">
+                                    <span class="chip bg-color">游戏</span>
+                                </a>
+                            
+                                <a href="/tags/Flash/">
+                                    <span class="chip bg-color">Flash</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/java/1611489600.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/28.jpg" class="responsive-img" alt="SpringBoot集成Redis">
+                        
+                        <span class="card-title">SpringBoot集成Redis</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SpringBoot集成Redis；分别实现Redis单机模式、Redis主从复制、Redis哨兵模式、Redis-Cluster模式在SpringBoot中的集成实现
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Redis/">
+                        <span class="chip bg-color">Redis</span>
+                    </a>
+                    
+                    <a href="/tags/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                        <span class="chip bg-color">Redis主从复制</span>
+                    </a>
+                    
+                    <a href="/tags/Redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F/">
+                        <span class="chip bg-color">Redis哨兵模式</span>
+                    </a>
+                    
+                    <a href="/tags/Redis-Cluster%E6%A8%A1%E5%BC%8F/">
+                        <span class="chip bg-color">Redis-Cluster模式</span>
+                    </a>
+                    
+                    <a href="/tags/SpringBoot/">
+                        <span class="chip bg-color">SpringBoot</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/news/1610799960.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="2021年1月资讯(二)">
+                        
+                        <span class="card-title">2021年1月资讯(二)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Parler被拖库；HTTP/3来了；字节跳动注册“大力教育”；官宣！Steam中国版2021年初上线
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%B5%84%E8%AE%AF/" class="post-category">
+                                    资讯
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%8B%B9%E6%9E%9C/">
+                        <span class="chip bg-color">苹果</span>
+                    </a>
+                    
+                    <a href="/tags/steam/">
+                        <span class="chip bg-color">steam</span>
+                    </a>
+                    
+                    <a href="/tags/http3/">
+                        <span class="chip bg-color">http3</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/latest/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="https://lib.baomitu.com/aplayer/latest/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 10px !important;display: flex;justify-content: center;">
+        <div class="copy-right">
+            
+                <span id="year">&copy;2020-2021</span>
+            
+            <a href="/about" target="_blank">Vchar Fred</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                &nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备18011021号</a>
+            </span>
+            
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "json",
+            success: function (datas) {
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_tags = data.tags.join(",");
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var index_tag = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                index_tag = data_tags.indexOf(keyword)
+                                if (index_title < 0 && index_content < 0 && index_tag < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.json', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://lib.baomitu.com/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

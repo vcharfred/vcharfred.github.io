@@ -1,0 +1,1460 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="GitBook, 起岸星辰">
+    <meta name="description" content="GitBook 编写API接口文档非常的不错，但由于访问太慢，在此搭建本地的GitBook">
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="GitBook安装和使用 | 起岸星辰"/>
+    <meta property="og:description" content="GitBook 编写API接口文档非常的不错，但由于访问太慢，在此搭建本地的GitBook"/>
+    <meta property="og:site_name" content="起岸星辰">
+    <meta property="og:url" content="https://blog.vchar.top/soft/1610333893.html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="baidu-site-verification" content="code-IA8XRSu9fC" />
+    <meta name="360-site-verification" content="14ea430e0b22dd11ff0593fdeb96537b" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>GitBook安装和使用 | 起岸星辰</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.min.css">
+<!--     <style> html {filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);} </style> -->
+    <!-- 百度统计 -->
+    <script>var _hmt = _hmt || [];(function () {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?3ce1a891c034d9ea1ca5da217345bb0c";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();</script>
+    <script src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">起岸星辰</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">起岸星辰</div>
+        <div class="logo-desc">
+            
+            起岸星辰
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">GitBook安装和使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/GitBook/">
+                                <span class="chip bg-color">GitBook</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/">
+                                <span class="chip bg-color">接口文档</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="post-category">
+                                软件安装
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-11-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>GitBook 编写API接口文档非常的不错，但由于访问太慢，在此搭建本地的GitBook</p>
+<h1 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h1><ol>
+<li>安装Nodejs</li>
+</ol>
+<p><a href="/soft/1610333828.html">Node安装教程</a></p>
+<ol start="2">
+<li>安装gitbook </li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm install gitbook-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="3">
+<li>初始化一个目录</li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="4">
+<li>编写SUMMARY.md目录文件</li>
+</ol>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">* [简介](README.md)
+* [第一章]()
+	* [第一节](demo.md) 
+* [第二章](demo1.md)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="5">
+<li>创建book.json文件，写入如下配置：</li>
+</ol>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+    &quot;gitbook&quot;: &quot;&gt;&#x3D;3.2.3&quot;,
+    &quot;language&quot;: &quot;zh-hans&quot;,
+    &quot;title&quot;: &quot;书名&quot;,
+    &quot;description&quot;: &quot;文档描述&quot;,
+    &quot;structure&quot;: &#123;
+        &quot;readme&quot;: &quot;README.md&quot;,
+        &quot;summary&quot;: &quot;SUMMARY.md&quot;
+    &#125;,
+    &quot;links&quot;: &#123;
+        &quot;gitbook&quot;: false,
+        &quot;sharing&quot;: &#123;
+            &quot;google&quot;: false,
+            &quot;facebook&quot;: false,
+            &quot;twitter&quot;: false,
+            &quot;all&quot;: false
+        &#125;
+    &#125;,
+    &quot;plugins&quot;: [
+        &quot;-sharing&quot;,
+        &quot;-lunr&quot;, &quot;-search&quot;, &quot;search-plus&quot;,
+        &quot;anchor-navigation-ex-toc&quot;,
+        &quot;tbfed-pagefooter&quot;,
+        &quot;copy-code-button&quot;
+    ],
+    &quot;pluginsConfig&quot;:&#123;
+        &quot;anchor-navigation-ex-toc&quot; : &#123;
+            &quot;showLevel&quot;:true,
+            &quot;multipleH1&quot;:false,
+            &quot;mode&quot;:&quot;float&quot;,
+            &quot;float&quot;:&#123;
+                &quot;floatIcon&quot;: &quot;fa fa-navicon&quot;,
+                &quot;showLevelIcon&quot;: false,
+                &quot;level1Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+                &quot;level2Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+                &quot;level3Icon&quot;: &quot;fa fa-hand-o-right&quot;
+            &#125;
+        &#125;,
+        &quot;tbfed-pagefooter&quot;: &#123;
+            &quot;copyright&quot;:&quot;&amp;copy 2018 www.vchar.top&quot;,
+            &quot;modify_label&quot;: &quot;本文档更新于：&quot;,
+            &quot;modify_format&quot;: &quot;YYYY-MM-DD HH:mm&quot;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="6">
+<li>运行命令测试是否成功</li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook serve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>浏览器访问：<code>http://localhost:4000</code></p>
+<blockquote>
+<p>一个gitbook教程写的很不错的地址： <a target="_blank" rel="noopener" href="http://gitbook.zhangjikai.com/">http://gitbook.zhangjikai.com/</a></p>
+</blockquote>
+<h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><h3 id="安装gitbook"><a href="#安装gitbook" class="headerlink" title="安装gitbook"></a>安装gitbook</h3><p>要在本地安装gitbook需要先安装nodejs(<a href="/soft/1610333828.html">安装教程</a>) </p>
+<p>在windows的cmd命令行工具中执行如下命令安装gitbook</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm install gitbook-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>gitbook-cli 是 GitBook 的一个命令行工具。它将自动安装所需版本的 GitBook 来构建一本书。</p>
+</blockquote>
+<h3 id="gitbook导出PDF相关安装"><a href="#gitbook导出PDF相关安装" class="headerlink" title="gitbook导出PDF相关安装"></a>gitbook导出PDF相关安装</h3><ul>
+<li>安装PDF支持插件</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm install ebook-convert -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>安装calibre软件</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://calibre-ebook.com/download">软件下载地址 https://calibre-ebook.com/download</a> ;安装成功后配置环境变量path中将calibre安装目录配置上</p>
+<ul>
+<li>导出pdf</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook pdf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="三、常用命令"><a href="#三、常用命令" class="headerlink" title="三、常用命令"></a>三、常用命令</h1><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>在cmd命令行工具中切换到一个想创建书的目录下，执行如下命令：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+<p>执行成功后会在该目录下生成如下文件，这个2个文件是必须要的。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">README.md   #这是一个简介文档，内容需要自己编写
+SUMMARY.md  #这个是文档目录结构文档，需要自己编写<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>SUMMARY.md目录编写格式</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">* [简介](README.md)
+* [第一章]()
+	* [第一节](demo.md) 
+* [第二章](demo1.md)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="生成离线HTML页面"><a href="#生成离线HTML页面" class="headerlink" title="生成离线HTML页面"></a>生成离线HTML页面</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook build<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>创建gitbook的目录应当如下：</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">├── book.json
+	├── README.md
+	├── SUMMARY.md
+	├── directory-1
+	|   ├── README.md
+	|   └── something.md<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行成功后会将生成的离线页面和相关资源放到_book目录下</p>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook serve<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+<p>启动成功后可以通过 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 访问预览 </p>
+<h3 id="列出-gitbook-所有的命令"><a href="#列出-gitbook-所有的命令" class="headerlink" title="列出 gitbook 所有的命令"></a>列出 gitbook 所有的命令</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook help<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="生成时指定gitbook的版本-本地没有会先下载"><a href="#生成时指定gitbook的版本-本地没有会先下载" class="headerlink" title="生成时指定gitbook的版本, 本地没有会先下载"></a>生成时指定gitbook的版本, 本地没有会先下载</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook build --gitbook&#x3D;3.2.2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="列出本地所有的gitbook版本"><a href="#列出本地所有的gitbook版本" class="headerlink" title="列出本地所有的gitbook版本"></a>列出本地所有的gitbook版本</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook ls<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="列出远程可用的gitbook版本"><a href="#列出远程可用的gitbook版本" class="headerlink" title="列出远程可用的gitbook版本"></a>列出远程可用的gitbook版本</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook ls-remote<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="更新到gitbook的最新版本"><a href="#更新到gitbook的最新版本" class="headerlink" title="更新到gitbook的最新版本"></a>更新到gitbook的最新版本</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="卸载对应的gitbook版本"><a href="#卸载对应的gitbook版本" class="headerlink" title="卸载对应的gitbook版本"></a>卸载对应的gitbook版本</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook uninstall 2.0.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="输出错误信息"><a href="#输出错误信息" class="headerlink" title="输出错误信息"></a>输出错误信息</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gitbook builid --debug<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="四、常用插件"><a href="#四、常用插件" class="headerlink" title="四、常用插件"></a>四、常用插件</h1><p>记录一些实用的插件, 如果要指定插件的版本可以使用 <code>plugin@1.2.1</code>。本文记录的插件在 <code>windows</code> 下都是可以正常工作的。这里只是列举了一部分插件，如果有其它的需求，可以到 <a target="_blank" rel="noopener" href="https://plugins.gitbook.com/">插件官网https://plugins.gitbook.com/</a> 去搜索相关插件。</p>
+<h3 id="支持中文搜索：search-plus"><a href="#支持中文搜索：search-plus" class="headerlink" title="支持中文搜索：search-plus"></a>支持中文搜索：search-plus</h3><p>支持中文搜索, 需要将默认的 search 和 lunr 插件去掉。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">&#123;
+  &quot;plugins&quot;: [&quot;-lunr&quot;, &quot;-search&quot;, &quot;search-plus&quot;]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="侧边悬浮导航-顶部-anchor-navigation-ex-toc"><a href="#侧边悬浮导航-顶部-anchor-navigation-ex-toc" class="headerlink" title="侧边悬浮导航\顶部:anchor-navigation-ex-toc"></a>侧边悬浮导航\顶部:anchor-navigation-ex-toc</h3><p>添加Toc到侧边悬浮导航以及回到顶部按钮。</p>
+<p>插件引入</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&quot;plugins&quot;: [
+	&quot;anchor-navigation-ex-toc&quot;
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>可用配置参数</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&quot;pluginsConfig&quot;: &#123;
+	&quot;anchor-navigation-ex&quot;: &#123;
+		&quot;showLevel&quot;: true,  #是否自动分级，即添加序号
+		&quot;associatedWithSummary&quot;: true,
+		&quot;printLog&quot;: false,  #是否显示日志
+		&quot;multipleH1&quot;: true, #是否有多个H1标题
+		&quot;mode&quot;: &quot;float&quot;,
+		&quot;showGoTop&quot;:true,
+		&quot;float&quot;: &#123;
+			&quot;floatIcon&quot;: &quot;fa fa-navicon&quot;, # 原样式：fa-navicon
+			&quot;showLevelIcon&quot;: false,
+			&quot;level1Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+			&quot;level2Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+			&quot;level3Icon&quot;: &quot;fa fa-hand-o-right&quot;
+		&#125;,
+		&quot;pageTop&quot;: &#123;
+			&quot;showLevelIcon&quot;: false,
+			&quot;level1Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+			&quot;level2Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+			&quot;level3Icon&quot;: &quot;fa fa-hand-o-right&quot;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="tbfed-pagefooter"><a href="#tbfed-pagefooter" class="headerlink" title="tbfed-pagefooter"></a>tbfed-pagefooter</h3><p>为页面添加页脚</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&quot;plugins&quot;: [
+	&quot;tbfed-pagefooter&quot;
+],
+&quot;pluginsConfig&quot;: &#123;
+	&quot;tbfed-pagefooter&quot;: &#123;
+		&quot;copyright&quot;:&quot;&amp;copy 2018 www.xx.com&quot;,
+		&quot;modify_label&quot;: &quot;本文档修订时间：&quot;,
+		&quot;modify_format&quot;: &quot;YYYY-MM-DD HH:mm:ss&quot;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="复制的按钮-copy-code-button"><a href="#复制的按钮-copy-code-button" class="headerlink" title="复制的按钮: copy-code-button"></a>复制的按钮: copy-code-button</h3><p>为代码块添加复制的按钮。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+	&quot;plugins&quot;: [&quot;copy-code-button&quot;]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="多个版本-versions-select"><a href="#多个版本-versions-select" class="headerlink" title="多个版本: versions-select"></a>多个版本: versions-select</h3><p>添加版本选择的下拉菜单，针对文档有多个版本的情况</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&quot;plugins&quot;: [ &quot;versions-select&quot; ]
+
+&quot;pluginsConfig&quot;:&#123;
+	&quot;versions&quot;: &#123;
+			&quot;options&quot;: [
+				&#123;
+					&quot;value&quot;: &quot;https:&#x2F;&#x2F;www.gitbook.com&quot;,
+					&quot;text&quot;: &quot;v1.0&quot;
+				&#125;,
+				&#123;
+					&quot;value&quot;: &quot;https:&#x2F;&#x2F;www.gitbook.com&quot;,
+					&quot;text&quot;: &quot;v2.0&quot;
+				&#125;
+			]
+		&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="anchors"><a href="#anchors" class="headerlink" title="anchors"></a>anchors</h3><p>添加 Github 风格的锚点样式</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&quot;plugins&quot; : [ &quot;anchors&quot; ]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="五、-bookjson"><a href="#五、-bookjson" class="headerlink" title="五、 bookjson"></a>五、 bookjson</h1><h3 id="默认样式book-json配置文件"><a href="#默认样式book-json配置文件" class="headerlink" title="默认样式book.json配置文件"></a>默认样式book.json配置文件</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+	&quot;gitbook&quot;: &quot;&gt;&#x3D;3.2.3&quot;,
+	&quot;language&quot;: &quot;zh-hans&quot;,
+	&quot;title&quot;: &quot;书名&quot;,
+	&quot;description&quot;: &quot;文档描述&quot;,
+	&quot;structure&quot;: &#123;
+		&quot;readme&quot;: &quot;README.md&quot;,
+		&quot;summary&quot;: &quot;SUMMARY.md&quot;
+	&#125;,
+	&quot;links&quot;: &#123;
+		&quot;gitbook&quot;: false,
+		&quot;sharing&quot;: &#123;
+			&quot;google&quot;: false,
+			&quot;facebook&quot;: false,
+			&quot;twitter&quot;: false,
+			&quot;all&quot;: false
+		&#125;
+	&#125;,
+	&quot;plugins&quot;: [
+		&quot;-sharing&quot;,
+		&quot;-lunr&quot;, &quot;-search&quot;, &quot;search-plus&quot;,
+		&quot;anchor-navigation-ex-toc&quot;,
+		&quot;tbfed-pagefooter&quot;,
+		&quot;copy-code-button&quot;,
+		&quot;versions-select&quot;
+	],
+	&quot;pluginsConfig&quot;:&#123;
+		&quot;anchor-navigation-ex-toc&quot; : &#123;
+			&quot;showLevel&quot;:true,
+			&quot;multipleH1&quot;:false,
+			&quot;mode&quot;:&quot;float&quot;,
+			&quot;float&quot;:&#123;
+				&quot;floatIcon&quot;: &quot;fa fa-navicon&quot;,
+				&quot;showLevelIcon&quot;: false,
+				&quot;level1Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+				&quot;level2Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+				&quot;level3Icon&quot;: &quot;fa fa-hand-o-right&quot;
+			&#125;
+		&#125;,
+		&quot;tbfed-pagefooter&quot;: &#123;
+			&quot;copyright&quot;:&quot;&amp;copy 2018 www.vchar.top&quot;,
+			&quot;modify_label&quot;: &quot;本文档更新于：&quot;,
+			&quot;modify_format&quot;: &quot;YYYY-MM-DD HH:mm&quot;
+		&#125;,
+		&quot;versions&quot;: &#123;
+				&quot;options&quot;: [
+					&#123;
+						&quot;value&quot;: &quot;https:&#x2F;&#x2F;gitbook.com&quot;,
+						&quot;text&quot;: &quot;v1.0&quot;
+					&#125;,
+					&#123;
+						&quot;value&quot;: &quot;https:&#x2F;&#x2F;gitbook.com&quot;,
+						&quot;text&quot;: &quot;v2.0&quot;
+					&#125;
+				]
+			&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>效果图如下：</p>
+<p><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/other/gitbook1610163821.png"></p>
+<h2 id="theme-api-API文档主题"><a href="#theme-api-API文档主题" class="headerlink" title="theme-api API文档主题"></a>theme-api API文档主题</h2><pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+	&quot;plugins&quot;: [&quot;theme-api&quot;],
+	&quot;pluginsConfig&quot;: &#123;
+		&quot;theme-api&quot;: &#123;
+			&quot;theme&quot;: &quot;dark&quot;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>模板</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;
+	&quot;gitbook&quot;: &quot;&gt;&#x3D;3.2.3&quot;,
+	&quot;language&quot;: &quot;zh-hans&quot;,
+	&quot;title&quot;: &quot;书名&quot;,
+	&quot;description&quot;: &quot;文档描述&quot;,
+	&quot;structure&quot;: &#123;
+		&quot;readme&quot;: &quot;README.md&quot;,
+		&quot;summary&quot;: &quot;SUMMARY.md&quot;
+	&#125;,
+	&quot;links&quot;: &#123;
+		&quot;gitbook&quot;: false,
+		&quot;sharing&quot;: &#123;
+			&quot;google&quot;: false,
+			&quot;facebook&quot;: false,
+			&quot;twitter&quot;: false,
+			&quot;all&quot;:false
+		&#125;
+	&#125;,
+	&quot;plugins&quot;: [
+		&quot;-sharing&quot;,
+		&quot;-lunr&quot;, &quot;-search&quot;, &quot;search-plus&quot;,
+		&quot;anchor-navigation-ex-toc&quot;,
+		&quot;tbfed-pagefooter&quot;,
+		&quot;copy-code-button&quot;,
+		&quot;versions-select&quot;,
+		&quot;theme-api&quot;
+	],
+	&quot;pluginsConfig&quot;:&#123;
+		&quot;anchor-navigation-ex-toc&quot; : &#123;
+			&quot;showLevel&quot;:true,
+			&quot;multipleH1&quot;:false,
+			&quot;mode&quot;:&quot;float&quot;,
+			&quot;float&quot;:&#123;
+				&quot;floatIcon&quot;: &quot;fa fa-navicon&quot;,
+				&quot;showLevelIcon&quot;: false,
+				&quot;level1Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+				&quot;level2Icon&quot;: &quot;fa fa-hand-o-right&quot;,
+				&quot;level3Icon&quot;: &quot;fa fa-hand-o-right&quot;
+			&#125;
+		&#125;,
+		&quot;tbfed-pagefooter&quot;: &#123;
+			&quot;copyright&quot;:&quot;&amp;copy 2018 www.vchar.top&quot;,
+			&quot;modify_label&quot;: &quot;本文档更新于：&quot;,
+			&quot;modify_format&quot;: &quot;YYYY-MM-DD HH:mm&quot;
+		&#125;,
+		&quot;versions&quot;: &#123;
+			&quot;options&quot;: [
+				&#123;
+					&quot;value&quot;: &quot;https:&#x2F;&#x2F;gitbook.com&quot;,
+					&quot;text&quot;: &quot;v1.0&quot;
+				&#125;,
+				&#123;
+					&quot;value&quot;: &quot;https:&#x2F;&#x2F;gitbook.com&quot;,
+					&quot;text&quot;: &quot;v2.0&quot;
+				&#125;
+			]
+		&#125;,
+		&quot;theme-api&quot;:&#123;
+			&quot;theme&quot;: &quot;dark&quot;,
+			&quot;languages&quot;: [
+				&#123;
+					&quot;lang&quot;: &quot;js&quot;,
+					&quot;name&quot;: &quot;JavaScript&quot;,
+					&quot;default&quot;: true
+				&#125;,
+				&#123;
+					&quot;lang&quot;: &quot;java&quot;,
+					&quot;name&quot;: &quot;Java&quot;
+				&#125;
+			]
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>API文档的语法</p>
+<p>定义方法</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;% method %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+<p>打印; 展示 JavaScript 和 Java 如何输出信息</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;% sample lang&#x3D;&quot;js&quot; %&#125; 这里演示 JavaScript 如何输出信息到控制台
+
+console.log(&#39;Hello World&#39;);
+&#123;% sample lang&#x3D;&quot;java&quot; %&#125; 这里演示 Java 如何输出信息到控制台
+
+System.out.println(&quot;Hello World&quot;);
+&#123;% common %&#125; 这里是 JavaScript 和 Java 共同的信息
+
+&#123;% endmethod %&#125;
+
+&#123;% method %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>定义变量 这里演示 JavaScript 和 Java 如何定义变量</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">&#123;% sample lang&#x3D;&quot;js&quot; %&#125; 这里演示 JavaScript 如何定义变量：
+
+var i &#x3D; 0;
+var j &#x3D; &quot;a&quot;;
+var k &#x3D; new function() &#123;
+
+&#125;
+&#123;% sample lang&#x3D;&quot;java&quot; %&#125; 这里演示 Java 如何定义变量
+
+int i &#x3D; 0;
+String j &#x3D; &quot;a&quot;;
+Object o &#x3D; new Object();
+&#123;% endmethod %&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>效果图如下：<br><img src="https://media-vchar.oss-cn-hangzhou.aliyuncs.com/image/blog/other/gitbook1610164018.png"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__type" align="center">
+                <img src="/medias/promote/wx-qr-qaxc-8.jpg" width="250px;"/>
+            </div>
+            <div class="reprint__notice" align="center">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright" style="color: #ff0000">
+                        特别提醒：扫码关注微信订阅号'起岸星辰'，实时掌握IT业界技术资讯!
+                    </i>
+                </span>
+                <span class="reprint-info"> 转载请保留原文中的链接!</span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+    <!--<script src="https://readmore.openwrite.cn/js/readmore.js" type="text/javascript"></script>-->
+    <script src="/js/readmore.min.js" type="text/javascript"></script>
+    <script>
+        var articleId = 'soft/1610333893';
+        articleId = articleId.split('/')
+        const btw = new BTWPlugin();
+        btw.init({
+            id: 'articleContent',
+            blogId: 'blog.vchar.top.2021',
+            articleId: articleId[1],
+            name: '起岸星辰',
+            qrcode: '/medias/promote/wx-qr-qaxc-8.jpg',
+            keyword: '1213',
+        });
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/GitBook/">
+                                    <span class="chip bg-color">GitBook</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/">
+                                    <span class="chip bg-color">接口文档</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/java/1610333322.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="开发错误记录之Java">
+                        
+                        <span class="card-title">开发错误记录之Java</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Java开发中常见的一些异常和错误解析，如 Unrecognized SSL message, plaintext connection
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF/">
+                        <span class="chip bg-color">开发错误</span>
+                    </a>
+                    
+                    <a href="/tags/Java%E5%BC%80%E5%8F%91%E9%94%99%E8%AF%AF/">
+                        <span class="chip bg-color">Java开发错误</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/base/1611834985.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="原码，反码，补码的深入理解与原理">
+                        
+                        <span class="card-title">原码，反码，补码的深入理解与原理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            原码，反码，补码的深入理解与原理剖析，解析为什么当初要这样设计，让你更透彻的理解
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%85%B6%E4%BB%96/" class="post-category">
+                                    其他
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+                        <span class="chip bg-color">计算机基础</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8E%9F%E7%A0%81/">
+                        <span class="chip bg-color">原码</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%8D%E7%A0%81/">
+                        <span class="chip bg-color">反码</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%A1%A5%E7%A0%81/">
+                        <span class="chip bg-color">补码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="https://lib.baomitu.com/aplayer/latest/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="https://lib.baomitu.com/aplayer/latest/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 10px !important;display: flex;justify-content: center;">
+        <div class="copy-right">
+            
+                <span id="year">&copy;2020-2021</span>
+            
+            <a href="/about" target="_blank">Vchar Fred</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                &nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备18011021号</a>
+            </span>
+            
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "json",
+            success: function (datas) {
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_tags = data.tags.join(",");
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var index_tag = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                index_tag = data_tags.indexOf(keyword)
+                                if (index_title < 0 && index_content < 0 && index_tag < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.json', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://lib.baomitu.com/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
